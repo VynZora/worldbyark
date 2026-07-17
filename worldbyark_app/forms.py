@@ -37,8 +37,7 @@ class TourPackageForm(forms.ModelForm):
         model = TourPackage
         fields = ["name", "description", "main_image", "duration", "price_from", "highlights", "inclusions"]
 
-
 class DestinationForm(forms.ModelForm):
     class Meta:
         model = Destination
-        fields = ["name", "description", "image", "location"]
+        fields = ["name", "description", "image", "location", "destination_type"]

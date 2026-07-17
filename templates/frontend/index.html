@@ -1536,7 +1536,7 @@
                                                     <span class="price">₹{{ package.price_from }}</span>
                                                 </div>
                                                  <div class="trv-tour-info">
-                                                    <a href="{% url 'package_detail' package.slug %}">{{ package.description|safe|truncatewords:8 }}</a>
+                                                    <a href="{% url 'package_detail' package.slug %}">{{ package.description|striptags|truncatechars:55 }}</a>
                                                 </div>
                                             </div>
                                             <div class="trv-content-bottom-section">

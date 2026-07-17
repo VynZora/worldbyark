@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="560" viewBox="0 0 420 560" fill="none">
+  <!-- Dotted flight route -->
+  <path
+    d="M-18 520
+       C70 507 121 478 155 431
+       C181 395 177 349 194 318
+       C208 292 239 288 258 305
+       C281 326 280 367 255 386
+       C230 406 195 398 176 377
+       C153 351 154 314 162 279
+       C175 224 207 171 242 119"
+    stroke="#1676E8"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-dasharray="3 12"
+  />
+
+  <!-- Airplane silhouette -->
+  <g transform="translate(242 118) rotate(-42)">
+    <path
+      d="M0 -8
+         L11 -8
+         L18 -2
+         L38 -2
+         L43 2
+         L18 7
+         L10 24
+         L4 24
+         L7 7
+         L-7 7
+         L-17 15
+         L-22 15
+         L-16 2
+         L-22 -11
+         L-17 -11
+         L-7 -3
+         L7 -3
+         L4 -20
+         L10 -20
+         L18 -3
+         L38 2
+         L18 2
+         L11 8
+         L0 8
+         Z"
+      fill="#1676E8"
+    />
+  </g>
+</svg>

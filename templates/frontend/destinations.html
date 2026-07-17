@@ -1,5 +1,79 @@
 {% extends 'frontend/base.html' %}
 {% load static %}
+
+{% block extra_css %}
+<style>
+   .filter-toggle-group {
+    position: relative;
+    display: flex;
+    background: #f1f1f1;
+    border-radius: 50px;
+    padding: 5px 12px 5px 5px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.filter-toggle-btn {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 0;
+    min-width: 0;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
+    padding: 10px 28px;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: color 0.35s ease, background-color 0.25s ease;
+}
+
+.filter-toggle-btn:hover:not(.active) {
+    background-color: rgba(255, 79, 110, 0.1);
+    color: #ff4f6e;
+}
+
+.filter-toggle-btn.active {
+    color: #fff;
+}
+
+.filter-toggle-slider {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    width: calc(33.333% - 3.33px);
+    background: linear-gradient(135deg, #ff8a65, #ff4f6e);
+    border-radius: 50px;
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 1;
+}
+
+.filter-toggle-group[data-active="domestic"] .filter-toggle-slider {
+    transform: translateX(100%);
+}
+
+.filter-toggle-group[data-active="international"] .filter-toggle-slider {
+    transform: translateX(200%);
+}
+
+    .destination-card-anim {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: destFadeIn 0.5s ease forwards;
+    }
+
+    @keyframes destFadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+
 {% block content %}
 <div class="page-content">
 
@@ -31,6 +105,19 @@
             <div class="container">
 
                 <div class="section-content">
+
+
+                     <!-- DESTINATION TYPE FILTER -->
+    <div class="trv-destination-filter d-flex justify-content-center mb-4">
+        <div class="filter-toggle-group" data-active="{{ active_type }}">
+            <span class="filter-toggle-slider"></span>
+            <a href="?type=all" class="filter-toggle-btn {% if active_type == 'all' %}active{% endif %}">All</a>
+            <a href="?type=domestic" class="filter-toggle-btn {% if active_type == 'domestic' %}active{% endif %}">Domestic</a>
+            <a href="?type=international" class="filter-toggle-btn {% if active_type == 'international' %}active{% endif %}">International</a>
+        </div>
+    </div>
+
+
                     <div class="row">
                         {% for destination in destinations %}
                         <div class="col-xl-3 col-lg-4 col-md-6 m-b30">

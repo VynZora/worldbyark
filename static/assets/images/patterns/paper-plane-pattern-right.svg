@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="620" viewBox="0 0 420 620" fill="none">
+  <g stroke="#FFB3A6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer paper plane -->
+    <path d="M72 52 L330 190 L244 232 L223 321 L181 266 L150 312 L72 52 Z"/>
+
+    <!-- Fold lines -->
+    <path d="M72 52 L244 232"/>
+    <path d="M72 52 L223 321"/>
+    <path d="M150 312 L181 266"/>
+    <path d="M181 266 L330 190"/>
+    <path d="M223 321 L244 232"/>
+
+    <!-- Flight trail -->
+    <path d="M223 321
+             C222 367, 216 408, 239 443
+             C258 471, 289 481, 307 459
+             C326 436, 313 412, 292 414
+             C267 416, 262 447, 276 471
+             C302 516, 346 541, 402 548"/>
+  </g>
+</svg>

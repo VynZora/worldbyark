@@ -978,251 +978,360 @@
 }
 
 
-{% comment %} Timeline Styles start {% endcomment %}
+
+
+
+{% comment %} timeline Styles start {% endcomment %}
+
+{% comment %} Vertical Journey Timeline Styles Start {% endcomment %}
 
 /* =========================================================
-   WORLD BY ARK — HORIZONTAL HOVER TIMELINE
+   WORLD BY ARK — VERTICAL JOURNEY TIMELINE
 ========================================================= */
 
-.ark-journey-accordion {
+.ark-journey-timeline {
     --ark-purple: #3c2d73;
+    --ark-purple-light: #66529c;
     --ark-peach: #f29979;
     --ark-pink: #f2637e;
-    --ark-text: #686868;
+    --ark-blue: #2e79d7;
+    --ark-text: #66777a;
+    --ark-bg: #eafcff;
 
     position: relative;
-    padding: 90px 0 110px;
     overflow: hidden;
-    background:#eafcff;
+    padding: 90px 0 110px;
+    background: var(--ark-bg);
 }
 
-/* Heading */
+/* Optional large background word */
+
+.ark-journey-timeline::before {
+    content: "JOURNEY";
+    position: absolute;
+    top: 170px;
+    right: -70px;
+    color: rgba(60, 45, 115, 0.025);
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(110px, 16vw, 245px);
+    font-weight: 800;
+    line-height: 1;
+    pointer-events: none;
+}
+
+/* Main container */
+
+.ark-journey-container {
+    position: relative;
+    z-index: 2;
+    width: min(92%, 1240px);
+    margin: 0 auto;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
 
 .ark-journey-heading {
-    width: min(100% - 30px, 760px);
-    margin: 0 auto 55px;
+    max-width: 780px;
+    margin: 0 auto 75px;
     text-align: center;
 }
 
 .ark-journey-eyebrow {
-    display: block;
-    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 14px;
     color: var(--ark-pink);
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-weight: 800;
+    letter-spacing: 4px;
     text-transform: uppercase;
 }
 
+.ark-journey-eyebrow::before,
+.ark-journey-eyebrow::after {
+    content: "";
+    width: 35px;
+    height: 1px;
+    background: var(--ark-peach);
+}
+
 .ark-journey-heading h3 {
-    margin: 0 0 15px;
+    margin: 0 0 18px;
     color: var(--ark-purple);
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 500;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(38px, 4.5vw, 62px);
+    font-weight: 700;
     line-height: 1.08;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
 }
 
 .ark-journey-heading p {
-    max-width: 640px;
+    max-width: 650px;
     margin: 0 auto;
-    color: #6f7f81;
+    color: var(--ark-text);
     font-size: 16px;
-    font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.75;
 }
 
-/* Cards wrapper */
+/* =========================================================
+   TIMELINE WRAPPER
+========================================================= */
 
-.ark-journey-scroll {
-    width: min(94%, 1450px);
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-.ark-journey-cards {
-    display: flex;
-    align-items: stretch;
-    gap: 14px;
-    min-height: 610px;
-}
-
-/* Card */
-
-.ark-journey-card {
+.ark-vertical-timeline {
     position: relative;
-    flex: 1 1 0;
-    min-width: 0;
-    min-height: 610px;
-    overflow: hidden;
+    max-width: 1160px;
+    margin: 0 auto;
+    height:100%;
+}
 
+/* Main vertical line */
+
+/* Light inactive background line */
+.ark-vertical-timeline::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 50%;
+    width: 3px;
+    border-radius: 20px;
+    background: rgba(60, 45, 115, 0.10);
+    transform: translateX(-50%);
+}
+
+/* =========================================================
+   TIMELINE ITEM
+========================================================= */
+.ark-journey-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
+    align-items: center;
+    min-height: 230px;
+    margin-bottom: 45px;
+}
+
+.ark-journey-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Left item card */
+
+.ark-journey-item:nth-child(odd) .ark-journey-content {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+/* Right item card */
+
+.ark-journey-item:nth-child(even) .ark-journey-content {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+/* Center timeline marker */
+
+.ark-journey-marker {
+    position: relative;
+    z-index: 5;
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Circular icon */
+
+.ark-journey-icon {
+    position: relative;
+    width: 66px;
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 9px solid rgba(255, 255, 255, 0.96);
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ff8d99, #f46f82);
+    color: #ffffff;
+    font-size: 22px;
+    box-shadow:
+        0 12px 30px rgba(60, 45, 115, 0.17),
+        0 0 0 1px rgba(60, 45, 115, 0.05);
+}
+
+.ark-journey-item:nth-child(2) .ark-journey-icon {
+    background: linear-gradient(145deg, #7462d7, #4f42bd);
+}
+
+.ark-journey-item:nth-child(3) .ark-journey-icon {
+    background: linear-gradient(145deg, #72d9d7, #43b8c3);
+}
+
+.ark-journey-item:nth-child(4) .ark-journey-icon {
+    background: linear-gradient(145deg, #ff8f99, #f2637e);
+}
+
+.ark-journey-item:nth-child(5) .ark-journey-icon {
+    background: linear-gradient(145deg, #ffc45d, #f3a536);
+}
+
+.ark-journey-item:nth-child(6) .ark-journey-icon {
+    background: linear-gradient(145deg, #d65ac5, #ad3eae);
+}
+
+/* Year beside marker */
+
+.ark-journey-center-year {
+    position: absolute;
+    top: 50%;
+    color: var(--ark-purple);
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    transform: translateY(-50%);
+}
+
+.ark-journey-item:nth-child(odd) .ark-journey-center-year {
+    left: calc(100% + 18px);
+}
+
+.ark-journey-item:nth-child(even) .ark-journey-center-year {
+    right: calc(100% + 18px);
+}
+
+/* =========================================================
+   CONTENT CARD
+========================================================= */
+
+.ark-journey-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: 24px;
+    align-items: center;
+    height: 270px;
+    padding: 24px;
+    box-sizing: border-box;
+    overflow: hidden;
     border: 1px solid rgba(60, 45, 115, 0.07);
     border-radius: 25px;
-
-    background: rgba(255, 255, 255, 0.97);
-
-    box-shadow:
-        0 12px 35px rgba(60, 45, 115, 0.045);
-
-    cursor: pointer;
-    isolation: isolate;
-
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 15px 40px rgba(60, 45, 115, 0.08);
     transition:
-        flex-grow 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-        flex-basis 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.45s ease,
-        box-shadow 0.45s ease,
-        border-color 0.45s ease;
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
 }
 
-.ark-journey-card:hover,
-.ark-journey-card.active {
-    flex-grow: 2.55;
-    flex-basis: 0;
-    border-color: rgba(60, 45, 115, 0.1);
+/* Reverse image and text on right cards */
 
-    box-shadow:
-        0 24px 65px rgba(60, 45, 115, 0.11);
+.ark-journey-item:nth-child(even) .ark-journey-content {
+    grid-template-columns: 180px minmax(0, 1fr);
 }
 
-.ark-journey-card:not(.active):hover {
-    transform: translateY(-3px);
+.ark-journey-item:nth-child(even) .ark-journey-image {
+    grid-column: 1;
+    grid-row: 1;
 }
 
-.ark-journey-card::before,
-.ark-journey-card::after {
-    display: none !important;
-    content: none !important;
+.ark-journey-item:nth-child(even) .ark-journey-copy {
+    grid-column: 2;
+    grid-row: 1;
 }
 
-/* Inner card */
+/* Card hover */
 
-.ark-journey-card-content {
+.ark-journey-content:hover {
+    border-color: rgba(242, 153, 121, 0.3);
+    box-shadow: 0 25px 60px rgba(60, 45, 115, 0.14);
+    transform: translateY(-7px);
+}
+
+/* Connector line between card and marker */
+
+.ark-journey-content::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 38px;
+    height: 2px;
+    background: rgba(46, 121, 215, 0.3);
+    transform: translateY(-50%);
+}
+
+.ark-journey-item:nth-child(odd) .ark-journey-content::after {
+    right: -38px;
+}
+
+.ark-journey-item:nth-child(even) .ark-journey-content::after {
+    left: -38px;
+}
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.ark-journey-copy {
     position: relative;
-    height: 100%;
-    min-height: 610px;
-
-    display: flex;
-    flex-direction: column;
-
-    padding: 34px 30px 30px;
+    z-index: 2;
 }
-
-/* Year badge */
 
 .ark-journey-year {
-    display: inline-flex;
-    align-self: flex-start;
-
-    margin-bottom: 18px;
-    padding: 7px 14px;
-
-    border-radius: 50px;
-
-    background: rgba(242, 153, 121, 0.15);
+    display: block;
+    margin-bottom: 8px;
     color: var(--ark-pink);
-
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
 }
 
-/* Card title */
+.ark-journey-copy h4 {
+    margin: 0 0 11px;
+    color: #182039;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(22px, 2vw, 28px);
+    font-weight: 700;
+    line-height: 1.15;
+}
 
-.ark-journey-card h4 {
-    max-width: 290px;
+.ark-journey-copy p {
     margin: 0;
-
-    color: #171717;
-
-    font-size: clamp(20px, 1.55vw, 27px);
-    font-weight: 500;
-    line-height: 1.18;
-    letter-spacing: -0.65px;
-
-    transition:
-        max-width 0.6s ease,
-        font-size 0.45s ease;
-}
-
-.ark-journey-card:hover h4,
-.ark-journey-card.active h4 {
-    max-width: 520px;
-}
-
-/* Description */
-
-.ark-journey-description {
-    max-height: 0;
-    margin-top: 0;
-
+    color: #69777a;
+    font-size: 14px;
+    line-height: 1.68;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    opacity: 0;
-
-    transform: translateY(15px);
-
-    transition:
-        max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        margin-top 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.42s ease,
-        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ark-journey-description p {
-    max-width: 620px;
-    margin: 0;
-
-    color: #696969;
-
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.72;
-}
-
-.ark-journey-card:hover .ark-journey-description,
-.ark-journey-card.active .ark-journey-description {
-    max-height: 190px;
-    margin-top: 13px;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Image */
+/* =========================================================
+   CARD IMAGE
+========================================================= */
 
 .ark-journey-image {
     position: relative;
-
-    width: 100%;
-    height: 0;
-
-    margin-top: auto;
-
     overflow: hidden;
-    border-radius: 22px;
-
-    opacity: 0;
-    transform: translateY(25px) scale(0.98);
-
-    transition:
-        height 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-        margin-top 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.5s ease,
-        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 18px;
+    width: 100%;
+    height: 220px;
+    order: 2;
 }
 
 .ark-journey-image::after {
     content: "";
     position: absolute;
     inset: 0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(15, 10, 35, 0.28),
-            rgba(15, 10, 35, 0) 55%
-        );
-
+    background: linear-gradient(
+        to top,
+        rgba(23, 14, 55, 0.18),
+        transparent 55%
+    );
     pointer-events: none;
 }
 
@@ -1230,113 +1339,111 @@
     width: 100%;
     height: 100%;
     display: block;
-
     object-fit: cover;
     object-position: center;
-
-    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.65s ease;
 }
 
-.ark-journey-card:hover .ark-journey-image,
-.ark-journey-card.active .ark-journey-image {
-    height: 270px;
-    margin-top: 27px;
-    opacity: 1;
-    transform: translateY(0) scale(1);
+.ark-journey-content:hover .ark-journey-image img {
+    transform: scale(1.06);
 }
 
-.ark-journey-card:hover .ark-journey-image img,
-.ark-journey-card.active .ark-journey-image img {
-    transform: scale(1.025);
-}
-
-/* Number */
-
-.ark-journey-number {
-    position: absolute;
-    left: 29px;
-    bottom: 29px;
-
-    color: #0b0b0b;
-
-    font-family: "Afacad", sans-serif;
-    font-size: clamp(62px, 5.3vw, 88px);
-    font-weight: 400;
-    line-height: 0.8;
-    letter-spacing: -5px;
-
-    white-space: nowrap;
-
-    transition:
-        left 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        right 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        bottom 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        color 0.45s ease,
-        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.ark-journey-card:hover .ark-journey-number,
-.ark-journey-card.active .ark-journey-number {
-    right: 27px;
-    left: auto;
-    bottom: 30px;
-    z-index: 5;
-
-    color: #ffffff;
-
-    text-shadow:
-        0 5px 22px rgba(0, 0, 0, 0.25);
-}
-
-/* Focus */
-
-.ark-journey-card:focus-visible {
-    outline: 3px solid rgba(242, 153, 121, 0.55);
-    outline-offset: 4px;
-}
-
-.ark-journey-scroll{
-    background: transparent;
-}
-
-.ark-journey-cards{
-    background: transparent;
-}
 
 /* =========================================================
-   LAPTOP
+   ANIMATED TIMELINE PATH
 ========================================================= */
 
-@media (max-width: 1199px) {
-    .ark-journey-scroll {
-        width: 96%;
-    }
+.ark-timeline-progress {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    z-index: 2;
 
-    .ark-journey-cards,
-    .ark-journey-card,
-    .ark-journey-card-content {
-        min-height: 570px;
-    }
+    width: 3px;
+    height: calc(100% - 36px);
 
-    .ark-journey-card-content {
-        padding: 29px 23px 27px;
-    }
+    overflow: hidden;
+    border-radius: 30px;
 
-    .ark-journey-card:hover,
-    .ark-journey-card.active {
-        flex-grow: 2.35;
-    }
+    transform: translateX(-50%);
+    pointer-events: none;
+}
 
-    .ark-journey-card:hover .ark-journey-image,
-    .ark-journey-card.active .ark-journey-image {
-        height: 230px;
-    }
+.ark-timeline-progress-line {
+    width: 100%;
+    height: 100%;
 
-    .ark-journey-number {
-        left: 22px;
-        bottom: 24px;
-        font-size: 65px;
-    }
+    border-radius: inherit;
+
+    background: linear-gradient(
+        to bottom,
+        #2e79d7 0%,
+        #66529c 52%,
+        #f2637e 100%
+    );
+
+    transform: scaleY(0);
+    transform-origin: top center;
+
+    box-shadow:
+        0 0 10px rgba(46, 121, 215, 0.25),
+        0 0 20px rgba(242, 99, 126, 0.15);
+}
+
+/* Small animated glowing head */
+
+.ark-timeline-progress-head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 12px;
+    height: 12px;
+
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+
+    background: #2e79d7;
+
+    box-shadow:
+        0 0 0 4px rgba(46, 121, 215, 0.12),
+        0 7px 20px rgba(46, 121, 215, 0.3);
+
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* Initial animation state */
+
+.ark-journey-content {
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.ark-journey-marker {
+    opacity: 0;
+    transform: scale(0.55);
+    will-change: transform, opacity;
+}
+
+.ark-journey-center-year {
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.ark-journey-image img {
+    will-change: transform, opacity;
+}
+
+/* Keep marker above the animated line */
+
+.ark-journey-marker {
+    z-index: 5;
+}
+
+.ark-journey-icon {
+    position: relative;
+    z-index: 6;
 }
 
 /* =========================================================
@@ -1344,237 +1451,212 @@
 ========================================================= */
 
 @media (max-width: 991px) {
-    .ark-journey-accordion {
+
+    .ark-journey-timeline {
         padding: 80px 0 90px;
     }
 
+    .ark-timeline-progress {
+    left: 34px;
+}
+
     .ark-journey-heading {
-        margin-bottom: 43px;
+        margin-bottom: 55px;
     }
 
-    .ark-journey-scroll {
-        width: 100%;
-
-        overflow-x: auto;
-        overflow-y: hidden;
-
-        padding: 8px 22px 25px;
-
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        -webkit-overflow-scrolling: touch;
+    .ark-vertical-timeline::before,
+    .ark-vertical-timeline::after {
+        left: 34px;
     }
 
-    .ark-journey-scroll::-webkit-scrollbar {
+    .ark-journey-item {
+        display: grid;
+        grid-template-columns: 68px minmax(0, 1fr);
+        min-height: auto;
+        margin-bottom: 35px;
+    }
+
+    .ark-journey-marker {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        align-self: start;
+        margin-top: 32px;
+    }
+
+    .ark-journey-content,
+    .ark-journey-item:nth-child(odd) .ark-journey-content,
+    .ark-journey-item:nth-child(even) .ark-journey-content {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .ark-journey-center-year {
         display: none;
     }
 
-    .ark-journey-cards {
-        width: max-content;
-        min-height: 540px;
-        gap: 15px;
+    .ark-journey-content::after,
+    .ark-journey-item:nth-child(odd) .ark-journey-content::after,
+    .ark-journey-item:nth-child(even) .ark-journey-content::after {
+        top: 61px;
+        right: auto;
+        left: -34px;
+        width: 34px;
     }
-
-    .ark-journey-card,
-    .ark-journey-card:hover,
-    .ark-journey-card.active {
-        width: 300px;
-        min-height: 540px;
-        flex: 0 0 300px;
-        transform: none;
-
-        scroll-snap-align: center;
-    }
-
-    .ark-journey-card.active {
-        width: min(76vw, 510px);
-        flex-basis: min(76vw, 510px);
-    }
-
-    .ark-journey-card-content {
-        min-height: 540px;
-        padding: 28px 24px 25px;
-    }
-
-    .ark-journey-card.active .ark-journey-description {
-        max-height: 200px;
-        margin-top: 13px;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .ark-journey-card.active .ark-journey-image {
-        height: 225px;
-        margin-top: 24px;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .ark-journey-card.active .ark-journey-number {
-        right: 25px;
-        left: auto;
-        bottom: 27px;
-        color: #fff;
-    }
-    
 }
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media (max-width: 575px) {
-    .ark-journey-accordion {
+@media (max-width: 767px) {
+
+    .ark-journey-timeline {
         padding: 65px 0 75px;
     }
 
-    .ark-journey-heading {
-        width: calc(100% - 32px);
-        margin-bottom: 34px;
+    .ark-timeline-progress {
+    left: 25px;
+}
+
+    .ark-journey-container {
+        width: calc(100% - 24px);
     }
 
-    .ark-journey-heading h3 {
-        font-size: clamp(33px, 9.5vw, 44px);
-        font-weight: 500;
+    .ark-journey-heading {
+        margin-bottom: 45px;
     }
 
     .ark-journey-heading p {
         font-size: 14px;
     }
 
-    .ark-journey-scroll {
-        padding-right: 16px;
-        padding-left: 16px;
+    .ark-vertical-timeline::before,
+    .ark-vertical-timeline::after {
+        left: 25px;
     }
 
-    .ark-journey-cards {
-        min-height: 500px;
-        gap: 12px;
+    .ark-journey-item {
+        grid-template-columns: 50px minmax(0, 1fr);
+        margin-bottom: 28px;
     }
 
-    .ark-journey-card,
-    .ark-journey-card:hover,
-    .ark-journey-card.active {
-        width: 79vw;
-        max-width: 340px;
-        min-height: 500px;
-        flex-basis: 79vw;
-        border-radius: 22px;
+    .ark-journey-marker {
+        margin-top: 25px;
     }
 
-    .ark-journey-card-content {
-        min-height: 500px;
-        padding: 25px 21px 23px;
+    .ark-journey-icon {
+        width: 50px;
+        height: 50px;
+        border-width: 7px;
+        font-size: 17px;
     }
 
-    .ark-journey-card h4 {
-        max-width: 100%;
+    .ark-journey-content,
+    .ark-journey-item:nth-child(even) .ark-journey-content {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+        align-items: stretch;
+        padding: 18px;
+        border-radius: 21px;
+    }
+
+    .ark-journey-item:nth-child(even) .ark-journey-image,
+    .ark-journey-item:nth-child(even) .ark-journey-copy {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .ark-journey-content::after,
+    .ark-journey-item:nth-child(odd) .ark-journey-content::after,
+    .ark-journey-item:nth-child(even) .ark-journey-content::after {
+        top: 49px;
+        left: -25px;
+        width: 25px;
+    }
+
+    .ark-journey-copy h4 {
         font-size: 23px;
-        font-weight: 500;
-        line-height: 1.17;
     }
 
-    .ark-journey-description p {
+    .ark-journey-copy p {
         font-size: 14px;
-        line-height: 1.62;
     }
 
-    .ark-journey-card.active .ark-journey-description {
-        max-height: 220px;
+    .ark-journey-image {
+        height: 190px;
+        order: 2;
     }
 
-    .ark-journey-card.active .ark-journey-image {
-        height: 185px;
-        margin-top: 20px;
-        border-radius: 17px;
-    }
-
-    .ark-journey-number,
-    .ark-journey-card.active .ark-journey-number {
-        right: 21px;
-        left: auto;
-        bottom: 23px;
-        font-size: 60px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .ark-journey-card,
-    .ark-journey-card::before,
-    .ark-journey-card::after,
-    .ark-journey-description,
-    .ark-journey-image,
-    .ark-journey-image img,
-    .ark-journey-number {
-        transition: none;
+    .ark-journey-copy {
+        order: 1;
     }
 }
 
 /* =========================================================
-   TIMELINE — FINAL HOVER AND ACTIVE FIX
+   SMALL MOBILE
 ========================================================= */
 
-/* Expanded card on screens up to 991px */
-@media (max-width: 991px) {
+@media (max-width: 480px) {
 
-    .ark-journey-card:hover,
-    .ark-journey-card.active {
-        width: min(76vw, 510px) !important;
-        flex: 0 0 min(76vw, 510px) !important;
-        box-shadow: 0 24px 65px rgba(60, 45, 115, 0.11);
+    .ark-journey-container {
+        width: calc(100% - 18px);
     }
 
-    .ark-journey-card:hover .ark-journey-description,
-    .ark-journey-card.active .ark-journey-description {
-        max-height: 220px !important;
-        margin-top: 13px !important;
-        opacity: 1 !important;
-        transform: translateY(0) !important;
+    .ark-vertical-timeline::before,
+    .ark-vertical-timeline::after {
+        left: 21px;
     }
 
-    .ark-journey-card:hover .ark-journey-image,
-    .ark-journey-card.active .ark-journey-image {
-        height: 225px !important;
-        margin-top: 24px !important;
-        opacity: 1 !important;
-        transform: translateY(0) scale(1) !important;
+    .ark-timeline-progress {
+    left: 21px;
+}
+
+    .ark-journey-item {
+        grid-template-columns: 43px minmax(0, 1fr);
     }
 
-    .ark-journey-card:hover .ark-journey-number,
-    .ark-journey-card.active .ark-journey-number {
-        right: 25px !important;
-        left: auto !important;
-        bottom: 27px !important;
-        z-index: 5;
-        color: #ffffff !important;
-        text-shadow: 0 5px 22px rgba(0, 0, 0, 0.25) !important;
+    .ark-journey-icon {
+        width: 43px;
+        height: 43px;
+        border-width: 6px;
+        font-size: 15px;
+    }
+
+    .ark-journey-content {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .ark-journey-content::after,
+    .ark-journey-item:nth-child(odd) .ark-journey-content::after,
+    .ark-journey-item:nth-child(even) .ark-journey-content::after {
+        top: 44px;
+        left: -22px;
+        width: 22px;
+    }
+
+    .ark-journey-copy h4 {
+        font-size: 21px;
+    }
+
+    .ark-journey-image {
+        height: 165px;
+        border-radius: 15px;
     }
 }
 
-/* Phone size */
-@media (max-width: 575px) {
-
-    .ark-journey-card:hover,
-    .ark-journey-card.active {
-        width: 82vw !important;
-        max-width: 350px !important;
-        flex-basis: 82vw !important;
-    }
-
-    .ark-journey-card:hover .ark-journey-image,
-    .ark-journey-card.active .ark-journey-image {
-        height: 185px !important;
-        margin-top: 20px !important;
-    }
-
-    .ark-journey-card:hover .ark-journey-number,
-    .ark-journey-card.active .ark-journey-number {
-        right: 21px !important;
-        bottom: 23px !important;
+@media (prefers-reduced-motion: reduce) {
+    .ark-journey-content,
+    .ark-journey-image img {
+        transition: none;
     }
 }
-{% comment %} timeline style end {% endcomment %}
+
+{% comment %} Vertical Journey Timeline Styles End {% endcomment %}
+{% comment %} timeline style end  {% endcomment %}
+
+
 
 
  {% comment %} service style 2 start {% endcomment %}
@@ -2285,672 +2367,63 @@
 
 
 
-
-
-
-
-
-{% comment %} brand heart style start {% endcomment %}
-/* =========================================================
-   WORLD BY ARK — PURPOSE MOSAIC SECTION
-========================================================= */
-
-.ark-purpose-section {
-    --ark-purple: #3c2d73;
-    --ark-purple-dark: #2c205e;
-    --ark-purple-soft: #66529c;
-    --ark-peach: #f29979;
-    --ark-pink: #f2637e;
-    --ark-blue-bg: #eafcff;
-    --ark-text: #63787b;
-    --ark-white: #ffffff;
-
-    position: relative;
-    overflow: hidden;
-    padding: 30px 0 40px;
-    background: var(--ark-blue-bg);
-}
-
-.ark-purpose-section::before {
-    content: "WORLD BY ARK";
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    color: rgba(60, 45, 115, 0.025);
-    font-family: "Afacad", sans-serif;
-    font-size: clamp(100px, 15vw, 220px);
-    font-weight: 800;
-    line-height: 1;
-    white-space: nowrap;
-    pointer-events: none;
-    transform: translateX(-50%);
-}
-
-.ark-purpose-container {
-    position: relative;
-    z-index: 2;
-    width: min(92%, 1380px);
-    margin: 0 auto;
-}
+{% comment %} status card style start {% endcomment %}
 
 /* =========================================================
-   HEADING
-========================================================= */
-
-.ark-purpose-heading{
-
-    position:relative;
-
-    max-width:900px;
-
-    margin:0 auto 55px;
-
-    text-align:center;
-
-}
-
-.ark-purpose-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 13px;
-    margin-bottom: 15px;
-    color: var(--ark-pink);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-}
-
-.ark-purpose-eyebrow::before,
-.ark-purpose-eyebrow::after {
-    content: "";
-    width: 34px;
-    height: 1px;
-    background: var(--ark-peach);
-}
-
-.ark-purpose-heading h2{
-
-    position:relative;
-    display:inline-block;
-
-    margin:0;
-
-    font-family:"Afacad",sans-serif;
-
-    font-size:clamp(34px,3.8vw,54px);
-
-    font-weight:700;
-
-    line-height:1.1;
-
-    letter-spacing:-1px;
-
-    color:#3C2D73;
-}
-
-.ark-purpose-heading h2 span{
-
-    display:block;
-
-    margin-top:4px;
-
-    color:#F29979;
-
-}
-
-.ark-purpose-heading p{
-
-    max-width:650px;
-
-    margin:22px auto 0;
-
-    color:#6c8083;
-
-    font-size:17px;
-
-    line-height:1.8;
-
-}
-
-.ark-purpose-title-decoration{
-
-    position:absolute;
-
-    left:50%;
-    top:-45px;
-
-    transform:translateX(-50%);
-
-    width:340px;
-
-    opacity:.18;
-
-    pointer-events:none;
-
-}
-
-.ark-purpose-title-decoration img{
-
-    width:100%;
-    display:block;
-
-}
-
-/* =========================================================
-   MOSAIC LAYOUT
-========================================================= */
-
-.ark-purpose-mosaic {
-    display: grid;
-    grid-template-columns: 1fr 0.72fr 1.08fr;
-    grid-template-rows: auto auto;
-    gap: 18px;
-    align-items: stretch;
-}
-
-/* Base card */
-
-.ark-purpose-card {
-    position: relative;
-    overflow: hidden;
-    padding: 32px;
-    border: 1px solid rgba(60, 45, 115, 0.07);
-    border-radius: 29px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 18px 55px rgba(60, 45, 115, 0.075);
-    transition:
-        transform 0.4s ease,
-        box-shadow 0.4s ease,
-        border-color 0.4s ease;
-}
-
-.ark-purpose-card:hover {
-    border-color: rgba(242, 153, 121, 0.32);
-    box-shadow: 0 28px 72px rgba(60, 45, 115, 0.13);
-    transform: translateY(-7px);
-}
-
-/* Layout placement */
-
-.ark-purpose-started {
-    grid-column: 1;
-    grid-row: 1;
-    min-height: 315px;
-}
-
-.ark-purpose-mission {
-    grid-column: 1;
-    grid-row: 2;
-    min-height: 360px;
-}
-
-.ark-purpose-vision {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    min-height: 695px;
-}
-
-.ark-purpose-promise {
-    grid-column: 3;
-    grid-row: 1;
-    min-height: 315px;
-}
-
-.ark-purpose-founder {
-    grid-column: 3;
-    grid-row: 2;
-    min-height: 360px;
-}
-
-/* =========================================================
-   CARD HEADER
-========================================================= */
-
-.ark-purpose-card-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 24px;
-}
-
-.ark-purpose-card-title-wrap {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.ark-purpose-icon {
-    width: 66px;
-    height: 66px;
-    flex: 0 0 66px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(242, 153, 121, 0.18);
-    color: var(--ark-pink);
-}
-
-.ark-purpose-icon-purple {
-    background: rgba(102, 82, 156, 0.13);
-    color: var(--ark-purple-soft);
-}
-
-.ark-purpose-icon svg {
-    width: 29px;
-    height: 29px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.ark-purpose-card-title h3 {
-    margin: 0 0 6px;
-    color: var(--ark-purple);
-    font-family: "Afacad", sans-serif;
-    font-size: 24px;
-    font-weight: 650;
-    line-height: 1.15;
-}
-
-.ark-purpose-card-number {
-    display: block;
-    color: var(--ark-pink);
-    font-size: 15px;
-    font-weight: 800;
-}
-
-.ark-purpose-card-mark {
-    color: var(--ark-purple);
-    font-family: "Afacad", sans-serif;
-    font-size: 31px;
-    font-weight: 500;
-    line-height: 1;
-}
-
-/* =========================================================
-   CARD CONTENT
-========================================================= */
-
-.ark-purpose-card p {
-    margin: 0;
-    color: var(--ark-text);
-    font-size: 15px;
-    line-height: 1.78;
-}
-
-.ark-purpose-divider {
-    width: 28px;
-    height: 2px;
-    margin: 12px 0 18px;
-    background: var(--ark-peach);
-}
-
-/* Stars */
-
-.ark-purpose-stars {
-    display: flex;
-    gap: 4px;
-    margin-top: 20px;
-    color: #ff9f15;
-    font-size: 19px;
-    letter-spacing: 1px;
-}
-
-/* =========================================================
-   VISION CARD
-========================================================= */
-
-.ark-purpose-vision {
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(242, 153, 121, 0.17),
-            transparent 33%
-        ),
-        linear-gradient(
-            155deg,
-            #56418c 0%,
-            #39296e 55%,
-            #2d205e 100%
-        );
-    box-shadow: 0 28px 75px rgba(60, 45, 115, 0.24);
-}
-
-.ark-purpose-vision:hover {
-    border-color: transparent;
-}
-
-.ark-purpose-vision .ark-purpose-card-title h3,
-.ark-purpose-vision .ark-purpose-card-mark {
-    color: #ffffff;
-}
-
-.ark-purpose-vision .ark-purpose-card-number {
-    color: var(--ark-peach);
-}
-
-.ark-purpose-vision .ark-purpose-icon {
-    background: linear-gradient(135deg, #ff8397, #f3a175);
-    color: #ffffff;
-}
-
-.ark-purpose-vision p {
-    color: rgba(255, 255, 255, 0.86);
-    font-size: 18px;
-    line-height: 1.55;
-}
-
-.ark-purpose-vision-copy {
-    margin-top: 26px;
-}
-
-/* =========================================================
-   VISION CARD — IMPROVED FLIGHT DECORATION
-========================================================= */
-
-.ark-purpose-flight-art {
-    position: relative;
-    min-height: 235px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-top: auto;
-    padding-top: 25px;
-    overflow: hidden;
-}
-
-.ark-purpose-flight-svg {
-    width: 100%;
-    max-width: 420px;
-    height: auto;
-    display: block;
-    overflow: visible;
-}
-
-/* Dotted travel route */
-
-.ark-purpose-route-path {
-    fill: none;
-    stroke: rgba(242, 153, 121, 0.82);
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-dasharray: 7 9;
-}
-
-/* Heart outline */
-
-.ark-purpose-heart-path {
-    fill: none;
-    stroke: #f29979;
-    stroke-width: 2.3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-/* Airplane */
-
-.ark-purpose-plane-shape {
-    fill: #f29979;
-    filter: drop-shadow(0 7px 12px rgba(0, 0, 0, 0.18));
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: arkPurposePlaneFloat 3.8s ease-in-out infinite;
-}
-
-@keyframes arkPurposePlaneFloat {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-7px);
-    }
-}
-
-/* Tablet */
-
-@media (max-width: 991px) {
-    .ark-purpose-flight-art {
-        min-height: 210px;
-    }
-
-    .ark-purpose-flight-svg {
-        max-width: 390px;
-    }
-}
-
-/* Mobile */
-
-@media (max-width: 767px) {
-    .ark-purpose-flight-art {
-        min-height: 185px;
-        padding-top: 15px;
-    }
-
-    .ark-purpose-flight-svg {
-        max-width: 340px;
-    }
-}
-
-@media (max-width: 480px) {
-    .ark-purpose-flight-art {
-        min-height: 165px;
-    }
-
-    .ark-purpose-flight-svg {
-        max-width: 300px;
-    }
-}
-
-/* Disable animation for users who prefer less motion */
-
-@media (prefers-reduced-motion: reduce) {
-    .ark-purpose-plane-shape {
-        animation: none;
-    }
-}
-
-/* =========================================================
-   MISSION TAGS
-========================================================= */
-
-.ark-purpose-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-    margin-top: 22px;
-}
-
-.ark-purpose-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 13px;
-    border-radius: 50px;
-    background: rgba(102, 82, 156, 0.08);
-    color: var(--ark-purple);
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.ark-purpose-tag::before {
-    content: "✓";
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(60, 45, 115, 0.18);
-    border-radius: 50%;
-    color: var(--ark-purple);
-    font-size: 10px;
-}
-
-/* =========================================================
-   FOUNDER MESSAGE CARD
-========================================================= */
-
-.ark-purpose-founder {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255, 248, 245, 0.98),
-            rgba(255, 255, 255, 0.96)
-        );
-}
-
-.ark-founder-mini-top {
-    display: grid;
-    grid-template-columns: 145px 1fr;
-    gap: 24px;
-    align-items: center;
-    margin-bottom: 21px;
-}
-
-.ark-founder-mini-profile {
-    text-align: center;
-}
-
-.ark-founder-mini-photo {
-    width: 104px;
-    height: 104px;
-    margin: 0 auto 13px;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 5px solid rgba(242, 153, 121, 0.16);
-}
-
-.ark-founder-mini-photo img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center top;
-}
-
-.ark-founder-mini-profile strong {
-    display: block;
-    margin-bottom: 3px;
-    color: var(--ark-purple);
-    font-size: 17px;
-}
-
-.ark-founder-mini-profile span {
-    color: var(--ark-pink);
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.ark-founder-mini-quote {
-    position: relative;
-    padding-left: 23px;
-    border-left: 1px solid rgba(242, 153, 121, 0.35);
-}
-
-.ark-founder-mini-label {
-    display: block;
-    margin-bottom: 10px;
-    color: var(--ark-pink);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
-
-.ark-founder-mini-quote blockquote {
-    margin: 0;
-    color: var(--ark-purple);
-    font-family: "Afacad", sans-serif;
-    font-size: 21px;
-    font-weight: 600;
-    line-height: 1.38;
-}
-
-.ark-founder-mini-quote::after {
-    content: "”";
-    position: absolute;
-    top: -28px;
-    right: 0;
-    color: rgba(242, 99, 126, 0.5);
-    font-family: Georgia, serif;
-    font-size: 78px;
-    line-height: 1;
-}
-
-.ark-founder-mini-description {
-    color: var(--ark-text);
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.ark-founder-mini-signature {
-    margin-top: 14px;
-    color: var(--ark-pink);
-    font-family: "Brush Script MT", "Segoe Script", cursive;
-    font-size: 27px;
-    text-align: right;
-}
-
-/* =========================================================
-   STATISTICS BAR
+   STAT CARDS (small individual cards, Touro-style)
 ========================================================= */
 
 .ark-purpose-stats {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
     margin-top: 18px;
-    overflow: hidden;
-    border: 1px solid rgba(60, 45, 115, 0.06);
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 18px 50px rgba(60, 45, 115, 0.07);
 }
 
 .ark-purpose-stat {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    min-height: 100px;
-    padding: 22px 15px;
+    gap: 16px;
+    min-height: 170px;
+    padding: 30px 18px;
+    border: 1px solid rgba(60, 45, 115, 0.07);
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(60, 45, 115, 0.07);
+    text-align: center;
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
 }
 
-.ark-purpose-stat:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 25%;
-    right: 0;
-    width: 1px;
-    height: 50%;
-    background: rgba(60, 45, 115, 0.1);
+.ark-purpose-stat:hover {
+    transform: translateY(-8px);
+    border-color: transparent;
+    background: linear-gradient(145deg, #f2637e, #f29979);
+    box-shadow: 0 25px 55px rgba(242, 99, 126, 0.28);
 }
 
 .ark-purpose-stat-icon {
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(102, 82, 156, 0.08);
-    color: var(--ark-purple);
+    background: rgba(242, 153, 121, 0.16);
+    color: var(--ark-pink);
+    transition: background 0.35s ease, color 0.35s ease;
 }
 
 .ark-purpose-stat-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.8;
@@ -2958,299 +2431,66 @@
     stroke-linejoin: round;
 }
 
+.ark-purpose-stat:hover .ark-purpose-stat-icon {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+}
+
 .ark-purpose-stat-content strong {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     color: var(--ark-purple);
     font-family: "Afacad", sans-serif;
-    font-size: 24px;
+    font-size: 26px;
     line-height: 1;
+    transition: color 0.35s ease;
 }
 
 .ark-purpose-stat-content span {
     color: var(--ark-purple-soft);
     font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.35s ease;
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1199px) {
-    .ark-purpose-mosaic {
-        grid-template-columns: 1fr 0.75fr 1fr;
-    }
-
-    .ark-purpose-card {
-        padding: 27px;
-    }
-
-    .ark-purpose-card-title-wrap {
-        gap: 13px;
-    }
-
-    .ark-purpose-icon {
-        width: 58px;
-        height: 58px;
-        flex-basis: 58px;
-    }
-
-    .ark-founder-mini-top {
-        grid-template-columns: 120px 1fr;
-        gap: 18px;
-    }
+.ark-purpose-stat:hover .ark-purpose-stat-content strong,
+.ark-purpose-stat:hover .ark-purpose-stat-content span {
+    color: #ffffff;
 }
+
+/* Responsive */
 
 @media (max-width: 991px) {
-    .ark-purpose-section {
-        padding: 85px 0 90px;
-    }
-
-    .ark-purpose-mosaic {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: auto;
-    }
-
-    .ark-purpose-started,
-    .ark-purpose-mission,
-    .ark-purpose-vision,
-    .ark-purpose-promise,
-    .ark-purpose-founder {
-        grid-column: auto;
-        grid-row: auto;
-        min-height: 340px;
-    }
-
-    .ark-purpose-vision {
-        grid-column: 1 / -1;
-        min-height: 500px;
-    }
-
-    .ark-purpose-founder {
-        grid-column: 1 / -1;
-    }
-
     .ark-purpose-stats {
         grid-template-columns: repeat(3, 1fr);
     }
-
-    .ark-purpose-stat:nth-child(3)::after {
-        display: none;
-    }
-
-    .ark-purpose-stat:nth-child(-n+3) {
-        border-bottom: 1px solid rgba(60, 45, 115, 0.09);
-    }
 }
 
-@media (max-width: 767px) {
-    .ark-purpose-section {
-        padding: 70px 0 75px;
-    }
-
-    .ark-purpose-heading {
-        margin-bottom: 40px;
-    }
-
-    .ark-purpose-heading p {
-        font-size: 15px;
-    }
-
-    .ark-purpose-mosaic {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .ark-purpose-started,
-    .ark-purpose-mission,
-    .ark-purpose-vision,
-    .ark-purpose-promise,
-    .ark-purpose-founder {
-        grid-column: 1;
-        min-height: auto;
-    }
-
-    .ark-purpose-card {
-        padding: 25px 22px;
-        border-radius: 23px;
-    }
-
-    .ark-purpose-card-head {
-        margin-bottom: 20px;
-    }
-
-    .ark-purpose-card-title h3 {
-        font-size: 22px;
-    }
-
-    .ark-purpose-vision {
-        min-height: 470px;
-    }
-
-    .ark-founder-mini-top {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .ark-founder-mini-quote {
-        padding: 22px 0 0;
-        border-top: 1px solid rgba(242, 153, 121, 0.35);
-        border-left: 0;
-    }
-
-    .ark-founder-mini-quote blockquote {
-        font-size: 20px;
-    }
-
+@media (max-width: 575px) {
     .ark-purpose-stats {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .ark-purpose-stat {
-        border-bottom: 1px solid rgba(60, 45, 115, 0.09);
+        min-height: 150px;
+        padding: 24px 14px;
     }
 
-    .ark-purpose-stat:nth-child(2n)::after {
-        display: none;
+    .ark-purpose-stat-icon {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
     }
 
-    .ark-purpose-stat:nth-last-child(-n+1) {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 480px) {
-    .ark-purpose-container {
-        width: calc(100% - 28px);
-    }
-
-    .ark-purpose-eyebrow {
-        gap: 8px;
-        font-size: 10px;
-        letter-spacing: 2.4px;
-    }
-
-    .ark-purpose-eyebrow::before,
-    .ark-purpose-eyebrow::after {
-        width: 22px;
-    }
-
-    .ark-purpose-card-title-wrap {
-        align-items: flex-start;
-    }
-
-    .ark-purpose-icon {
-        width: 52px;
-        height: 52px;
-        flex-basis: 52px;
-    }
-
-    .ark-purpose-card p {
-        font-size: 14px;
-        line-height: 1.72;
-    }
-
-    .ark-purpose-vision p {
-        font-size: 17px;
-    }
-
-    .ark-purpose-stats {
-        grid-template-columns: 1fr;
-    }
-
-    .ark-purpose-stat,
-    .ark-purpose-stat:nth-last-child(-n+1) {
-        grid-column: 1;
-    }
-
-    .ark-purpose-stat::after {
-        display: none;
+    .ark-purpose-stat-content strong {
+        font-size: 22px;
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .ark-purpose-card {
-        transition: none;
-    }
-}
+{% comment %} status card style end  {% endcomment %}
 
-/*==================================================
-TITLE
-==================================================*/
-
-.ark-purpose-heading{
-
-    position:relative;
-
-    max-width:900px;
-
-    margin:0 auto 60px;
-
-    text-align:center;
-
-}
-
-.ark-purpose-title-image{
-
-    position:absolute;
-
-    left:50%;
-
-    top:-40px;
-
-    transform:translateX(-50%);
-
-    width:420px;
-
-    opacity:.22;
-
-    pointer-events:none;
-
-    z-index:0;
-
-}
-
-.ark-purpose-title-image img{
-
-    width:100%;
-
-    display:block;
-
-}
-
-.ark-purpose-title-line{
-
-    width:170px;
-
-    height:5px;
-
-    margin:22px auto 24px;
-
-    border-radius:20px;
-
-    background:linear-gradient(
-        90deg,
-        #F29979,
-        rgba(242,153,121,.2)
-    );
-
-}
-
-.ark-purpose-heading p{
-
-    max-width:650px;
-
-    margin:auto;
-
-    color:#6c8083;
-
-    font-size:17px;
-
-    line-height:1.8;
-
-}
-
-{% comment %} brand heart style end  {% endcomment %}
 
 {% comment %} style for left images  start {% endcomment %}
 /* =========================================================
@@ -4096,6 +3336,644 @@ TITLE
     }
 }
 {% comment %} style for left images end {% endcomment %}
+
+
+{% comment %} start{% endcomment %}
+/* =========================================================
+   WORLD BY ARK — STORY / ABOUT COLLAGE SECTION
+========================================================= */
+
+.ark-story-section {
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0;
+    background: #fdf8f3;
+    border-radius:45px;
+
+}
+
+.ark-story-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 60px;
+}
+
+/* ---------- LEFT: IMAGE COLLAGE ---------- */
+
+.ark-story-media {
+    position: relative;
+    min-height: 560px;
+}
+
+.ark-story-main-img {
+    position: relative;
+    width: 78%;
+    height: 480px;
+    margin-left: auto;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(60, 45, 115, 0.18);
+}
+
+.ark-story-main-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ark-story-badge {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.ark-story-badge strong {
+    color: #f2637e;
+    font-family: "Afacad", sans-serif;
+    font-size: 46px;
+    line-height: 1;
+}
+
+.ark-story-badge span {
+    margin-top: 6px;
+    color: #3c2d73;
+    font-size: 13px;
+    font-weight: 700;
+    writing-mode: vertical-rl;
+    letter-spacing: 1px;
+}
+
+.ark-story-sub-img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 4;
+    width: 44%;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 8px solid #fdf8f3;
+    box-shadow: 0 25px 55px rgba(60, 45, 115, 0.2);
+}
+
+.ark-story-sub-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ark-story-balloon {
+    position: absolute;
+    left: 38%;
+    bottom: 40px;
+    z-index: 5;
+    width: 70px;
+    animation: arkStoryFloat 3.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.ark-story-balloon img {
+    width: 100%;
+    display: block;
+}
+
+
+
+.ark-story-quote-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 28px;
+    padding: 20px 24px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 20px 50px rgba(60, 45, 115, 0.12);
+}
+
+@media (max-width: 575px) {
+    .ark-story-quote-card {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .ark-story-quote-avatar {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .ark-story-quote-card p {
+        font-size: 13px;
+    }
+}
+
+.ark-story-quote-avatar {
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ark-story-quote-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ark-story-quote-card p {
+    margin: 0;
+    color: #3c2d73;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+@keyframes arkStoryFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+
+/* ---------- RIGHT: CONTENT ---------- */
+
+.ark-story-content {
+    position: relative;
+}
+
+.ark-story-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #f2637e;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.ark-story-content h2 {
+    margin: 0 0 22px;
+    color: #3c2d73;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.ark-story-content p.ark-story-desc {
+    max-width: 520px;
+    margin: 0 0 30px;
+    color: #61767a;
+    font-size: 16px;
+    line-height: 1.85;
+}
+
+.ark-story-checklist {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 30px;
+    margin-bottom: 36px;
+}
+
+.ark-story-check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #3c2d73;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.ark-story-check-item svg {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    color: #fff;
+    background: #f2637e;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.ark-story-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 10px 10px 30px;
+    border-radius: 50px;
+    background: #3c2d73;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.ark-story-btn i {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f29979;
+    color: #3c2d73;
+    font-size: 16px;
+    transition: transform 0.35s ease;
+}
+
+.ark-story-btn:hover {
+    background: #2c205e;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.ark-story-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 991px) {
+    .ark-story-grid {
+        grid-template-columns: 1fr;
+        gap: 70px;
+    }
+
+    .ark-story-media {
+        min-height: 480px;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+
+    .ark-story-checklist {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575px) {
+    .ark-story-section {
+        padding: 70px 0;
+    }
+
+    .ark-story-main-img {
+        width: 90%;
+        height: 380px;
+    }
+
+    .ark-story-sub-img {
+        width: 55%;
+        height: 200px;
+    }
+
+    .ark-story-badge {
+        top: 15px;
+    }
+}
+{% comment %}  end{% endcomment %}
+
+
+
+
+{% comment %} mission vission style start {% endcomment %}
+
+/* =========================================================
+   MISSION / VISION SPLIT CARDS
+========================================================= */
+
+.ark-mv-section {
+    padding: 90px 0;
+}
+
+.ark-mv-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.ark-mv-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+    padding: 45px 50px;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 30px 70px rgba(60, 45, 115, 0.18);
+    transition: transform 0.45s ease, box-shadow 0.45s ease;
+}
+
+.ark-mv-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 40px 90px rgba(60, 45, 115, 0.26);
+}
+
+.ark-mv-mission {
+    background: linear-gradient(135deg, #3c2d73 0%, #4f3d94 100%);
+}
+
+.ark-mv-vision {
+    background: linear-gradient(135deg, #f2637e 0%, #f29979 100%);
+}
+
+/* Decorative dotted pattern */
+.ark-mv-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.16) 1.6px,
+        transparent 2px
+    );
+    background-size: 16px 16px;
+    mask-image: radial-gradient(
+        circle at 85% 15%,
+        #000 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        transparent 70%
+    );
+    -webkit-mask-image: radial-gradient(
+        circle at 85% 15%,
+        #000 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.ark-mv-eyebrow {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    margin-bottom: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.ark-mv-title {
+    position: relative;
+    z-index: 2;
+    margin: 0 0 16px;
+    color: #ffffff;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ark-mv-desc {
+    position: relative;
+    z-index: 2;
+    max-width: 380px;
+    margin: 0 0 30px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.ark-mv-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    width: max-content;
+    padding: 8px 8px 8px 26px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #3c2d73;
+    font-size: 15px;
+    font-weight: 700;
+    transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.ark-mv-btn i {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #3c2d73;
+    color: #fff;
+    font-size: 14px;
+    transition: transform 0.35s ease;
+}
+
+.ark-mv-btn:hover {
+    background: #ffffff;
+    transform: translateY(-3px);
+}
+
+.ark-mv-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Floating circular badge (like the discount badge in the reference) */
+.ark-mv-badge {
+    position: absolute;
+    z-index: 3;
+    top: 40px;
+    right: 40px;
+    width: 108px;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    animation: arkMvFloat 3.4s ease-in-out infinite;
+}
+
+.ark-mv-mission .ark-mv-badge strong {
+    color: #3c2d73;
+}
+
+.ark-mv-vision .ark-mv-badge strong {
+    color: #f2637e;
+}
+
+.ark-mv-badge strong {
+    font-family: "Afacad", sans-serif;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.ark-mv-badge span {
+    margin-top: 5px;
+    color: #547276;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+@keyframes arkMvFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Entrance animation state (before GSAP kicks in) */
+.ark-mv-card {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+@media (max-width: 991px) {
+    .ark-mv-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .ark-mv-card {
+        min-height: auto;
+        padding: 38px 30px;
+    }
+
+    .ark-mv-badge {
+        top: 24px;
+        right: 24px;
+        width: 88px;
+        height: 88px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-mv-badge {
+        animation: none;
+    }
+}
+{% comment %} mission vision style end {% endcomment %}
+
+
+{% comment %} pattern css start {% endcomment %}
+
+
+/* =========================================================
+   AIRPLANE SIDE PATTERNS
+========================================================= */
+/* Outer wrapper — spans the full height of the timeline section */
+.ark-journey-side-pattern {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+
+    width: clamp(180px, 19vw, 330px);
+
+    pointer-events: none;
+    user-select: none;
+}
+
+.ark-journey-side-pattern-left {
+    left: -70px;
+}
+
+.ark-journey-side-pattern-right {
+    right: -70px;
+}
+
+/* Inner element — this is what actually sticks while scrolling */
+.ark-journey-side-pattern-inner {
+    position: sticky;
+    top: 130px;      /* distance from top of viewport — adjust to clear your fixed header */
+
+    height: 480px;   /* fixed decorative height, tune to taste */
+
+    opacity: 0.48;
+
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+
+    filter: drop-shadow(0 8px 18px rgba(46, 121, 215, 0.12));
+}
+
+.ark-journey-side-pattern-left .ark-journey-side-pattern-inner {
+    background-image: url("{% static 'assets/images/patterns/left-blue-airplane-pattern-left.svg' %}");
+}
+
+.ark-journey-side-pattern-right .ark-journey-side-pattern-inner {
+    background-image: url("{% static 'assets/images/patterns/paper-plane-pattern-right.svg' %}");
+}
+
+
+/* Keep timeline content above the patterns */
+
+.ark-journey-container {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+/* Tablet */
+
+/* Tablet */
+@media (max-width: 1199px) {
+    .ark-journey-side-pattern {
+        width: 210px;
+    }
+
+    .ark-journey-side-pattern-left {
+        left: -105px;
+    }
+
+    .ark-journey-side-pattern-right {
+        right: -105px;
+    }
+
+    .ark-journey-side-pattern-inner {
+        top: 110px;
+        height: 400px;
+        opacity: 0.30;
+    }
+}
+
+
+/* Mobile */
+@media (max-width: 767px) {
+    .ark-journey-side-pattern {
+        width: 150px;
+    }
+
+    .ark-journey-side-pattern-left {
+        left: -100px;
+    }
+
+    .ark-journey-side-pattern-right {
+        right: -100px;
+    }
+
+    .ark-journey-side-pattern-inner {
+        top: 90px;
+        height: 320px;
+        opacity: 0.13;
+    }
+}
+
+
+/* Very small screens */
+@media (max-width: 480px) {
+    .ark-journey-side-pattern {
+        display: none;
+    }
+}
+{% comment %} pattern css end  {% endcomment %}
+
 </style>
 {% endblock %}
 
@@ -4478,206 +4356,327 @@ TITLE
 
        <!-- HORIZONTAL JOURNEY TIMELINE START -->
 <!-- JOURNEY ACCORDION TIMELINE START -->
-<section class="ark-journey-accordion" id="arkJourneyAccordion">
+<!-- VERTICAL JOURNEY TIMELINE START -->
+<section class="ark-journey-timeline" id="arkJourneyTimeline">
 
-    <div class="ark-journey-heading">
-        <h3>From a Dream to a Global Story</h3>
-    </div>
 
-    <div class="ark-journey-scroll">
+    <!-- Decorative airplane paths -->
+<div class="ark-journey-side-pattern ark-journey-side-pattern-left" aria-hidden="true">
+    <div class="ark-journey-side-pattern-inner"></div>
+</div>
 
-        <div class="ark-journey-cards">
+<div class="ark-journey-side-pattern ark-journey-side-pattern-right" aria-hidden="true">
+    <div class="ark-journey-side-pattern-inner"></div>
+</div>
 
-            <!-- CARD 01 -->
-            <article
-                class="ark-journey-card"
-                tabindex="0"
-                data-card-index="0"
-            >
-                <div class="ark-journey-card-content">
 
-                    <span class="ark-journey-year">2013</span>
+    <div class="ark-journey-container">
 
-                    <h4>A New Beginning in Germany</h4>
+        <!-- HEADING -->
+        <div class="ark-journey-heading">
 
-                    <div class="ark-journey-description">
+            <span class="ark-journey-eyebrow">
+                Our Journey
+            </span>
+
+            <h3>
+                From a Dream to a Global Story
+            </h3>
+
+            <p>
+                Every step shaped a journey filled with purpose,
+                confidence, meaningful connections and unforgettable
+                travel experiences.
+            </p>
+
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="ark-vertical-timeline">
+
+            <div class="ark-timeline-progress" aria-hidden="true">
+    <div class="ark-timeline-progress-line"></div>
+    <span class="ark-timeline-progress-head"></span>
+</div>
+
+            <!-- ITEM 01 -->
+            <article class="ark-journey-item">
+
+                <div class="ark-journey-content">
+
+                    <div class="ark-journey-copy">
+
+                        <span class="ark-journey-year">
+                            2013
+                        </span>
+
+                        <h4>
+                            A New Beginning in Germany
+                        </h4>
+
                         <p>
-                            Anjali moved from Kerala to Germany to pursue her MBA.
-                            It was her first experience of living far from home
-                            and discovering unfamiliar cultures, languages and
-                            ways of life.
+                            Anjali moved from Kerala to Germany to pursue
+                            her MBA. It was her first experience living far
+                            from home and discovering unfamiliar cultures,
+                            languages and ways of life.
                         </p>
+
                     </div>
+
                     <div class="ark-journey-image">
                         <img
                             src="{% static 'assets/images/timeline-img/img-1.png' %}"
-                            alt="Anjali Rose travel journey"
+                            alt="A new beginning in Germany"
                         >
                     </div>
 
-                    <span class="ark-journey-number">.01</span>
+                </div>
+
+                <div class="ark-journey-marker">
+
+                    <div class="ark-journey-icon">
+                        <i class="bi bi-send-fill"></i>
+                    </div>
+
+                    <span class="ark-journey-center-year">
+                        2013
+                    </span>
 
                 </div>
+
             </article>
 
-            <!-- CARD 02 -->
-            <article
-                class="ark-journey-card"
-                tabindex="0"
-                data-card-index="1"
-            >
-                <div class="ark-journey-card-content">
+            <!-- ITEM 02 -->
+            <article class="ark-journey-item">
 
-                    <span class="ark-journey-year">2013–2015</span>
+                <div class="ark-journey-content">
 
-                    <h4>Europe Became Her Classroom</h4>
-
-                    <div class="ark-journey-description">
-                        <p>
-                            She travelled across countries and cities,
-                            independently navigating airports, trains, buses
-                            and unfamiliar destinations. Every journey helped
-                            her confidence grow.
-                        </p>
-                    </div>
                     <div class="ark-journey-image">
                         <img
                             src="{% static 'assets/images/timeline-img/img-2.png' %}"
-                            alt="Anjali Rose travel journey"
+                            alt="Europe became her classroom"
                         >
                     </div>
 
-                    <span class="ark-journey-number">.02</span>
+                    <div class="ark-journey-copy">
+
+                        <span class="ark-journey-year">
+                            2013–2015
+                        </span>
+
+                        <h4>
+                            Europe Became Her Classroom
+                        </h4>
+
+                        <p>
+                            She travelled across countries and cities,
+                            independently navigating airports, trains,
+                            buses and unfamiliar destinations. Every
+                            journey helped her confidence grow.
+                        </p>
+
+                    </div>
 
                 </div>
+
+                <div class="ark-journey-marker">
+
+                    <div class="ark-journey-icon">
+                        <i class="bi bi-globe2"></i>
+                    </div>
+
+                    <span class="ark-journey-center-year">
+                        2013–2015
+                    </span>
+
+                </div>
+
             </article>
 
-            <!-- CARD 03 -->
-            <article
-                class="ark-journey-card active"
-                tabindex="0"
-                data-card-index="2"
-            >
-                <div class="ark-journey-card-content">
+            <!-- ITEM 03 -->
+            <article class="ark-journey-item">
 
-                    <span class="ark-journey-year">2015</span>
+                <div class="ark-journey-content">
 
-                    <h4>Returning Home With a Purpose</h4>
+                    <div class="ark-journey-copy">
 
-                    <div class="ark-journey-description">
+                        <span class="ark-journey-year">
+                            2015
+                        </span>
+
+                        <h4>
+                            Returning Home With a Purpose
+                        </h4>
+
                         <p>
-                            After completing her studies, she returned to India
-                            with one important question: “What business can I
-                            build that truly reflects who I am?” Her experiences
-                            abroad had already revealed the answer.
+                            After completing her studies, she returned to
+                            India carrying new experiences, valuable lessons
+                            and a clear desire to build something meaningful.
                         </p>
+
                     </div>
 
                     <div class="ark-journey-image">
                         <img
                             src="{% static 'assets/images/timeline-img/img-3.png' %}"
-                            alt="Anjali Rose travel journey"
+                            alt="Returning home with a purpose"
                         >
                     </div>
 
-                    <span class="ark-journey-number">.03</span>
+                </div>
+
+                <div class="ark-journey-marker">
+
+                    <div class="ark-journey-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+
+                    <span class="ark-journey-center-year">
+                        2015
+                    </span>
 
                 </div>
+
             </article>
 
-            <!-- CARD 04 -->
-            <article
-                class="ark-journey-card"
-                tabindex="0"
-                data-card-index="3"
-            >
-                <div class="ark-journey-card-content">
+            <!-- ITEM 04 -->
+            <article class="ark-journey-item">
 
-                    <span class="ark-journey-year">2015</span>
+                <div class="ark-journey-content">
 
-                    <h4>Helping Friends and Family</h4>
-
-                    <div class="ark-journey-description">
-                        <p>
-                            Friends and family began asking her to plan holidays,
-                            book flights, recommend destinations and create
-                            itineraries around their interests and budgets.
-                        </p>
-                    </div>
                     <div class="ark-journey-image">
                         <img
                             src="{% static 'assets/images/timeline-img/img-4.jpeg' %}"
-                            alt="Anjali Rose travel journey"
+                            alt="Helping friends and family"
                         >
                     </div>
 
-                    <span class="ark-journey-number">.04</span>
+                    <div class="ark-journey-copy">
+
+                        <span class="ark-journey-year">
+                            2015
+                        </span>
+
+                        <h4>
+                            Helping Friends and Family
+                        </h4>
+
+                        <p>
+                            Friends and family started asking her to plan
+                            holidays, book flights, recommend destinations
+                            and create itineraries around their interests
+                            and budgets.
+                        </p>
+
+                    </div>
 
                 </div>
+
+                <div class="ark-journey-marker">
+
+                    <div class="ark-journey-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+
+                    <span class="ark-journey-center-year">
+                        2015
+                    </span>
+
+                </div>
+
             </article>
 
-            <!-- CARD 05 -->
-            <article
-                class="ark-journey-card"
-                tabindex="0"
-                data-card-index="4"
-            >
-                <div class="ark-journey-card-content">
+            <!-- ITEM 05 -->
+            <article class="ark-journey-item">
 
-                    <span class="ark-journey-year">2016</span>
+                <div class="ark-journey-content">
 
-                    <h4>WORLD BY ARK Was Born</h4>
+                    <div class="ark-journey-copy">
 
-                    <div class="ark-journey-description">
+                        <span class="ark-journey-year">
+                            2016
+                        </span>
+
+                        <h4>
+                            WORLD BY ARK Was Born
+                        </h4>
+
                         <p>
-                            What began as helping loved ones soon became
-                            something much bigger. Her passion for travel was
-                            transformed into a company dedicated to creating
-                            personal and unforgettable journeys.
+                            What began as helping loved ones grew into a
+                            travel company committed to creating personal,
+                            meaningful and unforgettable journeys.
                         </p>
+
                     </div>
+
                     <div class="ark-journey-image">
                         <img
                             src="{% static 'assets/images/timeline-img/img-5.png' %}"
-                            alt="Anjali Rose travel journey"
+                            alt="World By ARK was born"
                         >
                     </div>
 
-                    <span class="ark-journey-number">.05</span>
+                </div>
+
+                <div class="ark-journey-marker">
+
+                    <div class="ark-journey-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+
+                    <span class="ark-journey-center-year">
+                        2016
+                    </span>
 
                 </div>
+
             </article>
 
-            <!-- CARD 06 -->
-            <article
-                class="ark-journey-card"
-                tabindex="0"
-                data-card-index="5"
-            >
-                <div class="ark-journey-card-content">
+            <!-- ITEM 06 -->
+            <article class="ark-journey-item">
 
-                    <span class="ark-journey-year">Today</span>
+                <div class="ark-journey-content">
 
-                    <h4>Creating Stories Around the World</h4>
-
-                    <div class="ark-journey-description">
-                        <p>
-                            Today, she confidently works with travellers,
-                            guides, drivers, hotels and partners from different
-                            cultures, creating memorable journeys around the
-                            world.
-                        </p>
-                    </div>
                     <div class="ark-journey-image">
                         <img
                             src="{% static 'assets/images/timeline-img/img-6.png' %}"
-                            alt="Anjali Rose travel journey"
+                            alt="Creating travel stories around the world"
                         >
                     </div>
 
-                    <span class="ark-journey-number">.06</span>
+                    <div class="ark-journey-copy">
+
+                        <span class="ark-journey-year">
+                            Today
+                        </span>
+
+                        <h4>
+                            Creating Stories Around the World
+                        </h4>
+
+                        <p>
+                            Today, she works confidently with travellers,
+                            hotels, guides, drivers and travel partners from
+                            different cultures to create memorable journeys
+                            around the world.
+                        </p>
+
+                    </div>
 
                 </div>
+
+                <div class="ark-journey-marker">
+
+                    <div class="ark-journey-icon">
+                        <i class="bi bi-heart-fill"></i>
+                    </div>
+
+                    <span class="ark-journey-center-year">
+                        Today
+                    </span>
+
+                </div>
+
             </article>
 
         </div>
@@ -4685,338 +4684,109 @@ TITLE
     </div>
 
 </section>
-<!-- JOURNEY ACCORDION TIMELINE END -->
-<!-- HORIZONTAL JOURNEY TIMELINE END -->
+<!-- VERTICAL JOURNEY TIMELINE END -->
         {% comment %} timeline end {% endcomment %}
 
-        {% comment %} heart of the start {% endcomment %}
-        <!-- ========================================================
-     WORLD BY ARK PURPOSE MOSAIC SECTION START
-========================================================= -->
-<section class="ark-purpose-section" id="arkPurpose">
 
-    <div class="ark-purpose-container">
 
-        <!-- SECTION HEADING -->
-        <div class="ark-purpose-heading">
 
-            
-        <div class="ark-purpose-title-image">
-           <img
-            src="{% static 'assets/images/background/title-shape.png' %}"
-            alt="">
-        </div>
 
-            <h2>
-        Why We Create
-        <span>Meaningful Journeys</span>
-       </h2>
-        </div>
+        {% comment %} start {% endcomment %}
+        <!-- STORY / ABOUT COLLAGE SECTION START -->
+<section class="ark-story-section" id="arkStory">
+    <div class="container">
+        <div class="ark-story-grid">
 
-        <!-- MOSAIC CARDS -->
-        <div class="ark-purpose-mosaic">
+            <!-- LEFT: IMAGE COLLAGE -->
+            <!-- LEFT: IMAGE COLLAGE -->
+<div class="ark-story-media">
 
-            <!-- WHY WORLD BY ARK STARTED -->
-            <article class="ark-purpose-card ark-purpose-started">
+    <div class="ark-story-badge">
+        <strong>10+</strong>
+        <span>Years of Experience</span>
+    </div>
 
-                <div class="ark-purpose-card-head">
+    <div class="ark-story-main-img">
+        <img
+            src="{% static 'assets/images/background/about/img-3.jpg' %}"
+            alt="World By ARK travel experience"
+        >
+    </div>
 
-                    <div class="ark-purpose-card-title-wrap">
+    <div class="ark-story-sub-img">
+        <img
+            src="{% static 'assets/images/background/about/img-1.jpg' %}"
+            alt="Traveler exploring with World By ARK"
+        >
+    </div>
 
-                        <div class="ark-purpose-icon">
-
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <path d="M15.5 8.5l-2.1 4.9-4.9 2.1 2.1-4.9 4.9-2.1z"></path>
-                            </svg>
-
-                        </div>
-
-                        <div class="ark-purpose-card-title">
-                            <h3>Why WORLD BY ARK Started</h3>
-                            <span class="ark-purpose-card-number">01</span>
-                            <div class="ark-purpose-divider"></div>
-                        </div>
-
-                    </div>
-
-                    <span class="ark-purpose-card-mark">×</span>
-
-                </div>
-
-                <p>
-                    After helping friends and family plan memorable holidays,
-                    Anjali realized that many Indian travellers needed more
-                    than standard tour packages. They wanted trusted guidance,
-                    personalized planning and advice from someone who had
-                    personally experienced the destinations.
-                </p>
-
-                <div class="ark-purpose-stars" aria-label="Five stars">
-                    ★ ★ ★ ★ ★
-                </div>
-
-            </article>
-
-            <!-- OUR MISSION -->
-            <article class="ark-purpose-card ark-purpose-mission">
-
-                <div class="ark-purpose-card-head">
-
-                    <div class="ark-purpose-card-title-wrap">
-
-                        <div class="ark-purpose-icon ark-purpose-icon-purple">
-
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M22 2L9.8 14.2"></path>
-                                <path d="M22 2l-7.8 20-4.4-7.8L2 9.8 22 2z"></path>
-                            </svg>
-
-                        </div>
-
-                        <div class="ark-purpose-card-title">
-                            <h3>Our Mission</h3>
-                            <span class="ark-purpose-card-number">03</span>
-                            <div class="ark-purpose-divider"></div>
-                        </div>
-
-                    </div>
-
-                    <span class="ark-purpose-card-mark">×</span>
-
-                </div>
-
-                <p>
-                    To design journeys around every traveller's interests,
-                    expectations, pace and budget while providing honest
-                    guidance, dependable support and carefully selected
-                    travel experiences.
-                </p>
-
-                <div class="ark-purpose-tags">
-                    <span class="ark-purpose-tag">
-                        Personalized Planning
-                    </span>
-
-                    <span class="ark-purpose-tag">
-                        Transparent Pricing
-                    </span>
-
-                    <span class="ark-purpose-tag">
-                        Authentic Experiences
-                    </span>
-
-                    <span class="ark-purpose-tag">
-                        Customer-first Service
-                    </span>
-                </div>
-
-            </article>
-
-            <!-- OUR VISION -->
-            <article class="ark-purpose-card ark-purpose-vision">
-
-                <div class="ark-purpose-card-head">
-
-                    <div class="ark-purpose-card-title-wrap">
-
-                        <div class="ark-purpose-icon">
-
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <path d="M3 12h18"></path>
-                                <path d="M12 3c2.4 2.5 3.7 5.5 3.7 9S14.4 18.5 12 21"></path>
-                                <path d="M12 3C9.6 5.5 8.3 8.5 8.3 12S9.6 18.5 12 21"></path>
-                            </svg>
-
-                        </div>
-
-                        <div class="ark-purpose-card-title">
-                            <h3>Our Vision</h3>
-                            <span class="ark-purpose-card-number">02</span>
-                            <div class="ark-purpose-divider"></div>
-                        </div>
-
-                    </div>
-
-                    <span class="ark-purpose-card-mark">×</span>
-
-                </div>
-
-                <div class="ark-purpose-vision-copy">
-
-                    <p>
-                        To make travel simple, safe, meaningful and
-                        unforgettable, helping every traveller explore
-                        the world with confidence, comfort and a deeper
-                        connection to the places they visit.
-                    </p>
-
-                </div>
-
-                <div class="ark-purpose-flight-art">
-
-    <svg
-        class="ark-purpose-flight-svg"
-        viewBox="0 0 420 210"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-    >
-
-        <!-- DOTTED TRAVEL ROUTE -->
-        <path
-            class="ark-purpose-route-path"
-            d="
-                M20 150
-                C70 185, 130 185, 175 145
-                C205 118, 205 82, 178 72
-                C150 61, 125 83, 129 108
-                C133 135, 165 150, 205 146
-                C270 140, 315 106, 360 68
-            "
-        />
-
-        <!-- HEART SHAPE -->
-        <path
-            class="ark-purpose-heart-path"
-            d="
-                M150 83
-                C136 63, 105 70, 106 96
-                C107 122, 150 151, 150 151
-                C150 151, 193 122, 194 96
-                C195 70, 164 63, 150 83
-            "
-        />
-
-        <!-- AIRPLANE -->
-        <g transform="translate(342 48) rotate(-18)">
-
-            <g class="ark-purpose-plane-shape">
-
-                <path
-                    d="
-                        M2 19
-                        L42 2
-                        C46 0, 49 2, 48 6
-                        L46 11
-                        L30 22
-                        L41 33
-                        L34 37
-                        L19 28
-                        L11 35
-                        L6 32
-                        L11 23
-                        L2 19
-                        Z
-                    "
-                />
-
-            </g>
-
-        </g>
-
-    </svg>
+    <div class="ark-story-balloon" aria-hidden="true">
+        <img src="{% static 'assets/images/hotballon-right.png' %}" alt="">
+    </div>
 
 </div>
 
-            </article>
+            <!-- RIGHT: CONTENT -->
+            <div class="ark-story-content">
 
-            <!-- JOURNEYS MADE PERSONAL -->
-            <article class="ark-purpose-card ark-purpose-promise">
+                <h2>Our Stories Have Created Unforgettable Journeys</h2>
 
-                <div class="ark-purpose-card-head">
-
-                    <div class="ark-purpose-card-title-wrap">
-
-                        <div class="ark-purpose-icon">
-
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8z"></path>
-                            </svg>
-
-                        </div>
-
-                        <div class="ark-purpose-card-title">
-                            <h3>Journeys Made Personal</h3>
-                            <span class="ark-purpose-card-number">04</span>
-                            <div class="ark-purpose-divider"></div>
-                        </div>
-
-                    </div>
-
-                    <span class="ark-purpose-card-mark">×</span>
-
-                </div>
-
-                <p>
-                    No two travellers are the same, and no two journeys
-                    should be identical. Every itinerary is thoughtfully
-                    created to deliver comfort, flexibility, authentic
-                    experiences and memories that last a lifetime.
+                <p class="ark-story-desc">
+                    Every destination has taught me something valuable about people, cultures and the world we share. Through WORLD BY ARK, I want every traveller to feel supported, inspired and confident from the moment they begin planning until they return home with stories they will treasure forever.
                 </p>
 
-                <div class="ark-purpose-stars" aria-label="Five stars">
-                    ★ ★ ★ ★ ★
-                </div>
+                 <!-- QUOTE / TESTIMONIAL CARD -->
+    <div class="ark-story-quote-card">
+        <div class="ark-story-quote-avatar">
+            <img
+                src="{% static 'assets/images/founder/worldbyark-founder.png' %}"
+                alt="World By ARK traveler"
+            >
+        </div>
+        <p>
+            "Travel changed my life in ways I never imagined. My dream is to help others experience that same joy, confidence and connection through meaningful journeys."
+        </p>
+    </div>
 
-            </article>
+                <div class="ark-story-checklist">
 
-            <!-- FOUNDER MESSAGE -->
-            <article class="ark-purpose-card ark-purpose-founder">
-
-                <div class="ark-founder-mini-top">
-
-                    <div class="ark-founder-mini-profile">
-
-                        <div class="ark-founder-mini-photo">
-
-                            <img
-                                src="{% static 'assets/images/founder/worldbyark-founder.png' %}"
-                                alt="Anjali Rose, Founder of World By ARK"
-                            >
-
-                        </div>
-
-                        <strong>Anjali Rose</strong>
-
-                        <span>
-                            Founder &amp; Travel Designer
-                        </span>
-
+                    <div class="ark-story-check-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.6L4 14.1l5 5 11-11-1.5-1.5z"/></svg>
+                        Easy Booking
                     </div>
 
-                    <div class="ark-founder-mini-quote">
+                    <div class="ark-story-check-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.6L4 14.1l5 5 11-11-1.5-1.5z"/></svg>
+                        24/7 Support
+                    </div>
 
-                        <span class="ark-founder-mini-label">
-                            A Message From Our Founder
-                        </span>
+                    <div class="ark-story-check-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.6L4 14.1l5 5 11-11-1.5-1.5z"/></svg>
+                        Instant Confirmation
+                    </div>
 
-                        <blockquote>
-                            Travel changed my life in ways I never imagined.
-                            My dream is to help others experience that same
-                            joy, confidence and connection through meaningful
-                            journeys.
-                        </blockquote>
-
+                    <div class="ark-story-check-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.6L4 14.1l5 5 11-11-1.5-1.5z"/></svg>
+                        Itinerary Planner
                     </div>
 
                 </div>
 
-                <p class="ark-founder-mini-description">
-                    Every destination has taught me something valuable about
-                    people, cultures and the world we share. Through WORLD BY
-                    ARK, I want every traveller to feel supported, inspired and
-                    confident from the moment they begin planning until they
-                    return home with stories they will treasure forever.
-                </p>
+                <a href="{% url 'contact' %}" class="ark-story-btn">
+                    <span>Contact Us</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
 
-                <div class="ark-founder-mini-signature">
-                    Anjali Rose
-                </div>
-
-            </article>
+            </div>
 
         </div>
+    </div>
+</section>
+<!-- STORY / ABOUT COLLAGE SECTION END -->
+        {% comment %} end {% endcomment %}
+
+
+
 
         <!-- STATISTICS BAR -->
         <div class="ark-purpose-stats">
@@ -5124,227 +4894,77 @@ TITLE
 
         </div>
 
-    </div>
 
-</section>
-<!-- WORLD BY ARK PURPOSE MOSAIC SECTION END -->
 
-        {% comment %} heart section end  {% endcomment %}
 
-        {% comment %} <!-- Turning point -->
-        <div class="ark-turning-point">
 
-            <span>The Turning Point</span>
 
-            <h3>
-                “What business can I build that truly reflects who I am?”
-            </h3>
 
-            <p>
-                The answer came naturally. Planning journeys was not simply
-                something Anjali was good at—it was something she genuinely
-                loved. What began as carefully creating holidays for friends
-                and family became the foundation of WORLD BY ARK.
-            </p>
+        <!-- MISSION / VISION CARDS -->
+<section class="ark-mv-section">
+    <div class="container">
 
-        </div>
+        <div class="ark-mv-cards">
 
-        <!-- Why World By ARK -->
-        <div class="ark-founder-values">
+            <!-- MISSION CARD -->
+            <div class="ark-mv-card ark-mv-mission">
+                <div class="ark-mv-dots" aria-hidden="true"></div>
 
-            <div class="ark-sub-heading">
-                <span>Our Difference</span>
+                <span class="ark-mv-eyebrow">Our Purpose</span>
 
-                <h3>More Than Holiday Packages</h3>
+                <h3 class="ark-mv-title">Our Mission</h3>
 
-                <p>
-                    From the beginning, the vision was never simply to sell
-                    tours. It was to create a unique travel story for every
-                    client.
-                </p>
-            </div>
-
-            <div class="ark-value-grid">
-
-                <div class="ark-value-card">
-                    <div class="ark-value-icon">🧭</div>
-
-                    <h4>Personally Crafted</h4>
-
-                    <p>
-                        Every itinerary is personally designed around the
-                        traveller’s preferences, interests, pace and budget.
-                    </p>
-                </div>
-
-                <div class="ark-value-card">
-                    <div class="ark-value-icon">🌍</div>
-
-                    <h4>Firsthand Experience</h4>
-
-                    <p>
-                        Anjali personally travels to destinations to understand
-                        their attractions, transportation and practical
-                        challenges.
-                    </p>
-                </div>
-
-                <div class="ark-value-card">
-                    <div class="ark-value-icon">🤝</div>
-
-                    <h4>Trusted Connections</h4>
-
-                    <p>
-                        She meets local guides, drivers and travel partners
-                        to build reliable relationships in every destination.
-                    </p>
-                </div>
-
-                <div class="ark-value-card">
-                    <div class="ark-value-icon">♥</div>
-
-                    <h4>Travel With Care</h4>
-
-                    <p>
-                        Every journey is planned with the belief that travel
-                        should be meaningful, memorable and completely
-                        stress-free.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Travel planning process -->
-        <div class="ark-travel-process">
-
-            <div class="ark-sub-heading">
-                <span>Our Approach</span>
-
-                <h3>How We Create Every Journey</h3>
-
-                <p>
-                    Each holiday begins with understanding the traveller and
-                    ends with memories that last a lifetime.
-                </p>
-            </div>
-
-            <div class="ark-process-grid">
-
-                <div class="ark-process-item">
-                    <div class="ark-process-number">01</div>
-
-                    <h4>We Listen</h4>
-
-                    <p>
-                        We understand your interests, needs and expectations.
-                    </p>
-                </div>
-
-                <div class="ark-process-item">
-                    <div class="ark-process-number">02</div>
-
-                    <h4>We Design</h4>
-
-                    <p>
-                        We create a personalised itinerary around your dream.
-                    </p>
-                </div>
-
-                <div class="ark-process-item">
-                    <div class="ark-process-number">03</div>
-
-                    <h4>We Verify</h4>
-
-                    <p>
-                        We check destinations, partners and practical details.
-                    </p>
-                </div>
-
-                <div class="ark-process-item">
-                    <div class="ark-process-number">04</div>
-
-                    <h4>You Travel</h4>
-
-                    <p>
-                        You enjoy a carefully organised and stress-free holiday.
-                    </p>
-                </div>
-
-                <div class="ark-process-item">
-                    <div class="ark-process-number">05</div>
-
-                    <h4>You Remember</h4>
-
-                    <p>
-                        You return with stories and memories to cherish forever.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Founder stats -->
-        <div class="ark-founder-stats">
-
-            <div class="ark-stat-item">
-                <strong>40<span>+</span></strong>
-                <p>Countries Explored</p>
-            </div>
-
-            <div class="ark-stat-item">
-                <strong>10<span>+</span></strong>
-                <p>Years of Experience</p>
-            </div>
-
-            <div class="ark-stat-item">
-                <strong>900<span>+</span></strong>
-                <p>Verified Reviews</p>
-            </div>
-
-            <div class="ark-stat-item">
-                <strong>100<span>%</span></strong>
-                <p>Customised Holidays</p>
-            </div>
-
-        </div>
-
-        <!-- Closing CTA -->
-        <div class="ark-founder-closing">
-
-            <div class="ark-founder-closing-content">
-
-                <span>The Journey Continues</span>
-
-                <h3>
-                    Every Journey Is a Story Waiting to Be Created
-                </h3>
-
-                <p>
-                    WORLD BY ARK is not just a travel company. It is a
-                    collection of dreams, cultures, friendships and memories
-                    waiting to become part of your story.
+                <p class="ark-mv-desc">
+                    To design journeys around every traveller's interests,
+                    expectations, pace and budget while providing honest
+                    guidance and dependable support.
                 </p>
 
-                <button
-                    type="button"
-                    class="ark-founder-button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#bookingModal"
-                    onclick="openBookingModal('Plan My Journey')"
-                >
-                    <span>Start Your Journey</span>
-                    <i class="fa fa-arrow-right"></i>
-                </button>
+                <a href="{% url 'destinations' %}" class="ark-mv-btn">
+                    <span>Discover</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
 
+                <div class="ark-mv-badge">
+                    <strong>10+</strong>
+                    <span>Years<br>Experience</span>
+                </div>
             </div>
-        </div> {% endcomment %}
+
+            <!-- VISION CARD -->
+            <div class="ark-mv-card ark-mv-vision">
+                <div class="ark-mv-dots" aria-hidden="true"></div>
+
+                <span class="ark-mv-eyebrow">Looking Ahead</span>
+
+                <h3 class="ark-mv-title">Our Vision</h3>
+
+                <p class="ark-mv-desc">
+                    To make travel simple, safe, meaningful and unforgettable,
+                    helping every traveller explore the world with confidence
+                    and a deeper connection to the places they visit.
+                </p>
+
+                <a href="{% url 'destinations' %}" class="ark-mv-btn">
+                    <span>Discover</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+                <div class="ark-mv-badge">
+                    <strong>40+</strong>
+                    <span>Countries<br>Explored</span>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </section>
-<!-- FOUNDER STORY SECTION END -->
 
+</div>
+</section>
 
+{% comment %} mission and vision end {% endcomment %}
 
             <!--POPULAR DESTINATION SECTION START-->
             <div class="section-full p-t120 p-b90 trv-popular-destination tvr-hot-ballon-wrap"
@@ -5401,124 +5021,7 @@ TITLE
 
             </div>
             <!--POPULAR DESTINATION SECTION END-->
-
-            {% comment %} <!-- tv service style 1 start -->
-            <div class="trv-service-st1" id="services">
-                <div class="container">
-                    <!-- TITLE START-->
-                    <div class="section-head trv-head-title-wrap center-position with-bg-dark">
-                        <h2 class="trv-head-title"><span class="site-text-yellow">Our Amazing</span> Services</h2>
-                        <div class="trv-head-discription">Destinations worth exploring! Here are a few popular spots
-                        </div>
-                        <div class="trv-head-title-image">
-                            <img src="{% static 'assets/images/background/TitleSeparator2.png' %}" alt="Image">
-                        </div>
-                    </div>
-                    <!-- TITLE END-->
-                </div>
-                <div class="trv-service-back-bg">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="trv-service-bx1" 
-         data-bs-toggle="modal" 
-         data-bs-target="#bookingModal" 
-         onclick="openBookingModal('Hotel Bookings')"
-         style="cursor: pointer;">
-        <div class="trv-media">
-            <img src="{% static 'assets/images/trv-services/hotel-booking.jpeg' %}" alt="image">
-        </div>
-        <div class="trv-info">
-            <h4 class="trv-title"><a href="javascript:void(0);" style="cursor: pointer;">Hotel Bookings</a></h4>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="trv-service-bx1" 
-         data-bs-toggle="modal" 
-         data-bs-target="#bookingModal" 
-         onclick="openBookingModal('Flight Bookings')"
-         style="cursor: pointer;">
-        <div class="trv-media">
-            <img src="{% static 'assets/images/trv-services/flight-booking.jpeg' %}" alt="image">
-        </div>
-        <div class="trv-info">
-            <h4 class="trv-title"><a href="javascript:void(0);" style="cursor: pointer;">Flight Bookings</a></h4>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="trv-service-bx1" 
-         data-bs-toggle="modal" 
-         data-bs-target="#bookingModal" 
-         onclick="openBookingModal('Holiday Packages')"
-         style="cursor: pointer;">
-        <div class="trv-media">
-            <img src="{% static 'assets/images/trv-services/holiday-packages.png' %}" alt="image">
-        </div>
-        <div class="trv-info">
-            <h4 class="trv-title"><a href="javascript:void(0);" style="cursor: pointer;">Holiday Packages</a></h4>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="trv-service-bx1" 
-         data-bs-toggle="modal" 
-         data-bs-target="#bookingModal" 
-         onclick="openBookingModal('Cabs and Local Transfers')"
-         style="cursor: pointer;">
-        <div class="trv-media">
-            <img src="{% static 'assets/images/trv-services/localcabs.jpeg' %}" alt="image">
-        </div>
-        <div class="trv-info">
-            <h4 class="trv-title"><a href="javascript:void(0);" style="cursor: pointer;">Cabs and Local Transfers</a></h4>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="trv-service-bx1" 
-         data-bs-toggle="modal" 
-         data-bs-target="#bookingModal" 
-         onclick="openBookingModal('Activities and Experiences')"
-         style="cursor: pointer;">
-        <div class="trv-media">
-            <img src="{% static 'assets/images/trv-services/Activities-and-experience.jpg' %}" alt="image">
-        </div>
-        <div class="trv-info">
-            <h4 class="trv-title"><a href="javascript:void(0);" style="cursor: pointer;">Activities and Experiences</a></h4>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="trv-service-bx1" 
-         data-bs-toggle="modal" 
-         data-bs-target="#bookingModal" 
-         onclick="openBookingModal('Train and Bus Rentals')"
-         style="cursor: pointer;">
-        <div class="trv-media">
-            <img src="{% static 'assets/images/trv-services/bus-rental.jpeg' %}" alt="image">
-        </div>
-        <div class="trv-info">
-            <h4 class="trv-title"><a href="javascript:void(0);" style="cursor: pointer;">Train and Bus Rentals</a></h4>
-        </div>
-    </div>
-</div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="trv-btm-title-section">
-                        <span>Wornderful Services For You</span>
-                        <h2 class="trv-btm-title-large">Services We Offer</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- tv service style 1 end--> {% endcomment %}
-
-            
+      
 {% comment %} service style 2 start {% endcomment %}
 
 <section class="ark-service-scroll" id="services">
@@ -5761,237 +5264,199 @@ document.addEventListener("DOMContentLoaded", function () {
 {% comment %} js for service 2 end {% endcomment %}
 
 {% comment %} timeline js start {% endcomment %}
-{% comment %} <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const journeySection = document.getElementById("arkJourneyAccordion");
+{% comment %} Vertical timeline scroll animation start {% endcomment %}
 
-    if (!journeySection) {
-        return;
-    }
-
-    const journeyCards = Array.from(
-        journeySection.querySelectorAll(".ark-journey-card")
-    );
-
-    const touchBreakpoint = 991;
-
-    let currentActiveCard =
-        journeySection.querySelector(".ark-journey-card.active") ||
-        journeyCards[0];
-
-    function activateCard(selectedCard, scrollCard = false) {
-        journeyCards.forEach(function (card) {
-            const isSelected = card === selectedCard;
-
-            card.classList.toggle("active", isSelected);
-            card.setAttribute("aria-selected", String(isSelected));
-        });
-
-        currentActiveCard = selectedCard;
-
-        if (scrollCard && window.innerWidth <= touchBreakpoint) {
-            selectedCard.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center"
-            });
-        }
-    }
-
-    journeyCards.forEach(function (card) {
-        card.setAttribute("role", "button");
-
-        card.setAttribute(
-            "aria-selected",
-            card === currentActiveCard ? "true" : "false"
-        );
-
-        /*
-         * Desktop:
-         * Open immediately when the mouse enters.
-         */
-        card.addEventListener("mouseenter", function () {
-            if (window.innerWidth > touchBreakpoint) {
-                activateCard(card);
-            }
-        });
-
-        /*
-         * Tablet and mobile:
-         * Open with tap.
-         */
-        card.addEventListener("click", function () {
-            activateCard(card, true);
-        });
-
-        /*
-         * Keyboard support.
-         */
-        card.addEventListener("focus", function () {
-            activateCard(card);
-        });
-
-        card.addEventListener("keydown", function (event) {
-            const currentIndex = journeyCards.indexOf(card);
-
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                activateCard(card, true);
-            }
-
-            if (event.key === "ArrowRight") {
-                event.preventDefault();
-
-                const nextIndex = Math.min(
-                    currentIndex + 1,
-                    journeyCards.length - 1
-                );
-
-                journeyCards[nextIndex].focus();
-            }
-
-            if (event.key === "ArrowLeft") {
-                event.preventDefault();
-
-                const previousIndex = Math.max(
-                    currentIndex - 1,
-                    0
-                );
-
-                journeyCards[previousIndex].focus();
-            }
-        });
-    });
-
-    /*
-     * Restore card positioning after resizing.
-     */
-    let resizeTimer;
-
-    window.addEventListener("resize", function () {
-        clearTimeout(resizeTimer);
-
-        resizeTimer = setTimeout(function () {
-            if (
-                window.innerWidth <= touchBreakpoint &&
-                currentActiveCard
-            ) {
-                currentActiveCard.scrollIntoView({
-                    behavior: "auto",
-                    block: "nearest",
-                    inline: "center"
-                });
-            }
-        }, 150);
-    });
-});
-</script> {% endcomment %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const journeySection =
-        document.getElementById("arkJourneyAccordion");
 
-    if (!journeySection) {
+    if (
+        typeof gsap === "undefined" ||
+        typeof ScrollTrigger === "undefined"
+    ) {
         return;
     }
 
-    const cards = Array.from(
-        journeySection.querySelectorAll(".ark-journey-card")
+    gsap.registerPlugin(ScrollTrigger);
+
+    const timelineSection = document.querySelector(
+        ".ark-journey-timeline"
     );
 
-    if (!cards.length) {
+    if (!timelineSection) {
         return;
     }
 
-    let activeCard =
-        journeySection.querySelector(".ark-journey-card.active") ||
-        cards[0];
+    const timelineWrapper = timelineSection.querySelector(
+        ".ark-vertical-timeline"
+    );
 
-    function activateCard(selectedCard, scrollToCard = false) {
-        cards.forEach(function (card) {
-            const isActive = card === selectedCard;
+    const pathProgress = timelineSection.querySelector(
+        ".ark-timeline-progress-line"
+    );
 
-            card.classList.toggle("active", isActive);
-            card.setAttribute(
-                "aria-selected",
-                String(isActive)
-            );
-        });
+    const timelineItems = gsap.utils.toArray(
+        timelineSection.querySelectorAll(".ark-journey-item")
+    );
 
-        activeCard = selectedCard;
-
-        if (scrollToCard && window.innerWidth <= 991) {
-            selectedCard.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center"
-            });
-        }
+    if (!timelineWrapper || !pathProgress || !timelineItems.length) {
+        return;
     }
 
-    cards.forEach(function (card) {
-        card.setAttribute("role", "button");
+    /*
+     * Vertical line grows while the complete timeline section
+     * moves through the viewport.
+     */
+   gsap.fromTo(
+        pathProgress,
+        {
+            scaleY: 0
+        },
+        {
+            scaleY: 1,
+            transformOrigin: "top center",
+            ease: "none",
+            scrollTrigger: {
+                trigger: timelineWrapper,
+                start: "top 68%",
+                end: "bottom 45%",
+                scrub: 1,
+                invalidateOnRefresh: true
+            }
+        }
+    );
 
-        card.setAttribute(
-            "aria-selected",
-            card === activeCard ? "true" : "false"
-        );
+    timelineItems.forEach(function (item, index) {
+
+        const card = item.querySelector(".ark-journey-content");
+        const marker = item.querySelector(".ark-journey-marker");
+        const icon = item.querySelector(".ark-journey-icon");
+        const image = item.querySelector(".ark-journey-image img");
+
+        const isLeftItem = index % 2 === 0;
 
         /*
-         * Always activate on mouse enter.
-         * This also works inside Chrome responsive mode.
+         * Odd cards come from left.
+         * Even cards come from right.
          */
-        card.addEventListener("mouseenter", function () {
-            activateCard(card, false);
+        gsap.set(card, {
+            autoAlpha: 0,
+            x: isLeftItem ? -90 : 90,
+            y: 30,
+            scale: 0.96
+        });
+
+        gsap.set(marker, {
+            autoAlpha: 0,
+            scale: 0.35
+        });
+
+        gsap.set(icon, {
+            rotate: -30
+        });
+
+        if (image) {
+            gsap.set(image, {
+                scale: 1.14
+            });
+        }
+
+        const itemAnimation = gsap.timeline({
+            scrollTrigger: {
+                trigger: item,
+                start: "top 78%",
+                end: "top 52%",
+                toggleActions: "play none none reverse"
+            }
         });
 
         /*
-         * Tap/click support for tablets and phones.
+         * Marker appears first when the growing line reaches it.
          */
-        card.addEventListener("click", function () {
-            activateCard(
-                card,
-                window.innerWidth <= 991
-            );
+        itemAnimation.to(marker, {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.55,
+            ease: "back.out(1.8)"
         });
 
-        card.addEventListener("focus", function () {
-            activateCard(card, false);
-        });
+        itemAnimation.to(icon, {
+            rotate: 0,
+            duration: 0.45,
+            ease: "back.out(1.6)"
+        }, "<");
 
-        card.addEventListener("keydown", function (event) {
-            const index = cards.indexOf(card);
-
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-
-                activateCard(
-                    card,
-                    window.innerWidth <= 991
-                );
+        /*
+         * Card slides in after the marker.
+         */
+        itemAnimation.to(card, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            onStart: function () {
+                item.classList.add("is-visible");
+            },
+            onReverseComplete: function () {
+                item.classList.remove("is-visible");
             }
+        }, "-=0.15");
 
-            if (event.key === "ArrowRight") {
-                event.preventDefault();
+        /*
+         * Image gently zooms back to normal.
+         */
+        if (image) {
+            itemAnimation.to(image, {
+                scale: 1,
+                duration: 1.1,
+                ease: "power2.out"
+            }, "-=0.75");
+        }
+    });
 
-                const nextCard =
-                    cards[Math.min(index + 1, cards.length - 1)];
+    window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+    });
 
-                nextCard.focus();
-            }
+});
+</script>
 
-            if (event.key === "ArrowLeft") {
-                event.preventDefault();
+{% comment %} Vertical timeline scroll animation end {% endcomment %}
+{% comment %} timeline js end {% endcomment %}
 
-                const previousCard =
-                    cards[Math.max(index - 1, 0)];
 
-                previousCard.focus();
-            }
-        });
+
+
+
+
+{% comment %} mission vission js start {% endcomment %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const cards = gsap.utils.toArray(".ark-mv-card");
+    if (!cards.length) return;
+
+    gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.18,
+        scrollTrigger: {
+            trigger: ".ark-mv-cards",
+            start: "top 82%",
+            toggleActions: "play none none reverse"
+        }
     });
 });
 </script>
-{% comment %} timeline js end {% endcomment %}
+
+{% comment %} mission vission js end  {% endcomment %}
 
 {% endblock %}

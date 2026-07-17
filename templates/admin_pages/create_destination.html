@@ -33,6 +33,18 @@
                                         value="{{ form.location.value|default_if_none:'' }}">
                                 </div>
 
+                                <div class="col-md-6 mb-4">
+    <label for="destination_type" class="form-label">Destination Type <span class="text-danger">*</span></label>
+    <select name="destination_type" id="destination_type" class="form-select modern-input" required>
+        {% for value, label in form.fields.destination_type.choices %}
+        <option value="{{ value }}" {% if form.destination_type.value|stringformat:"s" == value %}selected{% endif %}>
+            {{ label }}
+        </option>
+        {% endfor %}
+    </select>
+    <div class="invalid-feedback">Please select a destination type.</div>
+</div>
+
                                 <div class="col-12 mb-4">
                                     <label for="image" class="form-label">Image</label>
                                     <input type="file" name="image" id="image"

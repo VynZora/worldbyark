@@ -60,14 +60,65 @@ class TourPackage(OptimizedImageModel):
         super().save(*args, **kwargs)
 
 
+# class Destination(OptimizedImageModel):
+#     image_fields = ["image"]
+
+#     name = models.CharField(max_length=200)
+#     slug = models.SlugField(unique=True, blank=True)
+#     description = models.TextField()
+#     image = models.ImageField(upload_to="destinations/")
+#     location = models.CharField(max_length=200, blank=True, help_text="Country or region")
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     class Meta:
+#         ordering = ["-created_at"]
+#         verbose_name_plural = "Destinations"
+
+#     def __str__(self):
+#         return self.name
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             base_slug = slugify(self.name)
+#             slug = base_slug
+#             counter = 1
+#             while Destination.objects.filter(slug=slug).exists():
+#                 slug = f"{base_slug}-{counter}"
+#                 counter += 1
+#             self.slug = slug
+#         super().save(*args, **kwargs)
+
+
 class Destination(OptimizedImageModel):
     image_fields = ["image"]
+
+    # Destination Type Choices
+    DOMESTIC = "domestic"
+    INTERNATIONAL = "international"
+
+    DESTINATION_TYPE_CHOICES = [
+        (DOMESTIC, "Domestic"),
+        (INTERNATIONAL, "International"),
+    ]
 
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField()
     image = models.ImageField(upload_to="destinations/")
-    location = models.CharField(max_length=200, blank=True, help_text="Country or region")
+    location = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Country or region"
+    )
+
+    # New Field
+    destination_type = models.CharField(
+        max_length=20,
+        choices=DESTINATION_TYPE_CHOICES,
+        default=DOMESTIC,
+        help_text="Select destination type"
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -87,7 +138,6 @@ class Destination(OptimizedImageModel):
                 counter += 1
             self.slug = slug
         super().save(*args, **kwargs)
-
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)

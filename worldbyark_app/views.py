@@ -141,17 +141,35 @@ def package_detail(request, slug):
         "inclusions_list": inclusions_list,
     })
 
+# def destinations(request):
+#     destinations_qs = Destination.objects.all().order_by("-created_at")
+#     paginator = Paginator(destinations_qs, 8)
+#     page_number = request.GET.get("page")
+#     destinations_page = paginator.get_page(page_number)
+#     packages_qs = TourPackage.objects.all().order_by("-created_at")[:8]
+#     return render(request, 'frontend/destinations.html', {
+#         "destinations": destinations_page,
+#         "packages": packages_qs,
+#     })
+
+
 def destinations(request):
     destinations_qs = Destination.objects.all().order_by("-created_at")
+
+    dest_type = request.GET.get("type", "all")
+    if dest_type in [Destination.DOMESTIC, Destination.INTERNATIONAL]:
+        destinations_qs = destinations_qs.filter(destination_type=dest_type)
+
     paginator = Paginator(destinations_qs, 8)
     page_number = request.GET.get("page")
     destinations_page = paginator.get_page(page_number)
     packages_qs = TourPackage.objects.all().order_by("-created_at")[:8]
+
     return render(request, 'frontend/destinations.html', {
         "destinations": destinations_page,
         "packages": packages_qs,
+        "active_type": dest_type,
     })
-
 
 
 

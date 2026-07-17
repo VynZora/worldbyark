@@ -605,7 +605,7 @@
               <li><a href="{% url 'home' %}">Home</a></li>
               <li><a href="{% url 'about' %}">About Us</a></li>
 
-              <li class="has-child">
+              {% comment %} <li class="has-child">
                 <a href="{% url 'destinations' %}">Destinations</a>
                 <ul class="sub-menu">
                   {% for dest in nav_destinations %}
@@ -616,7 +616,39 @@
                   </li>
                   {% endfor %}
                 </ul>
-              </li>
+              </li> {% endcomment %}
+
+              <li class="has-child">
+  <a href="{% url 'destinations' %}">Destinations</a>
+  <ul class="sub-menu">
+    <li class="has-child dest-type-item">
+      <a href="{% url 'destinations' %}?type=domestic">Domestic</a>
+      <ul class="sub-menu">
+        {% for dest in nav_destinations %}
+          {% if dest.destination_type == "domestic" %}
+          <li><a href="{% url 'destination_detail' slug=dest.slug %}">{{ dest.name }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+    <li class="has-child dest-type-item">
+      <a href="{% url 'destinations' %}?type=international">International</a>
+      <ul class="sub-menu">
+        {% for dest in nav_destinations %}
+          {% if dest.destination_type == "international" %}
+          <li><a href="{% url 'destination_detail' slug=dest.slug %}">{{ dest.name }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</li>
+
+
+
+
+
+
 
               <li><a href="{% url 'packages' %}">Packages</a></li>
               <li><a href="{% url 'blogs' %}">Blogs</a></li>
