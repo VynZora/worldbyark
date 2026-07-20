@@ -1,5 +1,400 @@
 {% extends 'frontend/base.html' %}
 {% load static %}
+
+
+
+{% block extra_css%}
+<style>
+
+    /* =========================================
+   BLOG RICH DESCRIPTION
+========================================= */
+
+.trv-blog-description {
+    color: #294b58;
+    font-size: 17px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* Paragraphs */
+.trv-blog-description p {
+    margin: 0 0 20px;
+}
+
+/* Headings */
+.trv-blog-description h1,
+.trv-blog-description h2,
+.trv-blog-description h3,
+.trv-blog-description h4,
+.trv-blog-description h5,
+.trv-blog-description h6 {
+    color: #3c2d73;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 32px 0 16px;
+}
+
+.trv-blog-description h1 {
+    font-size: 38px;
+}
+
+.trv-blog-description h2 {
+    font-size: 32px;
+}
+
+.trv-blog-description h3 {
+    font-size: 27px;
+}
+
+.trv-blog-description h4 {
+    font-size: 23px;
+}
+
+.trv-blog-description h5 {
+    font-size: 20px;
+}
+
+.trv-blog-description h6 {
+    font-size: 18px;
+}
+
+/* Bullet and numbered lists */
+.trv-blog-description ul,
+.trv-blog-description ol {
+    margin: 0 0 24px;
+    padding-left: 28px;
+}
+
+.trv-blog-description ul {
+    list-style: disc;
+}
+
+.trv-blog-description ol {
+    list-style: decimal;
+}
+
+.trv-blog-description li {
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+.trv-blog-description li::marker {
+    color: #f2637e;
+    font-weight: 700;
+}
+
+/* =========================================
+   BLOG DESCRIPTION IMAGE SLIDER
+========================================= */
+
+.trv-blog-image-slider {
+    position: relative;
+    width: 100%;
+    margin: 28px 0;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #f5f5f5;
+}
+
+.trv-blog-image-track {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+}
+
+.trv-blog-image-slide {
+    display: none;
+    width: 100%;
+    animation: trvBlogImageFade 0.6s ease;
+}
+
+.trv-blog-image-slide.active {
+    display: block;
+}
+
+.trv-blog-image-slide img {
+    display: block;
+    width: 100%;
+    height: 520px;
+    margin: 0;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+/* Single image */
+.trv-blog-image-slider.single-image .trv-blog-image-slide {
+    display: block;
+}
+
+.trv-blog-image-slider.single-image .trv-blog-slider-arrow,
+.trv-blog-image-slider.single-image .trv-blog-slider-dots {
+    display: none;
+}
+
+/* Previous and next arrows */
+.trv-blog-slider-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #3c2d73;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+.trv-blog-slider-arrow:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #f29979, #f2637e);
+}
+
+.trv-blog-slider-prev {
+    left: 18px;
+}
+
+.trv-blog-slider-next {
+    right: 18px;
+}
+
+/* Slider dots */
+.trv-blog-slider-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    transform: translateX(-50%);
+}
+
+.trv-blog-slider-dot {
+    width: 11px;
+    height: 11px;
+    padding: 0;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.trv-blog-slider-dot.active {
+    width: 13px;
+    height: 13px;
+    background: #f2637e;
+}
+
+/* Fade animation */
+@keyframes trvBlogImageFade {
+    from {
+        opacity: 0;
+        transform: scale(1.015);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 767px) {
+    .trv-blog-image-slide img {
+        height: 320px;
+    }
+
+    .trv-blog-slider-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    .trv-blog-slider-prev {
+        left: 10px;
+    }
+
+    .trv-blog-slider-next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trv-blog-image-slide img {
+        height: 250px;
+    }
+}
+
+/* Figures from rich-text editors */
+.trv-blog-description figure {
+    max-width: 100%;
+    margin: 28px auto;
+}
+
+.trv-blog-description figure img {
+    margin: 0 auto;
+}
+
+.trv-blog-description figcaption {
+    margin-top: 10px;
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Tables */
+.trv-blog-description table {
+    width: 100%;
+    margin: 28px 0;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.trv-blog-description th,
+.trv-blog-description td {
+    padding: 14px 16px;
+    border: 1px solid #dedede;
+    text-align: left;
+    vertical-align: top;
+}
+
+.trv-blog-description th {
+    color: #fff;
+    background: #3c2d73;
+    font-weight: 600;
+}
+
+.trv-blog-description tbody tr:nth-child(even) {
+    background: #fff7f4;
+}
+
+/* Links */
+.trv-blog-description a {
+    color: #f2637e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.trv-blog-description a:hover {
+    color: #3c2d73;
+}
+
+/* Blockquotes */
+.trv-blog-description blockquote {
+    position: relative;
+    margin: 30px 0;
+    padding: 22px 25px;
+    border-left: 5px solid #f29979;
+    border-radius: 0 15px 15px 0;
+    background: #fff7f4;
+    color: #3c2d73;
+    font-size: 18px;
+    font-style: italic;
+}
+
+/* Horizontal line */
+.trv-blog-description hr {
+    margin: 35px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+/* Videos and embeds */
+.trv-blog-description iframe,
+.trv-blog-description video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 28px auto;
+    border: 0;
+    border-radius: 20px;
+}
+
+/* Prevent wide tables from breaking mobile layout */
+.trv-blog-description .table,
+.trv-blog-description > table {
+    max-width: 100%;
+}
+
+/* Editor image alignment */
+.trv-blog-description .image-style-align-left {
+    float: left;
+    max-width: 48%;
+    margin: 10px 25px 20px 0;
+}
+
+.trv-blog-description .image-style-align-right {
+    float: right;
+    max-width: 48%;
+    margin: 10px 0 20px 25px;
+}
+
+.trv-blog-description .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.trv-blog-description::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+@media (max-width: 767px) {
+    .trv-blog-description {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .trv-blog-description h1 {
+        font-size: 30px;
+    }
+
+    .trv-blog-description h2 {
+        font-size: 27px;
+    }
+
+    .trv-blog-description h3 {
+        font-size: 24px;
+    }
+
+    .trv-blog-description h4 {
+        font-size: 21px;
+    }
+
+    .trv-blog-description .image-style-align-left,
+    .trv-blog-description .image-style-align-right {
+        float: none;
+        max-width: 100%;
+        margin: 25px auto;
+    }
+
+    .trv-blog-description table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .trv-blog-description th,
+    .trv-blog-description td {
+        padding: 11px 12px;
+    }
+}
+
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="page-content">
 
@@ -55,29 +450,11 @@
     <li class="post-comment">{{ blog.created_at|date:"d M Y" }}</li>
 </ul>
 
-<!-- Normal text content -->
-<div class="trv-inr-para">
-{% if plain_paragraphs %}
 <h3 class="trv-inner-title-lg">{{ blog.title }}</h3>
-<div class="trv-inr-para">
-    {% for paragraph in plain_paragraphs %}
-        <p>{{ paragraph }}</p>
-    {% endfor %}
-</div>
-{% endif %}
 
-<!-- Only show if blog has bullet/numbered lists -->
-{% if has_real_lists and list_items %}
-<h4 class="trv-inner-title-sm">{%if plain_paragraphs %}Key Highlights:{% else %}{{ blog.title }}{% endif %}</h4>
-<ul class="trv-checklist-st1">
-    {% for item in list_items %}
-    <li>
-        <i class="bi bi-check-circle-fill"></i>
-        {{ item }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+<div class="trv-blog-description" id="blogDescription">
+    {{ blog.description|safe }}
+</div>
 
                                     <div class="s-post-tag-share">
 
@@ -190,4 +567,223 @@
 
     </div>
     <!-- CONTENT END -->
+{% endblock %}
+
+
+{% block extra_js %}
+
+{% comment %} images of description js {% endcomment %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const blogDescription = document.getElementById("blogDescription");
+
+    if (!blogDescription) {
+        return;
+    }
+
+    /*
+     * Get only images from the blog description.
+     * Images already inside a generated slider are ignored.
+     */
+    const images = Array.from(
+        blogDescription.querySelectorAll("img")
+    ).filter(function (image) {
+        return !image.closest(".trv-blog-image-slider");
+    });
+
+    if (images.length === 0) {
+        return;
+    }
+
+    /*
+     * Create slider elements.
+     */
+    const slider = document.createElement("div");
+    slider.className = "trv-blog-image-slider";
+
+    const track = document.createElement("div");
+    track.className = "trv-blog-image-track";
+
+    slider.appendChild(track);
+
+    /*
+     * Place the slider where the first image currently appears.
+     */
+    const firstImage = images[0];
+    const firstImageContainer = firstImage.closest("figure") || firstImage;
+
+    firstImageContainer.parentNode.insertBefore(slider, firstImageContainer);
+
+    /*
+     * Move every image into its own slide.
+     */
+    images.forEach(function (image, index) {
+        const slide = document.createElement("div");
+        slide.className = "trv-blog-image-slide";
+
+        if (index === 0) {
+            slide.classList.add("active");
+        }
+
+        /*
+         * Clone the image so editor-generated wrappers do not affect
+         * the slider layout.
+         */
+        const clonedImage = image.cloneNode(true);
+
+        clonedImage.removeAttribute("width");
+        clonedImage.removeAttribute("height");
+        clonedImage.removeAttribute("style");
+
+        slide.appendChild(clonedImage);
+        track.appendChild(slide);
+
+        /*
+         * Remove the original image or its editor figure wrapper.
+         */
+        const originalContainer = image.closest("figure") || image;
+
+        if (originalContainer.parentNode) {
+            originalContainer.parentNode.removeChild(originalContainer);
+        }
+    });
+
+    const slides = Array.from(
+        slider.querySelectorAll(".trv-blog-image-slide")
+    );
+
+    /*
+     * A single image does not need controls or autoplay.
+     */
+    if (slides.length === 1) {
+        slider.classList.add("single-image");
+        return;
+    }
+
+    /*
+     * Create previous arrow.
+     */
+    const previousButton = document.createElement("button");
+    previousButton.type = "button";
+    previousButton.className =
+        "trv-blog-slider-arrow trv-blog-slider-prev";
+    previousButton.setAttribute("aria-label", "Previous image");
+    previousButton.innerHTML =
+        '<i class="bi bi-chevron-left"></i>';
+
+    /*
+     * Create next arrow.
+     */
+    const nextButton = document.createElement("button");
+    nextButton.type = "button";
+    nextButton.className =
+        "trv-blog-slider-arrow trv-blog-slider-next";
+    nextButton.setAttribute("aria-label", "Next image");
+    nextButton.innerHTML =
+        '<i class="bi bi-chevron-right"></i>';
+
+    /*
+     * Create dots.
+     */
+    const dotsContainer = document.createElement("div");
+    dotsContainer.className = "trv-blog-slider-dots";
+
+    slides.forEach(function (_, index) {
+        const dot = document.createElement("button");
+
+        dot.type = "button";
+        dot.className = "trv-blog-slider-dot";
+        dot.setAttribute(
+            "aria-label",
+            "Show image " + (index + 1)
+        );
+
+        if (index === 0) {
+            dot.classList.add("active");
+        }
+
+        dotsContainer.appendChild(dot);
+    });
+
+    slider.appendChild(previousButton);
+    slider.appendChild(nextButton);
+    slider.appendChild(dotsContainer);
+
+    const dots = Array.from(
+        dotsContainer.querySelectorAll(".trv-blog-slider-dot")
+    );
+
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    const autoplayDelay = 4000;
+
+    function showSlide(index) {
+        slides[currentIndex].classList.remove("active");
+        dots[currentIndex].classList.remove("active");
+
+        currentIndex = (index + slides.length) % slides.length;
+
+        slides[currentIndex].classList.add("active");
+        dots[currentIndex].classList.add("active");
+    }
+
+    function showNextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+
+        autoplayTimer = window.setInterval(
+            showNextSlide,
+            autoplayDelay
+        );
+    }
+
+    function stopAutoplay() {
+        if (autoplayTimer !== null) {
+            window.clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+    }
+
+    previousButton.addEventListener("click", function () {
+        showSlide(currentIndex - 1);
+        startAutoplay();
+    });
+
+    nextButton.addEventListener("click", function () {
+        showSlide(currentIndex + 1);
+        startAutoplay();
+    });
+
+    dots.forEach(function (dot, index) {
+        dot.addEventListener("click", function () {
+            showSlide(index);
+            startAutoplay();
+        });
+    });
+
+    /*
+     * Pause while the user hovers over the slider.
+     */
+    slider.addEventListener("mouseenter", stopAutoplay);
+    slider.addEventListener("mouseleave", startAutoplay);
+
+    /*
+     * Pause when the browser tab is inactive.
+     */
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            stopAutoplay();
+        } else {
+            startAutoplay();
+        }
+    });
+
+    startAutoplay();
+});
+</script>
+
+{% comment %} images description js end  {% endcomment %}
 {% endblock %}

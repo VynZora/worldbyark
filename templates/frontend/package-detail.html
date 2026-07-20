@@ -20,6 +20,36 @@
         overflow: hidden;
         border-radius: 30px;
     }
+
+    {% comment %} inclusion heading style start {% endcomment %}
+    .trv-checklist-st2-mini .trv-inclusion-heading {
+    color: red;
+    font-weight: 700;
+    list-style: none;
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+    {% comment %} inclusion heading style end {% endcomment %}
+
+
+
+    {% comment %} overview section css start {% endcomment %}
+    #overview ul,
+#overview ol {
+    padding-left: 22px;
+    margin-bottom: 15px;
+}
+
+#overview ul li,
+#overview ol li {
+    margin-bottom: 6px;
+}
+
+#overview h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+    {% comment %} overview section css end {% endcomment %}
 </style>
 {% endblock %}
 
@@ -44,15 +74,6 @@
                 </div>
                 <!-- BREADCRUMB ROW END -->                        
             </div>
-            {% comment %} <div class="trv-inr-bnr-cloud">            
-                <div class="marquee">
-                    <img src="{% static 'assets/images/inr-banner-cloud.png' %}" alt="Image">
-                </div>
-            </div>
-            <div class="trv-inr-bnr-plane">
-                <div class="trv-inr-bnr-plane-bx"><img src="{% static 'assets/images/airplane.png' %}" alt="Image"></div>
-                
-            </div> {% endcomment %}
             <div class="trv-inr-bnr-bloon-1"><img src="{% static 'assets/images/hotballon-Left.png' %}" alt="Image"></div>
             <div class="trv-inr-bnr-bloon-2"><img src="{% static 'assets/images/hotballon-right.png' %}" alt="Image"></div>
         </div>
@@ -112,54 +133,66 @@
                                             <a href="#TermCondition">Term & Condition</a>
                                         </nav>
 
-                                        <!-- Over View-->
-                                        <section id="overview">
 
-                                            <h3 class="trv-inner-title-sm">Package Overview</h3>
-                                            {{ package.description|striptags|linebreaks }}
+<!-- Over View-->
+<section id="overview">
 
-                                            <!-- Highlights -->
-{% if highlights_list %}
-<h3 class="trv-inner-title-sm">Highlights</h3>
-<ul class="trv-checklist-st1">
-    {% for highlight in highlights_list %}
-    <li><i class="bi bi-check-circle-fill"></i>{{ highlight }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <h3 class="trv-inner-title-sm">Package Overview</h3>
+    {% if overview_html %}
+        {{ overview_html|safe }}
+    {% else %}
+        <p class="text-muted">Overview details coming soon.</p>
+    {% endif %}
 
-                                        </section>
+    <!-- Highlights -->
+    {% if highlights_list %}
+    <h3 class="trv-inner-title-sm">Highlights</h3>
+    <ul class="trv-checklist-st1">
+        {% for type, item in highlights_list %}
+            {% if type == "heading" %}
+                <li class="trv-inclusion-heading">{{ item }}</li>
+            {% else %}
+                <li><i class="bi bi-check-circle-fill"></i>{{ item }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-                                        <!-- Day Wise Itinerary-->
-                                        {% comment %} <section id="itinerary">
+</section>
 
-                                            <h3 class="trv-inner-title-sm">Day Wise Itinerary</h3>
-                                        
-                                            {% if package.highlights_list %}
-                                            <div class="trv-clist-st-3-wrap">
-                                                <ul class="trv-list-st-3">
-                                                    {% for item in package.highlights_list %}
-                                                    <li>
-                                                        <div class="trv-list-content">
-                                                            <div class="duration">
-                                                                <div class="media">
-                                                                    <div class="green-bg">{{ forloop.counter|stringformat:"02d" }}</div>
-                                                                </div>
-                                                                <span class="day">DAY</span>
-                                                            </div>
-                                                            <div class="info">
-                                                                <h4 class="trv-title">{{ item|safe }}</h4>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                            {% else %}
-                                            <p class="text-muted">Itinerary details will be provided upon booking confirmation.</p>
-                                            {% endif %}
+ <!-- Day Wise Itinerary-->
+<section id="itinerary">
 
-                                        </section> {% endcomment %}
+    <h3 class="trv-inner-title-sm">Day Wise Itinerary</h3>
+
+    {% if itinerary_list %}
+    <div class="trv-clist-st-3-wrap">
+        <ul class="trv-list-st-3">
+            {% for day in itinerary_list %}
+            <li>
+                <div class="trv-list-content">
+                    <div class="duration">
+                        <div class="media">
+                            <div class="green-bg">{{ day.day|stringformat:"02d" }}</div>
+                        </div>
+                        <span class="day">DAY</span>
+                    </div>
+                    <div class="info">
+                        <h4 class="trv-title">{{ day.title }}</h4>
+                        {% if day.content %}
+                        <p class="trv-desc">{{ day.content }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p class="text-muted">Itinerary details will be provided upon booking confirmation.</p>
+    {% endif %}
+
+</section>
 
                                         <!-- Inclusion/Exclusions-->
                                         <section id="inclusions">
@@ -168,7 +201,7 @@
                                                     <div class="col-xl-6 col-lg-12 col-md-12 trv-checklist-st2-mini-l">
                                                         <h3 class="trv-inner-title-sm">Inclusions</h3>
                                                         <!-- Inclusions -->
-<ul class="trv-checklist-st2-mini">
+{% comment %} <ul class="trv-checklist-st2-mini">
     {% for item in inclusions_list %}
     <li>
         <i class="bi bi-check-circle-fill"></i>
@@ -176,6 +209,18 @@
     </li>
     {% empty %}
     <li><i class="bi bi-check-circle-fill"></i>Accommodation included</li>
+    {% endfor %}
+
+</ul> {% endcomment %}
+<ul class="trv-checklist-st2-mini">
+    {% for type, item in inclusions_list %}
+        {% if type == "heading" %}
+            <li class="trv-inclusion-heading">{{ item }}</li>
+        {% else %}
+            <li><i class="bi bi-check-circle-fill"></i>{{ item }}</li>
+        {% endif %}
+    {% empty %}
+        <li><i class="bi bi-check-circle-fill"></i>Accommodation included</li>
     {% endfor %}
 </ul>
                                                     </div>
@@ -291,11 +336,11 @@
                                         {{ package.price_from }}
                                     </span>
                                     <span class="trv-star-from-person">/ Person</span>
-                                    <div class="trv-emi_text">
+                                    {% comment %} <div class="trv-emi_text">
                                         <i class="bi bi-wallet"></i>No Cost EMI Starts from
                                         <span class="trvng-binding"> $<span class="trvng-binding">49</span></span> 
                                         
-                                    </div>
+                                    </div> {% endcomment %}
                                     <button type="button" class="site-button butn-bg-shape" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="openBookingModal('{{ package.name }}')" >Enquire Now</button>
                                 </div>
 

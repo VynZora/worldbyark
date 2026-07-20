@@ -106,6 +106,50 @@
     margin: 0;
     font-size: 20px;
 }
+
+
+
+{% comment %} pagination style start {% endcomment %}
+
+.pagination{
+    gap:12px;
+}
+
+.pagination .page-link{
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:50%;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#F5F5F5;
+    color:#3C2D73;
+    font-size:16px;
+    font-weight:600;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:all .3s ease;
+}
+
+.pagination .page-link:hover{
+    background:linear-gradient(135deg,#F29979,#F2637E);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.pagination .page-item.active .page-link{
+    background:linear-gradient(135deg,#F29979,#F2637E);
+    color:#fff;
+}
+
+.pagination .page-arrow{
+    font-size:18px;
+}
+
+{% comment %} pagination style end  {% endcomment %}
+
+
 </style>
 {% endblock %}
 {% block content %}
@@ -299,7 +343,52 @@
     </div>
 
 </div>
+{% if all_images.has_other_pages %}
+<div class="row mt-5">
+    <div class="col-12">
+        <nav aria-label="Gallery Pagination">
+            <ul class="pagination justify-content-center">
 
+                {% if all_images.has_previous %}
+<li class="page-item">
+    <a class="page-link page-arrow"
+       href="?page={{ all_images.previous_page_number }}{% if selected_category != 'all' %}&category={{ selected_category }}{% endif %}">
+        <i class="bi bi-chevron-left"></i>
+    </a>
+</li>
+{% endif %}
+
+                {% for num in all_images.paginator.page_range %}
+                    {% if all_images.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ num }}{% if selected_category != 'all' %}&category={{ selected_category }}{% endif %}">
+                                {{ num }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if all_images.has_next %}
+<li class="page-item">
+    <a class="page-link page-arrow"
+       href="?page={{ all_images.next_page_number }}{% if selected_category != 'all' %}&category={{ selected_category }}{% endif %}">
+        <i class="bi bi-chevron-right"></i>
+    </a>
+</li>
+{% endif %}
+
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endif %}
+                  
+                 
                     
                     <div class="trv-btm-title2-section">
                         <span>Explore the Most  Beautiful</span>

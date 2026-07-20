@@ -35,7 +35,16 @@ class ContactForm(forms.ModelForm):
 class TourPackageForm(forms.ModelForm):
     class Meta:
         model = TourPackage
-        fields = ["name", "description", "main_image", "duration", "price_from", "highlights", "inclusions"]
+        fields = ["name", "description", "main_image", "duration", "price_from", "package_type", "highlights", "inclusions"]
+        widgets = {
+            "package_type": forms.Select(attrs={"class": "form-control modern-input"}),
+        }        
+
+
+# class TourPackageForm(forms.ModelForm):
+#     class Meta:
+#         model = TourPackage
+#         fields = ["name", "description", "main_image", "duration", "price_from", "highlights", "inclusions"]
 
 class DestinationForm(forms.ModelForm):
     class Meta:

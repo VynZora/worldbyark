@@ -644,13 +644,23 @@
   </ul>
 </li>
 
-
-
-
-
-
-
-              <li><a href="{% url 'packages' %}">Packages</a></li>
+<li class="has-child">
+    <a href="{% url 'packages' %}">Packages</a>
+    <ul class="sub-menu">
+        {% for value, label in package_types %}
+        <li class="has-child dest-type-item">
+            <a href="{% url 'packages' %}?type={{ value }}">{{ label }}</a>
+            <ul class="sub-menu">
+                {% for pkg in nav_packages %}
+                    {% if pkg.package_type == value %}
+                    <li><a href="{% url 'package_detail' slug=pkg.slug %}">{{ pkg.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</li>
               <li><a href="{% url 'blogs' %}">Blogs</a></li>
               <li><a href="{% url 'gallery' %}">Gallery</a></li>
               <li class="d-lg-none">

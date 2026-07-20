@@ -27,6 +27,7 @@
                 <tr>
                     <th scope="col">Image</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Package Type</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Price From</th>
                     <th scope="col" class="text-center">Actions</th>
@@ -45,6 +46,7 @@
                         {% endif %}
                     </td>
                     <td>{{ package.name }}</td>
+                    <td>{{ package.get_package_type_display }}</td>
                     <td>{{ package.duration }}</td>
                     <td>{{ package.price_from }}</td>
                     <td class="text-center">

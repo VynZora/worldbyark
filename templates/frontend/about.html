@@ -1214,7 +1214,7 @@
     grid-template-columns: minmax(0, 1fr) 200px;
     gap: 24px;
     align-items: center;
-    height: 270px;
+    height: 300px;
     padding: 24px;
     box-sizing: border-box;
     overflow: hidden;
@@ -1305,7 +1305,7 @@
     font-size: 14px;
     line-height: 1.68;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -1509,7 +1509,6 @@
 ========================================================= */
 
 @media (max-width: 767px) {
-
     .ark-journey-timeline {
         padding: 65px 0 75px;
     }
@@ -1551,16 +1550,6 @@
         font-size: 17px;
     }
 
-    .ark-journey-content,
-    .ark-journey-item:nth-child(even) .ark-journey-content {
-        display: flex;
-        flex-direction: column;
-        gap: 17px;
-        align-items: stretch;
-        padding: 18px;
-        border-radius: 21px;
-    }
-
     .ark-journey-item:nth-child(even) .ark-journey-image,
     .ark-journey-item:nth-child(even) .ark-journey-copy {
         grid-column: auto;
@@ -1584,7 +1573,8 @@
     }
 
     .ark-journey-image {
-        height: 190px;
+        height: 220px;
+        width:100%;
         order: 2;
     }
 
@@ -1650,6 +1640,22 @@
     .ark-journey-content,
     .ark-journey-image img {
         transition: none;
+    }
+}
+
+/* Reduce timeline card width only between 768px and 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .ark-journey-content,
+    .ark-journey-item:nth-child(odd) .ark-journey-content,
+    .ark-journey-item:nth-child(even) .ark-journey-content {
+        width: calc(100% - 60px);
+        max-width: 760px;
+        justify-self: start;
+    }
+
+     .ark-journey-image {
+        height: 205px;
     }
 }
 
@@ -2146,7 +2152,7 @@
 }
 .ark-founder-scroll-section {
         position: relative;
-    padding: 120px 0 0;
+    padding: 5px 5px 5px;
     margin: 0;
     background: #f8f8f8;
 
@@ -2378,6 +2384,8 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 18px;
     margin-top: 18px;
+    margin-left:20px;
+    margin-right:20px;
 }
 
 .ark-purpose-stat {
@@ -3349,6 +3357,8 @@
     padding: 100px 0;
     background: #fdf8f3;
     border-radius:45px;
+    padding-left:20px;
+    padding-right:20px
 
 }
 
@@ -4112,7 +4122,7 @@
                                             <h2 class="trv-head-title">About <span class="site-text-yellow">World By
                                                     ARK</span></h2>
                                             <div class="trv-head-discription">
-                                                <p>World By ARK is a global travel company offering carefully curated domestic and international holiday packages. With personalized planning and reliable support, we help you explore India and the world with comfort, confidence, and unforgettable experiences.
+                                                <p>World By ARK is a global travel company offering carefully curated domestic and international holiday packages. We specialize in creating personalized travel experiences that match your interests, budget, and travel goals. From planning your itinerary to providing reliable support throughout your journey, we ensure every trip is smooth, comfortable, and memorable. Whether you're exploring the beauty of India or discovering destinations around the world, we're here to help you travel with confidence and create unforgettable memories.
                                                 </p>
                                             </div>
                                         </div>
@@ -4256,103 +4266,6 @@
 </div>
 </section>
 <!-- FOUNDER STORY SECTION END -->
-
-
-
-
-
-
-
-
-
-
-
-            <!-- FOUNDER STORY SECTION START -->
-<section class="ark-founder-story" id="founder-story">
-    <div class="container">
-
-        
-
-        <!-- Founder introduction -->
-        {% comment %} <div class="ark-founder-intro">
-
-            <div class="ark-founder-photo-wrap">
-
-                <div class="ark-founder-photo">
-                    <!-- Change this image path to the real founder image -->
-                    <img
-                        src="{% static 'assets/images/founder/worldbyark-founder.png' %}"
-                        alt="Anjali Rose - Founder of World By ARK"
-                    >
-                </div>
-
-                <div class="ark-founder-experience">
-                    <strong>10+</strong>
-                    <span>Years of<br>Experience</span>
-                </div>
-
-                <div class="ark-founder-country-badge">
-                    <strong>40+</strong>
-
-                    <span>
-                        Countries personally<br>
-                        explored
-                    </span>
-                </div>
-
-            </div>
-
-            <div class="ark-founder-content">
-
-                <span class="ark-founder-small-title">
-                    Meet Our Founder
-                </span>
-
-                <h3>Anjali Rose</h3>
-
-                <span class="ark-founder-role">
-                    Founder &amp; Travel Designer
-                </span>
-
-                <div class="ark-founder-lead">
-                    From a shy young woman leaving Kerala for the first time
-                    to a confident traveller connecting people across cultures.
-                </div>
-
-                <p>
-                    In 2013, Anjali Rose left everything familiar behind in
-                    Kerala, India, and moved to Germany to pursue her MBA.
-                    It was her first opportunity to experience a completely
-                    different world filled with new cultures, exciting
-                    possibilities and unforgettable experiences.
-                </p>
-
-                <p>
-                    At first, she was shy and hesitant to speak with people
-                    from different countries. She wondered whether they would
-                    understand her, accept her culture or judge her because
-                    of where she came from. But life had a very different
-                    journey waiting for her.
-                </p>
-
-                <p>
-                    Living in Europe opened doors she had never imagined.
-                    Every few weeks, she explored a new country or city,
-                    discovered different cultures, tasted local cuisines,
-                    attended festivals and met people from around the world.
-                </p>
-
-                <div class="ark-founder-quote">
-                    <p>
-                        Travel taught her that the world becomes smaller
-                        when people understand, respect and connect with
-                        one another.
-                    </p>
-                </div>
-
-            </div>
-
-        </div> {% endcomment %}
 
        <!-- HORIZONTAL JOURNEY TIMELINE START -->
 <!-- JOURNEY ACCORDION TIMELINE START -->
@@ -4959,9 +4872,6 @@
         </div>
 
     </div>
-</section>
-
-</div>
 </section>
 
 {% comment %} mission and vision end {% endcomment %}

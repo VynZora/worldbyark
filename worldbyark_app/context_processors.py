@@ -30,3 +30,10 @@ def footer_destinations(request):
     return {
         "footer_destinations": destinations,
     }
+
+def package_types(request) -> dict[str, Any]:
+    return {"package_types": TourPackage.PACKAGE_TYPE_CHOICES}
+
+def nav_packages(request) -> dict[str, Any]:
+    packages = TourPackage.objects.only("name", "slug", "package_type").order_by("name")
+    return {"nav_packages": packages}

@@ -1,5 +1,1654 @@
 {% extends 'frontend/base.html' %}
 {% load static %}
+
+{% block extra_css %}
+<style>
+{% comment %} filter button css start {% endcomment %}
+/* ==========================================
+   PACKAGE FILTER BUTTONS
+========================================== */
+
+.trv-package-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+
+/* Main button style */
+.package-filter-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 8px 20px;
+
+    background: transparent !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 30px !important;
+
+    color: #333333 !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+
+    overflow: hidden;
+    isolation: isolate;
+    cursor: pointer;
+
+    transition:
+        border-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+}
+
+
+/* Button text */
+.package-filter-btn .package-filter-text {
+    position: relative;
+    z-index: 2;
+
+    color: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    transition: color 0.5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+
+/* Diagonal animated fill */
+.package-filter-btn::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+
+    width: 0;
+    height: 320%;
+
+    background: linear-gradient(
+        135deg,
+        #F29979 0%,
+        #F2637E 100%
+    );
+
+    transform: translate(-50%, -50%) rotate(30deg);
+
+    transition: width 0.8s cubic-bezier(0.83, 0, 0.17, 1);
+
+    pointer-events: none;
+}
+
+
+/* Hover state */
+.package-filter-btn:hover {
+    background: transparent !important;
+    border-color: #F2637E !important;
+    color: #ffffff !important;
+
+    box-shadow: 0 8px 20px rgba(242, 99, 126, 0.22);
+}
+
+
+/* Expand animated background */
+.package-filter-btn:hover::after {
+    width: calc(150% + 40px);
+}
+
+
+/* Keep text above animation */
+.package-filter-btn:hover .package-filter-text {
+    color: #ffffff;
+}
+
+
+/* Active selected filter */
+.package-filter-btn.active {
+    background: linear-gradient(
+        135deg,
+        #F29979 0%,
+        #F2637E 100%
+    ) !important;
+
+    border-color: #F2637E !important;
+    color: #ffffff !important;
+
+    box-shadow: 0 8px 20px rgba(242, 99, 126, 0.2);
+}
+
+
+/* Hide animation layer on selected button */
+.package-filter-btn.active::after {
+    display: none;
+}
+
+
+/* Selected button hover */
+.package-filter-btn.active:hover {
+    background: linear-gradient(
+        135deg,
+        #F29979 0%,
+        #F2637E 100%
+    ) !important;
+
+    color: #ffffff !important;
+    border-color: #F2637E !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* Click effect */
+.package-filter-btn:active {
+    transform: scale(0.97);
+    filter: brightness(0.95);
+}
+
+
+/* Keyboard focus */
+.package-filter-btn:focus,
+.package-filter-btn:focus-visible {
+    outline: none;
+}
+
+.package-filter-btn:focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(242, 99, 126, 0.2),
+        0 8px 20px rgba(242, 99, 126, 0.18);
+}
+
+
+/* Remove theme button decorations */
+.package-filter-btn::before {
+    display: none !important;
+}
+
+
+/* Tablet */
+@media only screen and (max-width: 991px) {
+    .trv-package-filter-buttons {
+        gap: 9px;
+    }
+
+    .package-filter-btn {
+        min-height: 40px;
+        padding: 8px 18px;
+    }
+}
+
+
+/* Mobile */
+@media only screen and (max-width: 575px) {
+    .trv-package-filter-buttons {
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+
+    .package-filter-btn {
+        min-height: 38px;
+        padding: 7px 15px;
+        font-size: 13px;
+    }
+
+    .package-filter-btn .package-filter-text {
+        font-size: 13px;
+    }
+}
+
+
+/* Reduce animation for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .package-filter-btn,
+    .package-filter-btn::after,
+    .package-filter-btn .package-filter-text {
+        transition: none;
+    }
+}
+
+{% comment %} filter button css end {% endcomment %}
+
+
+{% comment %} hot selling packages css start {% endcomment %}
+{% comment %} /* =========================================================
+   WORLD BY ARK — HOT SELLING PACKAGE
+========================================================= */
+
+.ark-hot-package-section {
+    position: relative;
+    overflow: hidden;
+    padding: 30px 20px 110px;
+    background: #ffffff;
+}
+
+.ark-hot-package-container {
+    width: min(100%, 1320px);
+    margin: 0 auto;
+    perspective: 1400px;
+}
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.ark-hot-package-heading {
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.ark-hot-package-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #f2637e;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ark-hot-package-eyebrow i {
+    font-size: 18px;
+}
+
+.ark-hot-package-heading h2 {
+    margin: 0 0 10px;
+    color: #3c2d73;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(36px, 4vw, 55px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ark-hot-package-heading p {
+    margin: 0;
+    color: #68787b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.ark-hot-package-card {
+    position: relative;
+    min-height: 540px;
+    display: grid;
+    grid-template-columns: 31% 43% 26%;
+    align-items: center;
+    overflow: hidden;
+    padding: 45px 38px 0;
+    border-radius: 38px;
+
+    background:
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(255, 255, 255, 0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #ff765f 0%,
+            #f2637e 100%
+        );
+
+    box-shadow: 0 30px 80px rgba(242, 99, 126, 0.22);
+
+    opacity: 1;
+    visibility: visible;
+    transform-origin: center center;
+    will-change: transform;
+    isolation: isolate;
+}
+
+/* Decorative circle */
+
+.ark-hot-package-card::before {
+    content: "";
+    position: absolute;
+    right: 24%;
+    bottom: -230px;
+    z-index: -1;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+
+/* Large background word */
+
+.ark-hot-package-card::after {
+    content: "TRAVEL";
+    position: absolute;
+    left: 50%;
+    bottom: -42px;
+    z-index: -1;
+    color: rgba(255, 255, 255, 0.065);
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(100px, 14vw, 210px);
+    font-weight: 800;
+    line-height: 1;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* =========================================================
+   LEFT IMAGE
+========================================================= */
+
+.ark-hot-package-left {
+    position: relative;
+    z-index: 2;
+    align-self: end;
+    height: 465px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-hot-package-main-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 5px solid rgba(255, 255, 255, 0.92);
+    border-bottom: 0;
+    border-radius: 190px 190px 0 0;
+    background: #ffffff;
+    box-shadow: 0 25px 55px rgba(60, 45, 115, 0.2);
+}
+
+.ark-hot-package-main-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s ease;
+}
+
+.ark-hot-package-card:hover
+.ark-hot-package-main-image img {
+    transform: scale(1.04);
+}
+
+/* =========================================================
+   HOT BADGE
+========================================================= */
+
+.ark-hot-package-badge {
+    position: absolute;
+    top: -5px;
+    left: -15px;
+    z-index: 5;
+    width: 105px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px 32px 10px 32px;
+    background: #3c2d73;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(60, 45, 115, 0.3);
+    animation: arkHotBadgeFloat 3.2s ease-in-out infinite;
+}
+
+.ark-hot-package-badge i {
+    margin-bottom: 5px;
+    color: #ff806f;
+    font-size: 31px;
+}
+
+.ark-hot-package-badge strong {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.ark-hot-package-badge span {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+@keyframes arkHotBadgeFloat {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -9px;
+    }
+}
+
+/* =========================================================
+   CENTER CONTENT
+========================================================= */
+
+.ark-hot-package-content {
+    position: relative;
+    z-index: 3;
+    padding: 25px 40px 55px;
+    text-align: center;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-hot-package-choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.ark-hot-package-choice i {
+    color: #ffe28f;
+}
+
+.ark-hot-package-content h3 {
+    margin: 0 0 17px;
+    color: #ffffff;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(35px, 3.7vw, 55px);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.ark-hot-package-description {
+    display: -webkit-box;
+    max-width: 560px;
+    margin: 0 auto 22px;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* =========================================================
+   PACKAGE META
+========================================================= */
+
+.ark-hot-package-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.ark-hot-package-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.ark-hot-package-meta i {
+    font-size: 15px;
+}
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.ark-hot-package-price {
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+}
+
+.ark-hot-package-price strong {
+    display: block;
+    margin-top: 5px;
+    color: #ffffff;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(33px, 3vw, 47px);
+    line-height: 1;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.ark-hot-package-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.ark-hot-package-btn {
+    min-height: 57px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 27px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #3c2d73;
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.ark-hot-package-btn:hover {
+    background: #ffffff;
+    color: #3c2d73 !important;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(60, 45, 115, 0.2);
+}
+
+.ark-hot-package-btn-outline {
+    border-color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ark-hot-package-btn-outline:hover {
+    border-color: #ffffff;
+    background: #ffffff;
+}
+
+/* =========================================================
+   RIGHT IMAGE COLLAGE
+========================================================= */
+
+.ark-hot-package-right {
+    position: relative;
+    z-index: 3;
+    height: 450px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-hot-package-side-image {
+    position: absolute;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    background: #ffffff;
+    box-shadow: 0 20px 45px rgba(60, 45, 115, 0.2);
+    will-change: transform;
+}
+
+.ark-hot-package-side-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.ark-hot-package-side-image:hover img {
+    transform: scale(1.06);
+}
+
+.ark-hot-package-side-image:first-child {
+    top: -5px;
+    right: 0;
+    width: 235px;
+    height: 270px;
+    border-radius: 35px 35px 8px 35px;
+    animation: arkHotSideFloatOne 5s ease-in-out infinite;
+}
+
+.ark-hot-package-side-image:last-child {
+    right: -5px;
+    bottom: 5px;
+    width: 205px;
+    height: 220px;
+    border-radius: 35px 8px 35px 35px;
+    animation: arkHotSideFloatTwo 5.5s ease-in-out infinite;
+}
+
+@keyframes arkHotSideFloatOne {
+    0%,
+    100% {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    50% {
+        translate: 0 -10px;
+        rotate: 1deg;
+    }
+}
+
+@keyframes arkHotSideFloatTwo {
+    0%,
+    100% {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    50% {
+        translate: 0 10px;
+        rotate: -1deg;
+    }
+}
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.ark-hot-package-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 35px 45px 0;
+}
+
+.ark-hot-package-benefit {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ark-hot-package-benefit-icon {
+    width: 55px;
+    height: 55px;
+    flex: 0 0 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(242, 99, 126, 0.12);
+    color: #f2637e;
+    font-size: 23px;
+}
+
+.ark-hot-package-benefit strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #3c2d73;
+    font-size: 15px;
+}
+
+.ark-hot-package-benefit p {
+    margin: 0;
+    color: #768486;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   RESPONSIVE — LARGE TABLET
+========================================================= */
+
+@media (max-width: 1199px) {
+    .ark-hot-package-card {
+        grid-template-columns: 30% 45% 25%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .ark-hot-package-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .ark-hot-package-side-image:first-child {
+        width: 195px;
+    }
+
+    .ark-hot-package-side-image:last-child {
+        width: 175px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+    .ark-hot-package-section {
+        padding-bottom: 85px;
+    }
+
+    .ark-hot-package-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 50px 35px 0;
+    }
+
+    .ark-hot-package-content {
+        grid-row: 1;
+        padding: 0 10px 45px;
+    }
+
+    .ark-hot-package-left {
+        grid-row: 2;
+        width: min(100%, 480px);
+        height: 480px;
+        margin: 0 auto;
+    }
+
+    .ark-hot-package-right {
+        display: none;
+    }
+
+    .ark-hot-package-benefits {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+    .ark-hot-package-section {
+        padding: 10px 12px 65px;
+    }
+
+    .ark-hot-package-heading {
+        margin-bottom: 25px;
+    }
+
+    .ark-hot-package-heading h2 {
+        font-size: 34px;
+    }
+
+    .ark-hot-package-heading p {
+        font-size: 14px;
+    }
+
+    .ark-hot-package-card {
+        padding: 40px 17px 0;
+        border-radius: 26px;
+    }
+
+    .ark-hot-package-content {
+        padding: 0 0 35px;
+    }
+
+    .ark-hot-package-content h3 {
+        font-size: 34px;
+    }
+
+    .ark-hot-package-description {
+        font-size: 14px;
+    }
+
+    .ark-hot-package-meta {
+        gap: 7px;
+    }
+
+    .ark-hot-package-meta span {
+        min-height: 38px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+    .ark-hot-package-actions {
+        flex-direction: column;
+    }
+
+    .ark-hot-package-btn {
+        width: 100%;
+    }
+
+    .ark-hot-package-left {
+        height: 390px;
+    }
+
+    .ark-hot-package-main-image {
+        border-radius: 150px 150px 0 0;
+    }
+
+    .ark-hot-package-badge {
+        left: 0;
+        width: 88px;
+        height: 103px;
+    }
+
+    .ark-hot-package-badge i {
+        font-size: 25px;
+    }
+
+    .ark-hot-package-badge strong {
+        font-size: 15px;
+    }
+
+    .ark-hot-package-benefits {
+        padding-top: 25px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-hot-package-badge,
+    .ark-hot-package-side-image:first-child,
+    .ark-hot-package-side-image:last-child {
+        animation: none;
+    }
+
+    .ark-hot-package-card {
+        transform: none !important;
+    }
+} {% endcomment %}
+
+
+/* =========================================================
+   WORLD BY ARK — HOT SELLING PACKAGE
+========================================================= */
+
+.ark-hot-package-section {
+    position: relative;
+    overflow: hidden;
+    padding: 30px 20px 110px;
+    background: #ffffff;
+}
+
+.ark-hot-package-container {
+    width: min(100%, 1320px);
+    margin: 0 auto;
+    perspective: 1400px;
+}
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.ark-hot-package-heading {
+    margin-bottom: 35px;
+    text-align: center;
+    will-change: transform, opacity;
+}
+
+.ark-hot-package-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #f2637e;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ark-hot-package-eyebrow i {
+    font-size: 18px;
+}
+
+.ark-hot-package-heading h2 {
+    margin: 0 0 10px;
+    color: #3c2d73;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(36px, 4vw, 55px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ark-hot-package-heading p {
+    margin: 0;
+    color: #68787b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   MAIN HOT PACKAGE CARD
+========================================================= */
+
+.ark-hot-package-card {
+    position: relative;
+    min-height: 540px;
+    display: grid;
+    grid-template-columns: 31% 43% 26%;
+    align-items: center;
+    overflow: hidden;
+    padding: 45px 38px 0;
+    border-radius: 38px;
+
+    background:
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(255, 255, 255, 0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #ff765f 0%,
+            #f2637e 100%
+        );
+
+    box-shadow: 0 30px 80px rgba(242, 99, 126, 0.22);
+
+    opacity: 1;
+    visibility: visible;
+    transform-origin: center center;
+    will-change: transform;
+    isolation: isolate;
+}
+
+.ark-hot-package-card::before {
+    content: "";
+    position: absolute;
+    right: 24%;
+    bottom: -230px;
+    z-index: -1;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+
+.ark-hot-package-card::after {
+    content: "TRAVEL";
+    position: absolute;
+    left: 50%;
+    bottom: -42px;
+    z-index: -1;
+    color: rgba(255, 255, 255, 0.065);
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(100px, 14vw, 210px);
+    font-weight: 800;
+    line-height: 1;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* =========================================================
+   LEFT PACKAGE IMAGE
+========================================================= */
+
+.ark-hot-package-left {
+    position: relative;
+    z-index: 2;
+    align-self: end;
+    height: 465px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-hot-package-main-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 5px solid rgba(255, 255, 255, 0.92);
+    border-bottom: 0;
+    border-radius: 190px 190px 0 0;
+    background: #ffffff;
+    box-shadow: 0 25px 55px rgba(60, 45, 115, 0.2);
+}
+
+.ark-hot-package-main-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s ease;
+}
+
+.ark-hot-package-card:hover
+.ark-hot-package-main-image img {
+    transform: scale(1.04);
+}
+
+/* =========================================================
+   HOT SELLING BADGE
+========================================================= */
+
+.ark-hot-package-badge {
+    position: absolute;
+    top: -5px;
+    left: -15px;
+    z-index: 5;
+    width: 105px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px 32px 10px 32px;
+    background: #3c2d73;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(60, 45, 115, 0.3);
+    animation: arkHotBadgeFloat 3.2s ease-in-out infinite;
+}
+
+.ark-hot-package-badge i {
+    margin-bottom: 5px;
+    color: #ff806f;
+    font-size: 31px;
+}
+
+.ark-hot-package-badge strong {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.ark-hot-package-badge span {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+@keyframes arkHotBadgeFloat {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -9px;
+    }
+}
+
+/* =========================================================
+   CENTER PACKAGE CONTENT
+========================================================= */
+
+.ark-hot-package-content {
+    position: relative;
+    z-index: 3;
+    padding: 25px 40px 55px;
+    text-align: center;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-hot-package-choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.ark-hot-package-choice i {
+    color: #ffe28f;
+}
+
+.ark-hot-package-content h3 {
+    margin: 0 0 17px;
+    color: #ffffff;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(35px, 3.7vw, 55px);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.ark-hot-package-description {
+    display: -webkit-box;
+    max-width: 560px;
+    margin: 0 auto 22px;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* =========================================================
+   PACKAGE INFORMATION
+========================================================= */
+
+.ark-hot-package-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.ark-hot-package-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.ark-hot-package-meta i {
+    font-size: 15px;
+}
+
+/* =========================================================
+   PACKAGE PRICE
+========================================================= */
+
+.ark-hot-package-price {
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+}
+
+.ark-hot-package-price strong {
+    display: block;
+    margin-top: 5px;
+    color: #ffffff;
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(33px, 3vw, 47px);
+    line-height: 1;
+}
+
+/* =========================================================
+   PACKAGE BUTTONS
+========================================================= */
+
+.ark-hot-package-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.ark-hot-package-btn {
+    min-height: 57px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 27px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #3c2d73;
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.ark-hot-package-btn:hover {
+    background: #ffffff;
+    color: #3c2d73 !important;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(60, 45, 115, 0.2);
+}
+
+.ark-hot-package-btn-outline {
+    border-color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ark-hot-package-btn-outline:hover {
+    border-color: #ffffff;
+    background: #ffffff;
+}
+
+/* =========================================================
+   RIGHT IMAGE COLLAGE
+========================================================= */
+
+.ark-hot-package-right {
+    position: relative;
+    z-index: 3;
+    height: 450px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-hot-package-side-image {
+    position: absolute;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    background: #ffffff;
+    box-shadow: 0 20px 45px rgba(60, 45, 115, 0.2);
+    will-change: transform;
+}
+
+.ark-hot-package-side-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.ark-hot-package-side-image:hover img {
+    transform: scale(1.06);
+}
+
+.ark-hot-package-side-image:first-child {
+    top: -5px;
+    right: 0;
+    width: 235px;
+    height: 270px;
+    border-radius: 35px 35px 8px 35px;
+    animation: arkHotSideFloatOne 5s ease-in-out infinite;
+}
+
+.ark-hot-package-side-image:last-child {
+    right: -5px;
+    bottom: 5px;
+    width: 205px;
+    height: 220px;
+    border-radius: 35px 8px 35px 35px;
+    animation: arkHotSideFloatTwo 5.5s ease-in-out infinite;
+}
+
+@keyframes arkHotSideFloatOne {
+    0%,
+    100% {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    50% {
+        translate: 0 -10px;
+        rotate: 1deg;
+    }
+}
+
+@keyframes arkHotSideFloatTwo {
+    0%,
+    100% {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    50% {
+        translate: 0 10px;
+        rotate: -1deg;
+    }
+}
+
+/* =========================================================
+   HOT PACKAGE BENEFITS
+========================================================= */
+
+.ark-hot-package-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 35px 45px 0;
+
+    opacity: 1;
+    visibility: visible;
+    transform-origin: center center;
+    will-change: transform, opacity;
+}
+
+.ark-hot-package-benefit {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    overflow: hidden;
+    border: 1px solid rgba(242, 99, 126, 0.12);
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 35px rgba(60, 45, 115, 0.07);
+
+    opacity: 1;
+    visibility: visible;
+    will-change: transform, opacity;
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.ark-hot-package-benefit::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        110deg,
+        transparent 25%,
+        rgba(242, 99, 126, 0.07) 50%,
+        transparent 75%
+    );
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+
+.ark-hot-package-benefit:hover {
+    border-color: rgba(242, 99, 126, 0.3);
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(60, 45, 115, 0.12);
+}
+
+.ark-hot-package-benefit:hover::before {
+    left: 100%;
+}
+
+.ark-hot-package-benefit-icon {
+    position: relative;
+    z-index: 2;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(242, 99, 126, 0.12);
+    color: #f2637e;
+    font-size: 24px;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.ark-hot-package-benefit:hover
+.ark-hot-package-benefit-icon {
+    background: #f2637e;
+    color: #ffffff;
+    transform: translateY(-4px) rotate(-5deg) scale(1.08);
+    box-shadow: 0 14px 30px rgba(242, 99, 126, 0.25);
+}
+
+.ark-hot-package-benefit > div:last-child {
+    position: relative;
+    z-index: 2;
+}
+
+.ark-hot-package-benefit strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #3c2d73;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.ark-hot-package-benefit:hover strong {
+    color: #f2637e;
+}
+
+.ark-hot-package-benefit p {
+    margin: 0;
+    color: #768486;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   RESPONSIVE — LARGE TABLET
+========================================================= */
+
+@media (max-width: 1199px) {
+    .ark-hot-package-card {
+        grid-template-columns: 30% 45% 25%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .ark-hot-package-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .ark-hot-package-side-image:first-child {
+        width: 195px;
+    }
+
+    .ark-hot-package-side-image:last-child {
+        width: 175px;
+    }
+
+    .ark-hot-package-benefits {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+    .ark-hot-package-section {
+        padding-bottom: 85px;
+    }
+
+    .ark-hot-package-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 50px 35px 0;
+    }
+
+    .ark-hot-package-content {
+        grid-row: 1;
+        padding: 0 10px 45px;
+    }
+
+    .ark-hot-package-left {
+        grid-row: 2;
+        width: min(100%, 480px);
+        height: 480px;
+        margin: 0 auto;
+    }
+
+    .ark-hot-package-right {
+        display: none;
+    }
+
+    .ark-hot-package-benefits {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 30px 15px 0;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+    .ark-hot-package-section {
+        padding: 10px 12px 65px;
+    }
+
+    .ark-hot-package-heading {
+        margin-bottom: 25px;
+    }
+
+    .ark-hot-package-heading h2 {
+        font-size: 34px;
+    }
+
+    .ark-hot-package-heading p {
+        font-size: 14px;
+    }
+
+    .ark-hot-package-card {
+        padding: 40px 17px 0;
+        border-radius: 26px;
+    }
+
+    .ark-hot-package-content {
+        padding: 0 0 35px;
+    }
+
+    .ark-hot-package-content h3 {
+        font-size: 34px;
+    }
+
+    .ark-hot-package-description {
+        font-size: 14px;
+    }
+
+    .ark-hot-package-meta {
+        gap: 7px;
+    }
+
+    .ark-hot-package-meta span {
+        min-height: 38px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+    .ark-hot-package-actions {
+        flex-direction: column;
+    }
+
+    .ark-hot-package-btn {
+        width: 100%;
+    }
+
+    .ark-hot-package-left {
+        height: 390px;
+    }
+
+    .ark-hot-package-main-image {
+        border-radius: 150px 150px 0 0;
+    }
+
+    .ark-hot-package-badge {
+        left: 0;
+        width: 88px;
+        height: 103px;
+    }
+
+    .ark-hot-package-badge i {
+        font-size: 25px;
+    }
+
+    .ark-hot-package-badge strong {
+        font-size: 15px;
+    }
+
+    .ark-hot-package-benefits {
+        gap: 14px;
+        padding: 25px 0 0;
+    }
+
+    .ark-hot-package-benefit {
+        padding: 15px;
+        border-radius: 16px;
+    }
+
+    .ark-hot-package-benefit-icon {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+        font-size: 21px;
+    }
+
+    .ark-hot-package-benefit strong {
+        font-size: 14px;
+    }
+
+    .ark-hot-package-benefit p {
+        font-size: 12px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-hot-package-badge,
+    .ark-hot-package-side-image:first-child,
+    .ark-hot-package-side-image:last-child {
+        animation: none;
+    }
+
+    .ark-hot-package-card,
+    .ark-hot-package-benefits,
+    .ark-hot-package-benefit,
+    .ark-hot-package-heading {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+}
+
+
+
+
+{% comment %} hot selling packages css end  {% endcomment %}
+
+</style>
+{% endblock%}
+
 {% block content %}
 <div class="page-content">
 
@@ -21,15 +1670,6 @@
                 </div>
                 <!-- BREADCRUMB ROW END -->                        
             </div>
-            {% comment %} <div class="trv-inr-bnr-cloud">            
-                <div class="marquee">
-                    <img src="{% static 'assets/images/inr-banner-cloud.png' %}" alt="Image">
-                </div>
-            </div>
-            <div class="trv-inr-bnr-plane">
-                <div class="trv-inr-bnr-plane-bx"><img src="{% static 'assets/images/airplane.png' %}" alt="Image"></div>
-                
-            </div> {% endcomment %}
             <div class="trv-inr-bnr-bloon-1"><img src="{% static 'assets/images/hotballon-Left.png' %}" alt="Image"></div>
             <div class="trv-inr-bnr-bloon-2"><img src="{% static 'assets/images/hotballon-right.png' %}" alt="Image"></div>
         </div>
@@ -47,6 +1687,27 @@
                     </div>
                 </div>
                 <!-- TITLE END-->
+
+
+
+ <!-- PACKAGE TYPE FILTER -->
+<div class="trv-package-filter-wrap text-center mb-4">
+    <div class="trv-package-filter-buttons">
+
+        <a href="?type=all"
+           class="site-button-secondry package-filter-btn {% if selected_type == 'all' %}active{% endif %}">
+            <span class="package-filter-text">All Packages</span>
+        </a>
+
+        {% for value, label in package_types %}
+        <a href="?type={{ value }}"
+           class="site-button-secondry package-filter-btn {% if selected_type == value %}active{% endif %}">
+            <span class="package-filter-text">{{ label }}</span>
+        </a>
+        {% endfor %}
+
+    </div>
+</div>
 
                 <div class="section-content">
 
@@ -109,18 +1770,18 @@
                             {% endfor %}
                         </div>
                         {% if packages.has_other_pages %}
-                        <ul class="custom-pagination clearfix">
-                            {% if packages.has_previous %}
-                            <li class="prev"><a href="?page={{ packages.previous_page_number }}"><span class="bi bi-chevron-left"></span></a></li>
-                            {% endif %}
-                            {% for num in packages.paginator.page_range %}
-                            <li {% if packages.number == num %}class="active"{% endif %}><a href="?page={{ num }}">{{ num }}</a></li>
-                            {% endfor %}
-                            {% if packages.has_next %}
-                            <li class="next"><a href="?page={{ packages.next_page_number }}"><span class="bi bi-chevron-right"></span></a></li>
-                            {% endif %}
-                        </ul>
-                        {% endif %}
+<ul class="custom-pagination clearfix">
+    {% if packages.has_previous %}
+    <li class="prev"><a href="?type={{ selected_type }}&page={{ packages.previous_page_number }}"><span class="bi bi-chevron-left"></span></a></li>
+    {% endif %}
+    {% for num in packages.paginator.page_range %}
+    <li {% if packages.number == num %}class="active"{% endif %}><a href="?type={{ selected_type }}&page={{ num }}">{{ num }}</a></li>
+    {% endfor %}
+    {% if packages.has_next %}
+    <li class="next"><a href="?type={{ selected_type }}&page={{ packages.next_page_number }}"><span class="bi bi-chevron-right"></span></a></li>
+    {% endif %}
+</ul>
+{% endif %}
                     </div>
                     
                 </div> 
@@ -128,6 +1789,194 @@
             </div>
         </div>
         <!--EXPLORE POPULAR TOUR END-->
+
+
+
+
+        <!-- =====================================================
+     HOT SELLING PACKAGE START
+===================================================== -->
+{% if hot_selling_package %}
+<section class="ark-hot-package-section">
+
+    <div class="ark-hot-package-container">
+
+        <!-- SECTION HEADING -->
+        <div class="ark-hot-package-heading">
+
+            <h2>Our Most Loved Journey</h2>
+
+            <p>
+                A handpicked travel experience loved by our travellers.
+            </p>
+
+        </div>
+
+        <!-- PROMOTIONAL CARD -->
+        <div class="ark-hot-package-card">
+
+            <!-- LEFT IMAGE -->
+            <div class="ark-hot-package-left">
+
+                <div class="ark-hot-package-badge">
+                    <i class="bi bi-fire"></i>
+                    <strong>HOT</strong>
+                    <span>Selling</span>
+                </div>
+
+                <div class="ark-hot-package-main-image">
+                    <img
+                        src="{{ hot_selling_package.main_image.url }}"
+                        alt="{{ hot_selling_package.name }}"
+                    >
+                </div>
+
+            </div>
+
+            <!-- CENTER CONTENT -->
+            <div class="ark-hot-package-content">
+
+                <div class="ark-hot-package-choice">
+                    <i class="bi bi-star-fill"></i>
+                    Most Popular Choice
+                </div>
+
+                <h3>{{ hot_selling_package.name }}</h3>
+
+                <div class="ark-hot-package-description">
+                    {{ hot_selling_package.description|striptags|truncatewords:30 }}
+                </div>
+
+                <div class="ark-hot-package-meta">
+
+                    {% if hot_selling_package.duration %}
+                    <span>
+                        <i class="bi bi-calendar2-week"></i>
+                        {{ hot_selling_package.duration }}
+                    </span>
+                    {% endif %}
+
+                    <span>
+                        <i class="bi bi-people"></i>
+                        Customisable
+                    </span>
+
+                    <span>
+                        <i class="bi bi-geo-alt"></i>
+                        Popular Destination
+                    </span>
+
+                </div>
+
+                {% if hot_selling_package.price_from %}
+                <div class="ark-hot-package-price">
+                    Starting from
+
+                    <strong>
+                        ₹{{ hot_selling_package.price_from|floatformat:0 }}
+                    </strong>
+                </div>
+                {% endif %}
+
+                <div class="ark-hot-package-actions">
+
+                    <a
+                        href="{% url 'package_detail' hot_selling_package.slug %}"
+                        class="ark-hot-package-btn"
+                    >
+                        Explore Package
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                    <button
+                        type="button"
+                        class="ark-hot-package-btn ark-hot-package-btn-outline"
+                        data-bs-toggle="modal"
+                        data-bs-target="#bookingModal"
+                        onclick="openBookingModal('{{ hot_selling_package.name|escapejs }}')"
+                    >
+                        Enquire Now
+                        <i class="bi bi-send"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT IMAGES -->
+            <div class="ark-hot-package-right">
+
+                <div class="ark-hot-package-side-image">
+                    <img
+                        src="{{ hot_selling_package.main_image.url }}"
+                        alt="{{ hot_selling_package.name }}"
+                    >
+                </div>
+
+                <div class="ark-hot-package-side-image">
+                    <img
+                        src="{{ hot_selling_package.main_image.url }}"
+                        alt="{{ hot_selling_package.name }}"
+                    >
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BENEFIT ITEMS -->
+        <div class="ark-hot-package-benefits">
+
+            <div class="ark-hot-package-benefit">
+
+                <div class="ark-hot-package-benefit-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+
+                <div>
+                    <strong>Best Price Guarantee</strong>
+                    <p>Get the best value for your dream destination.</p>
+                </div>
+
+            </div>
+
+            <div class="ark-hot-package-benefit">
+
+                <div class="ark-hot-package-benefit-icon">
+                    <i class="bi bi-headset"></i>
+                </div>
+
+                <div>
+                    <strong>24/7 Customer Support</strong>
+                    <p>Reliable assistance throughout your journey.</p>
+                </div>
+
+            </div>
+
+            <div class="ark-hot-package-benefit">
+
+                <div class="ark-hot-package-benefit-icon">
+                    <i class="bi bi-patch-check"></i>
+                </div>
+
+                <div>
+                    <strong>Trusted Travel Planning</strong>
+                    <p>Carefully planned experiences for every traveller.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+{% endif %}
+<!-- HOT SELLING PACKAGE END -->
+
+
+
+
 
         <!-- ADVENTURE SECTION START -->
         <div class="trv-adventure-st1" style="position: relative; overflow: hidden;">
@@ -262,4 +2111,481 @@
 
     </div>
     <!-- CONTENT END -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+{% endblock %}
+
+{% block extra_js%}
+
+{% comment %} hot selling js start {% endcomment %}
+{% comment %} <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const section = document.querySelector(
+        ".ark-hot-package-section"
+    );
+
+    const card = document.querySelector(
+        ".ark-hot-package-card"
+    );
+
+    if (!section || !card) {
+        return;
+    }
+
+    /*
+     * Keep the card visible when GSAP fails to load.
+     */
+    card.style.opacity = "1";
+    card.style.visibility = "visible";
+
+    if (
+        typeof gsap === "undefined" ||
+        typeof ScrollTrigger === "undefined"
+    ) {
+        card.style.transform = "none";
+        return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /*
+     * Use GSAP matchMedia so desktop and mobile can have
+     * different starting scale values.
+     */
+    const media = gsap.matchMedia();
+
+    /*
+     * Desktop animation
+     *
+     * The card:
+     * 1. Starts small when entering the viewport.
+     * 2. Expands according to scrolling.
+     * 3. Reaches full size near the viewport centre.
+     * 4. Shrinks automatically when scrolling upward.
+     */
+    media.add("(min-width: 992px)", function () {
+
+        gsap.fromTo(
+            card,
+            {
+                scale: 0.58,
+                y: 150,
+                borderRadius: "60px",
+                transformOrigin: "center center"
+            },
+            {
+                scale: 1,
+                y: 0,
+                borderRadius: "38px",
+                ease: "none",
+
+                scrollTrigger: {
+                    trigger: section,
+
+                    /*
+                     * Start when the top of the section reaches
+                     * the bottom of the browser window.
+                     */
+                    start: "top 100%",
+
+                    /*
+                     * Finish when the section's top reaches
+                     * approximately 28% from the viewport top.
+                     */
+                    end: "top 28%",
+
+                    /*
+                     * Makes the animation follow the scrollbar.
+                     * It also automatically reverses while
+                     * scrolling upward.
+                     */
+                    scrub: 1.25,
+
+                    invalidateOnRefresh: true
+                }
+            }
+        );
+    });
+
+    /*
+     * Tablet and mobile animation.
+     * Starts less small to prevent excessive empty space.
+     */
+    media.add("(max-width: 991px)", function () {
+
+        gsap.fromTo(
+            card,
+            {
+                scale: 0.78,
+                y: 90,
+                borderRadius: "42px",
+                transformOrigin: "center center"
+            },
+            {
+                scale: 1,
+                y: 0,
+                borderRadius: "26px",
+                ease: "none",
+
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 95%",
+                    end: "top 38%",
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            }
+        );
+    });
+
+    /*
+     * Optional heading reveal.
+     * This does not affect the scale of the card.
+     */
+    const heading = section.querySelector(
+        ".ark-hot-package-heading"
+    );
+
+    if (heading) {
+        gsap.fromTo(
+            heading,
+            {
+                opacity: 0,
+                y: 45
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power3.out",
+
+                scrollTrigger: {
+                    trigger: heading,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    }
+
+    /*
+     * Benefits reveal separately after the main card.
+     */
+    const benefits = section.querySelectorAll(
+        ".ark-hot-package-benefit"
+    );
+
+    if (benefits.length) {
+        gsap.fromTo(
+            benefits,
+            {
+                opacity: 0,
+                y: 35
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.65,
+                stagger: 0.12,
+                ease: "power3.out",
+
+                scrollTrigger: {
+                    trigger: ".ark-hot-package-benefits",
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    }
+
+    /*
+     * Refresh after images and page resources finish loading.
+     */
+    window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+    });
+});
+</script> {% endcomment %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const section = document.querySelector(
+        ".ark-hot-package-section"
+    );
+
+    if (!section) {
+        return;
+    }
+
+    const card = section.querySelector(
+        ".ark-hot-package-card"
+    );
+
+    const heading = section.querySelector(
+        ".ark-hot-package-heading"
+    );
+
+    const benefitsWrap = section.querySelector(
+        ".ark-hot-package-benefits"
+    );
+
+    const benefitItems = section.querySelectorAll(
+        ".ark-hot-package-benefit"
+    );
+
+    /*
+     * Fallback visibility when GSAP does not load.
+     */
+    if (card) {
+        card.style.opacity = "1";
+        card.style.visibility = "visible";
+    }
+
+    if (benefitsWrap) {
+        benefitsWrap.style.opacity = "1";
+        benefitsWrap.style.visibility = "visible";
+    }
+
+    benefitItems.forEach(function (item) {
+        item.style.visibility = "visible";
+    });
+
+    if (
+        typeof gsap === "undefined" ||
+        typeof ScrollTrigger === "undefined"
+    ) {
+        return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const media = gsap.matchMedia();
+
+    /* =====================================================
+       DESKTOP ANIMATIONS
+    ===================================================== */
+
+    media.add("(min-width: 992px)", function () {
+
+        /*
+         * Main package card:
+         * small to full size while scrolling down.
+         * Automatically reverses while scrolling up.
+         */
+        if (card) {
+            gsap.fromTo(
+                card,
+                {
+                    scale: 0.58,
+                    y: 150,
+                    borderRadius: "60px",
+                    transformOrigin: "center center"
+                },
+                {
+                    scale: 1,
+                    y: 0,
+                    borderRadius: "38px",
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 100%",
+                        end: "top 28%",
+                        scrub: 1.25,
+                        invalidateOnRefresh: true
+                    }
+                }
+            );
+        }
+
+        /*
+         * Complete benefits wrapper:
+         * starts smaller and grows to full size.
+         */
+        if (benefitsWrap) {
+            gsap.fromTo(
+                benefitsWrap,
+                {
+                    scale: 0.68,
+                    y: 95,
+                    opacity: 0.35,
+                    transformOrigin: "center center"
+                },
+                {
+                    scale: 1,
+                    y: 0,
+                    opacity: 1,
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: benefitsWrap,
+                        start: "top 100%",
+                        end: "top 62%",
+                        scrub: 1.15,
+                        invalidateOnRefresh: true
+                    }
+                }
+            );
+        }
+    });
+
+    /* =====================================================
+       TABLET AND MOBILE ANIMATIONS
+    ===================================================== */
+
+    media.add("(max-width: 991px)", function () {
+
+        if (card) {
+            gsap.fromTo(
+                card,
+                {
+                    scale: 0.78,
+                    y: 90,
+                    borderRadius: "42px",
+                    transformOrigin: "center center"
+                },
+                {
+                    scale: 1,
+                    y: 0,
+                    borderRadius: "26px",
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 95%",
+                        end: "top 38%",
+                        scrub: 1,
+                        invalidateOnRefresh: true
+                    }
+                }
+            );
+        }
+
+        if (benefitsWrap) {
+            gsap.fromTo(
+                benefitsWrap,
+                {
+                    scale: 0.84,
+                    y: 65,
+                    opacity: 0.4,
+                    transformOrigin: "center center"
+                },
+                {
+                    scale: 1,
+                    y: 0,
+                    opacity: 1,
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: benefitsWrap,
+                        start: "top 96%",
+                        end: "top 68%",
+                        scrub: 1,
+                        invalidateOnRefresh: true
+                    }
+                }
+            );
+        }
+    });
+
+    /* =====================================================
+       HEADING REVEAL
+    ===================================================== */
+
+    if (heading) {
+        gsap.fromTo(
+            heading,
+            {
+                opacity: 0,
+                y: 45
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power3.out",
+
+                scrollTrigger: {
+                    trigger: heading,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    }
+
+    /* =====================================================
+       EACH BENEFIT ITEM REVEAL
+    ===================================================== */
+
+    if (benefitItems.length) {
+        gsap.fromTo(
+            benefitItems,
+            {
+                opacity: 0,
+                y: 45,
+                scale: 0.82
+            },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.7,
+                stagger: 0.13,
+                ease: "back.out(1.35)",
+
+                scrollTrigger: {
+                    trigger: benefitsWrap,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    }
+
+    /* =====================================================
+       BENEFIT ICON CONTINUOUS FLOAT
+    ===================================================== */
+
+    benefitItems.forEach(function (benefit, index) {
+
+        const icon = benefit.querySelector(
+            ".ark-hot-package-benefit-icon"
+        );
+
+        if (!icon) {
+            return;
+        }
+
+        gsap.to(icon, {
+            y: -5,
+            duration: 1.8 + index * 0.18,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: index * 0.15
+        });
+    });
+
+    /* =====================================================
+       REFRESH AFTER ALL IMAGES LOAD
+    ===================================================== */
+
+    window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+    });
+
+    setTimeout(function () {
+        ScrollTrigger.refresh();
+    }, 400);
+});
+</script>
+
+
+
+{% comment %} hot selling js end {% endcomment %}
 {% endblock %}

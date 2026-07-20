@@ -21,6 +21,7 @@ import json
 
 from django.db.models import Q
 from payment.models import PaymentTransaction
+import re
 
 # ==========================================
 # FRONTEND VIEWS
@@ -71,10 +72,292 @@ def about(request):
 
 def packages(request):
     packages_qs = TourPackage.objects.all().order_by("-created_at")
+
+    selected_type = request.GET.get("type", "all")
+    if selected_type != "all":
+        packages_qs = packages_qs.filter(package_type=selected_type)
+
     paginator = Paginator(packages_qs, 6)
     page_number = request.GET.get("page")
     packages_page = paginator.get_page(page_number)
-    return render(request, 'frontend/packages.html', {"packages": packages_page})
+    hot_selling_package = (TourPackage.objects.filter(package_type="hot_selling").order_by("-created_at").first()
+)
+
+    return render(request, 'frontend/packages.html', {
+        "packages": packages_page,
+        "selected_type": selected_type,
+        "package_types": TourPackage.PACKAGE_TYPE_CHOICES,
+        "hot_selling_package": hot_selling_package,
+    })
+
+
+
+def package_detail(request, slug):
+    package = get_object_or_404(TourPackage, slug=slug)
+    related_packages = TourPackage.objects.exclude(slug=slug).order_by("-created_at")[:4]
+
+    def extract_list_items(html_content):
+        """Parse CKEditor HTML content into a list of (type, text) tuples.
+        type is 'heading' for h1-h6 tags, 'item' for list/paragraph content.
+        Preserves headings that sit outside <ul>/<ol> so they aren't dropped."""
+        if not html_content:
+            return []
+
+        soup = BeautifulSoup(html_content, "html.parser")
+
+        for br in soup.find_all("br"):
+            br.replace_with("\n")
+
+        items = []
+
+        for tag in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "p"]):
+            if tag.name in ["h1", "h2", "h3", "h4", "h5", "h6"]:
+                text = tag.get_text().strip()
+                if text:
+                    items.append(("heading", text))
+
+            elif tag.name in ["ul", "ol"]:
+                for li in tag.find_all("li"):
+                    for line in li.get_text().split("\n"):
+                        line = line.strip()
+                        if line:
+                            items.append(("item", line))
+
+            elif tag.name == "p":
+                if tag.find_parent(["ul", "ol"]):
+                    continue
+                for line in tag.get_text().split("\n"):
+                    line = line.strip()
+                    if line:
+                        items.append(("item", line))
+
+        if items:
+            return items
+
+        text = soup.get_text(separator="\n")
+        return [("item", line.strip()) for line in text.split("\n") if line.strip()]
+
+    def extract_itinerary_days(html_content):
+        """Parse the CKEditor description into day-wise chunks.
+        Expects paragraphs like 'Day 1: Title – subtitle || details...'
+        or 'Day 1: Title – details...' (legacy, no || marker).
+        Returns a list of dicts: {'day': int, 'title': str, 'content': str}."""
+        if not html_content:
+            return []
+
+        soup = BeautifulSoup(html_content, "html.parser")
+        for br in soup.find_all("br"):
+            br.replace_with("\n")
+
+        paragraphs = soup.find_all("p")
+        if paragraphs:
+            texts = [p.get_text(separator=" ").strip() for p in paragraphs if p.get_text().strip()]
+        else:
+            texts = [soup.get_text(separator="\n").strip()]
+
+        full_text = " ".join(texts)
+
+        day_pattern = re.compile(r'Day\s+0*(\d+)\s*:\s*', re.IGNORECASE)
+        parts = day_pattern.split(full_text)
+        # parts = [preamble, day_num, day_text, day_num, day_text, ...]
+
+        days = []
+        for i in range(1, len(parts), 2):
+            day_num = parts[i]
+            day_text = parts[i + 1].strip() if i + 1 < len(parts) else ""
+            if not day_text:
+                continue
+
+            if "||" in day_text:
+                # Preferred: explicit marker separates title from description
+                title, content = day_text.split("||", 1)
+                title = title.strip()
+                content = content.strip()
+            else:
+                # Legacy fallback: split on the dash only
+                title_match = re.match(r'^(.*?)\s+[–-]\s+(.*)$', day_text, re.DOTALL)
+                if title_match:
+                    title = title_match.group(1).strip()
+                    content = title_match.group(2).strip()
+                else:
+                    title = day_text
+                    content = ""
+
+            days.append({
+                "day": int(day_num),
+                "title": title,
+                "content": content,
+            })
+
+        return days
+
+    def extract_overview_html(html_content):
+        """Return the HTML (not plain text) of everything BEFORE the first
+        'Day 1:' marker, so headings/lists/bold text render correctly and
+        the itinerary isn't duplicated in the Overview section."""
+        if not html_content:
+            return ""
+
+        soup = BeautifulSoup(html_content, "html.parser")
+        for br in soup.find_all("br"):
+            br.replace_with("\n")
+
+        day_pattern = re.compile(r'Day\s+0*1\s*:\s*', re.IGNORECASE)
+
+        kept_elements = []
+        for tag in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "p"]):
+            if tag.find_parent(["ul", "ol"]):
+                continue  # skip <li> already covered by the parent <ul>/<ol>
+
+            tag_text = tag.get_text()
+            match = day_pattern.search(tag_text)
+
+            if match:
+                # This tag contains "Day 1:" — keep only the text before it,
+                # wrapped in the same tag type, then stop.
+                if match.start() > 0:
+                    partial = soup.new_tag(tag.name)
+                    partial.string = tag_text[:match.start()].strip()
+                    kept_elements.append(str(partial))
+                break
+
+            kept_elements.append(str(tag))
+
+        # Also drop a leading "Detailed Itinerary" label if that's its own paragraph
+        html_out = "\n".join(kept_elements)
+        html_out = re.sub(
+            r'^\s*<p>\s*Detailed\s+Itinerary\s*</p>\s*',
+            '', html_out, flags=re.IGNORECASE
+        )
+        return html_out
+
+    highlights_list = extract_list_items(package.highlights)
+    inclusions_list = extract_list_items(package.inclusions)
+    itinerary_list = extract_itinerary_days(package.description)
+    overview_html = extract_overview_html(package.description)
+
+    return render(request, 'frontend/package-detail.html', {
+        "package": package,
+        "related_packages": related_packages,
+        "highlights_list": highlights_list,
+        "inclusions_list": inclusions_list,
+        "itinerary_list": itinerary_list,
+        "overview_html": overview_html,
+    })
+
+# def package_detail(request, slug):
+#     package = get_object_or_404(TourPackage, slug=slug)
+#     related_packages = TourPackage.objects.exclude(slug=slug).order_by("-created_at")[:4]
+
+#     def extract_list_items(html_content):
+#         """Parse CKEditor HTML content into a list of (type, text) tuples.
+#         type is 'heading' for h1-h6 tags, 'item' for list/paragraph content.
+#         Preserves headings that sit outside <ul>/<ol> so they aren't dropped."""
+#         if not html_content:
+#             return []
+
+#         soup = BeautifulSoup(html_content, "html.parser")
+
+#         for br in soup.find_all("br"):
+#             br.replace_with("\n")
+
+#         items = []
+
+#         for tag in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "p"]):
+#             if tag.name in ["h1", "h2", "h3", "h4", "h5", "h6"]:
+#                 text = tag.get_text().strip()
+#                 if text:
+#                     items.append(("heading", text))
+
+#             elif tag.name in ["ul", "ol"]:
+#                 for li in tag.find_all("li"):
+#                     for line in li.get_text().split("\n"):
+#                         line = line.strip()
+#                         if line:
+#                             items.append(("item", line))
+
+#             elif tag.name == "p":
+#                 if tag.find_parent(["ul", "ol"]):
+#                     continue
+#                 for line in tag.get_text().split("\n"):
+#                     line = line.strip()
+#                     if line:
+#                         items.append(("item", line))
+
+#         if items:
+#             return items
+
+#         text = soup.get_text(separator="\n")
+#         return [("item", line.strip()) for line in text.split("\n") if line.strip()]
+
+#     def extract_itinerary_days(html_content):
+#         """Parse the CKEditor description into day-wise chunks.
+#         Expects paragraphs written like 'Day 1: Title – details...'.
+#         Returns a list of dicts: {'day': int, 'title': str, 'content': str}."""
+#         if not html_content:
+#             return []
+
+#         soup = BeautifulSoup(html_content, "html.parser")
+#         for br in soup.find_all("br"):
+#             br.replace_with("\n")
+
+#         paragraphs = soup.find_all("p")
+#         if paragraphs:
+#             texts = [p.get_text(separator=" ").strip() for p in paragraphs if p.get_text().strip()]
+#         else:
+#             texts = [soup.get_text(separator="\n").strip()]
+
+#         full_text = " ".join(texts)
+
+#         # Split on "Day <number>:" markers, keeping the captured day number
+#         day_pattern = re.compile(r'Day\s+(\d+)\s*:\s*', re.IGNORECASE)
+#         parts = day_pattern.split(full_text)
+#         # parts = [preamble, day_num, day_text, day_num, day_text, ...]
+
+#         days = []
+#         for i in range(1, len(parts), 2):
+#             day_num = parts[i]
+#             day_text = parts[i + 1].strip() if i + 1 < len(parts) else ""
+#             if not day_text:
+#                 continue
+
+#             # Title = text up to the first " – " / " - " dash separator; rest is content
+#             title_match = re.match(r'^(.*?)\s+[–-]\s+(.*)$', day_text, re.DOTALL)
+#             if title_match:
+#                 title = title_match.group(1).strip()
+#                 content = title_match.group(2).strip()
+#             else:
+#                 title = day_text
+#                 content = ""
+
+#             days.append({
+#                 "day": int(day_num),
+#                 "title": title,
+#                 "content": content,
+#             })
+
+#         return days
+
+#     highlights_list = extract_list_items(package.highlights)
+#     inclusions_list = extract_list_items(package.inclusions)
+#     itinerary_list = extract_itinerary_days(package.description)
+
+#     return render(request, 'frontend/package-detail.html', {
+#         "package": package,
+#         "related_packages": related_packages,
+#         "highlights_list": highlights_list,
+#         "inclusions_list": inclusions_list,
+#         "itinerary_list": itinerary_list,
+#     })
+
+
+
+# def packages(request):
+#     packages_qs = TourPackage.objects.all().order_by("-created_at")
+#     paginator = Paginator(packages_qs, 6)
+#     page_number = request.GET.get("page")
+#     packages_page = paginator.get_page(page_number)
+#     return render(request, 'frontend/packages.html', {"packages": packages_page})
 
 
 # def package_detail(request, slug):
@@ -85,61 +368,61 @@ def packages(request):
 #         "related_packages": related_packages,
 #     })
 
-def package_detail(request, slug):
-    package = get_object_or_404(TourPackage, slug=slug)
-    related_packages = TourPackage.objects.exclude(slug=slug).order_by("-created_at")[:4]
+# def package_detail(request, slug):
+#     package = get_object_or_404(TourPackage, slug=slug)
+#     related_packages = TourPackage.objects.exclude(slug=slug).order_by("-created_at")[:4]
 
-    def extract_list_items(html_content):
-        """Parse CKEditor HTML content into a clean list of items.
-        Handles real <ul>/<ol><li> lists, one-<p>-per-line output,
-        and single <p> blocks separated by <br> tags."""
-        if not html_content:
-            return []
+#     def extract_list_items(html_content):
+#         """Parse CKEditor HTML content into a clean list of items.
+#         Handles real <ul>/<ol><li> lists, one-<p>-per-line output,
+#         and single <p> blocks separated by <br> tags."""
+#         if not html_content:
+#             return []
 
-        soup = BeautifulSoup(html_content, "html.parser")
+#         soup = BeautifulSoup(html_content, "html.parser")
 
-        # Normalize all <br> tags into newlines everywhere in the document
-        for br in soup.find_all("br"):
-            br.replace_with("\n")
+#         # Normalize all <br> tags into newlines everywhere in the document
+#         for br in soup.find_all("br"):
+#             br.replace_with("\n")
 
-        items = []
+#         items = []
 
-        # Case 1: actual <ul>/<ol> lists
-        list_tags = soup.find_all(["ul", "ol"])
-        if list_tags:
-            for tag in list_tags:
-                for li in tag.find_all("li"):
-                    for line in li.get_text().split("\n"):
-                        line = line.strip()
-                        if line:
-                            items.append(line)
-            if items:
-                return items
+#         # Case 1: actual <ul>/<ol> lists
+#         list_tags = soup.find_all(["ul", "ol"])
+#         if list_tags:
+#             for tag in list_tags:
+#                 for li in tag.find_all("li"):
+#                     for line in li.get_text().split("\n"):
+#                         line = line.strip()
+#                         if line:
+#                             items.append(line)
+#             if items:
+#                 return items
 
-        # Case 2: <p> tags (possibly containing <br>-separated lines)
-        paragraphs = soup.find_all("p")
-        if paragraphs:
-            for p in paragraphs:
-                for line in p.get_text().split("\n"):
-                    line = line.strip()
-                    if line:
-                        items.append(line)
-            if items:
-                return items
+#         # Case 2: <p> tags (possibly containing <br>-separated lines)
+#         paragraphs = soup.find_all("p")
+#         if paragraphs:
+#             for p in paragraphs:
+#                 for line in p.get_text().split("\n"):
+#                     line = line.strip()
+#                     if line:
+#                         items.append(line)
+#             if items:
+#                 return items
 
-        # Case 3: fallback - raw text separated by line breaks
-        text = soup.get_text(separator="\n")
-        return [line.strip() for line in text.split("\n") if line.strip()]
+#         # Case 3: fallback - raw text separated by line breaks
+#         text = soup.get_text(separator="\n")
+#         return [line.strip() for line in text.split("\n") if line.strip()]
 
-    highlights_list = extract_list_items(package.highlights)
-    inclusions_list = extract_list_items(package.inclusions)
+#     highlights_list = extract_list_items(package.highlights)
+#     inclusions_list = extract_list_items(package.inclusions)
 
-    return render(request, 'frontend/package-detail.html', {
-        "package": package,
-        "related_packages": related_packages,
-        "highlights_list": highlights_list,
-        "inclusions_list": inclusions_list,
-    })
+#     return render(request, 'frontend/package-detail.html', {
+#         "package": package,
+#         "related_packages": related_packages,
+#         "highlights_list": highlights_list,
+#         "inclusions_list": inclusions_list,
+#     })
 
 # def destinations(request):
 #     destinations_qs = Destination.objects.all().order_by("-created_at")
@@ -226,69 +509,128 @@ def blogs(request):
 
 
 
-
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
-    recent_blogs = Blog.objects.exclude(slug=slug).order_by("-created_at")[:4]
-    from .models import GalleryImage
+
+    recent_blogs = (
+        Blog.objects
+        .exclude(slug=slug)
+        .order_by("-created_at")[:4]
+    )
+
     gallery_images = GalleryImage.objects.all()[:6]
-    soup = BeautifulSoup(blog.description, "html.parser")
-    prev_blog = Blog.objects.filter(created_at__lt=blog.created_at).order_by("-created_at").first()
-    next_blog = Blog.objects.filter(created_at__gt=blog.created_at).order_by("created_at").first()
 
+    prev_blog = (
+        Blog.objects
+        .filter(created_at__lt=blog.created_at)
+        .order_by("-created_at")
+        .first()
+    )
 
-    plain_paragraphs = []
-    list_items = []
-    has_real_lists = False  # Track if there are actual <ul>/<ol> tags
+    next_blog = (
+        Blog.objects
+        .filter(created_at__gt=blog.created_at)
+        .order_by("created_at")
+        .first()
+    )
 
-    for element in soup.children:
-        if element.name in ["ul", "ol"]:
-            has_real_lists = True
-            for li in element.find_all("li"):
-                text = li.get_text(strip=True)
-                if text:
-                    list_items.append(text)
-        elif element.name in ["p", "h1", "h2", "h3", "h4", "h5", "h6"]:
-            text = element.get_text(strip=True)
-            if text:
-                plain_paragraphs.append(text)
-        elif isinstance(element, str) and element.strip():
-            plain_paragraphs.append(element.strip())
-    if not has_real_lists:
-        list_items = []
-
-    return render(request, 'frontend/blog-detail.html', {
+    return render(request, "frontend/blog-detail.html", {
         "blog": blog,
         "recent_blogs": recent_blogs,
         "gallery_images": gallery_images,
-        "plain_paragraphs": plain_paragraphs,
-        "list_items": list_items,
-        "has_real_lists": has_real_lists,
         "prev_blog": prev_blog,
         "next_blog": next_blog,
     })
 
 
+# def blog_detail(request, slug):
+#     blog = get_object_or_404(Blog, slug=slug)
+#     recent_blogs = Blog.objects.exclude(slug=slug).order_by("-created_at")[:4]
+#     from .models import GalleryImage
+#     gallery_images = GalleryImage.objects.all()[:6]
+#     soup = BeautifulSoup(blog.description, "html.parser")
+#     prev_blog = Blog.objects.filter(created_at__lt=blog.created_at).order_by("-created_at").first()
+#     next_blog = Blog.objects.filter(created_at__gt=blog.created_at).order_by("created_at").first()
+
+
+#     plain_paragraphs = []
+#     list_items = []
+#     has_real_lists = False  # Track if there are actual <ul>/<ol> tags
+
+#     for element in soup.children:
+#         if element.name in ["ul", "ol"]:
+#             has_real_lists = True
+#             for li in element.find_all("li"):
+#                 text = li.get_text(strip=True)
+#                 if text:
+#                     list_items.append(text)
+#         elif element.name in ["p", "h1", "h2", "h3", "h4", "h5", "h6"]:
+#             text = element.get_text(strip=True)
+#             if text:
+#                 plain_paragraphs.append(text)
+#         elif isinstance(element, str) and element.strip():
+#             plain_paragraphs.append(element.strip())
+#     if not has_real_lists:
+#         list_items = []
+
+#     return render(request, 'frontend/blog-detail.html', {
+#         "blog": blog,
+#         "recent_blogs": recent_blogs,
+#         "gallery_images": gallery_images,
+#         "plain_paragraphs": plain_paragraphs,
+#         "list_items": list_items,
+#         "has_real_lists": has_real_lists,
+#         "prev_blog": prev_blog,
+#         "next_blog": next_blog,
+#     })
+
 
 def gallery(request):
     categories = Category.objects.prefetch_related("images").all()
     destinations = Destination.objects.all().order_by("-created_at")
-    
-    selected_category = request.GET.get('category', 'all')
-    
-    if selected_category and selected_category != 'all':
-        all_images = GalleryImage.objects.filter(
+
+    selected_category = request.GET.get("category", "all")
+
+    if selected_category != "all":
+        images = GalleryImage.objects.filter(
             category__name=selected_category
         ).order_by("-uploaded_at")
     else:
-        all_images = GalleryImage.objects.all().order_by("-uploaded_at")
-    
-    return render(request, 'frontend/gallery.html', {
+        images = GalleryImage.objects.all().order_by("-uploaded_at")
+
+    # Pagination (6 images per page)
+    paginator = Paginator(images, 6)
+    page_number = request.GET.get("page")
+    all_images = paginator.get_page(page_number)
+
+    return render(request, "frontend/gallery.html", {
         "categories": categories,
         "all_images": all_images,
         "destinations": destinations,
         "selected_category": selected_category,
     })
+
+
+
+# def gallery(request):
+#     categories = Category.objects.prefetch_related("images").all()
+#     destinations = Destination.objects.all().order_by("-created_at")
+    
+#     selected_category = request.GET.get('category', 'all')
+    
+#     if selected_category and selected_category != 'all':
+#         all_images = GalleryImage.objects.filter(
+#             category__name=selected_category
+#         ).order_by("-uploaded_at")
+#     else:
+#         all_images = GalleryImage.objects.all().order_by("-uploaded_at")
+    
+#     return render(request, 'frontend/gallery.html', {
+#         "categories": categories,
+#         "all_images": all_images,
+#         "destinations": destinations,
+#         "selected_category": selected_category,
+#     })
 
 def contact(request):
     if request.method == "POST":

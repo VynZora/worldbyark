@@ -20,8 +20,15 @@ class OptimizedImageModel(models.Model):
                     pass
 
 
+
 class TourPackage(OptimizedImageModel):
     image_fields = ["main_image"]
+
+    PACKAGE_TYPE_CHOICES = [
+        ("international", "International"),
+        ("domestic", "Domestic (India)"),
+        ("hot_selling", "hot selling"),
+    ]
 
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
@@ -29,6 +36,12 @@ class TourPackage(OptimizedImageModel):
     main_image = models.ImageField(upload_to="packages/")
     duration = models.CharField(max_length=100, blank=True, help_text="e.g. 7 Days / 6 Nights")
     price_from = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    package_type = models.CharField(
+        max_length=20,
+        choices=PACKAGE_TYPE_CHOICES,
+        default="domestic",
+        help_text="Category of the tour package"
+    )
     highlights = models.TextField(blank=True, help_text="Key highlights, one per line")
     inclusions = models.TextField(blank=True, help_text="What is included, one per line")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -58,6 +71,49 @@ class TourPackage(OptimizedImageModel):
                 counter += 1
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+
+# class TourPackage(OptimizedImageModel):
+#     image_fields = ["main_image"]
+
+#     name = models.CharField(max_length=200)
+#     slug = models.SlugField(unique=True, blank=True)
+#     description = models.TextField()
+#     main_image = models.ImageField(upload_to="packages/")
+#     duration = models.CharField(max_length=100, blank=True, help_text="e.g. 7 Days / 6 Nights")
+#     price_from = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+#     highlights = models.TextField(blank=True, help_text="Key highlights, one per line")
+#     inclusions = models.TextField(blank=True, help_text="What is included, one per line")
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     class Meta:
+#         ordering = ["-created_at"]
+#         verbose_name_plural = "Tour Packages"
+
+#     def __str__(self):
+#         return self.name
+
+#     @property
+#     def highlights_list(self):
+#         return [h.strip() for h in self.highlights.splitlines() if h.strip()]
+
+#     @property
+#     def inclusions_list(self):
+#         return [i.strip() for i in self.inclusions.splitlines() if i.strip()]
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             base_slug = slugify(self.name)
+#             slug = base_slug
+#             counter = 1
+#             while TourPackage.objects.filter(slug=slug).exists():
+#                 slug = f"{base_slug}-{counter}"
+#                 counter += 1
+#             self.slug = slug
+#         super().save(*args, **kwargs)
+
+
 
 
 # class Destination(OptimizedImageModel):

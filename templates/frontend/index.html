@@ -19,432 +19,366 @@
 {% block extra_css %}
 <style>
 
-{% comment %}    
-/* ── Hero Wrapper ── */
+/* ==========================================
+   WORLD BY ARK HERO SECTION
+========================================== */
+
 .hero-video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 560px;
-  overflow: hidden;
-  isolation: isolate;
-   border-radius: 0 0 40px 40px;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 650px;
+
+    background: #000;
+
+    border-radius: 0 0 45px 45px;
+    overflow: hidden;
+
+    /*
+      Keeps the video clipped during scrolling.
+      This prevents the corners from becoming flat.
+    */
+    clip-path: inset(0 round 0 0 45px 45px);
+    -webkit-clip-path: inset(0 round 0 0 45px 45px);
+
+    isolation: isolate;
+    contain: paint;
+
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    z-index: 1;
 }
 
-@media (max-width: 575px) {
-  .hero-video-wrapper {
-    border-radius: 0 0 20px 20px;
-  }
-}
-
-/* ── Video fills the container ── */
+/* Hero video */
 .hero-video-wrapper video {
-  position: absolute;
-  inset: 0;
+    position: absolute;
+    inset: 0;
 
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 
-  object-fit: cover;
-  object-position: center center;
+    object-fit: cover;
+    object-position: center center;
 
-  z-index: 0;
+    border-radius: inherit;
+
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    z-index: 0;
 }
 
-/* ── Dark gradient scrim — stronger at bottom-left ── */
+/* Hero dark overlay */
 .hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.75) 0%,
-    rgba(0, 0, 0, 0.35) 45%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.46) 0%,
+            rgba(0, 0, 0, 0.20) 45%,
+            rgba(0, 0, 0, 0.04) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.42) 0%,
+            rgba(0, 0, 0, 0.08) 55%,
+            transparent 100%
+        );
+
+    z-index: 1;
 }
 
-/* ── Bottom-left anchor block ── */
+/* Hero content position */
 .hero-bottom-left {
-  position: absolute;
-  bottom: 80px;
-  left: 5%;
-  z-index: 5;
-  max-width: 620px;
-  width: 90%;
-}
-
-/* ── Slide wrapper — fixed height so buttons don't jump ── */
-.hero-slides-wrapper {
-  position: relative;
-  min-height: 200px;
-  margin-bottom: 28px;
-}
-
-/* ── Each slide ── */
-.hero-overlay-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  pointer-events: none;
-  color: #fff;
-}
-
-.hero-overlay-content.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* ── Eyebrow label ── */
-.hero-eyebrow {
-  display: block;
-  font-size: 0.78rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  color: #F29979;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-}
-
-/* ── Heading ── */
-.hero-overlay-content h1 {
-  font-family: "Afacad", sans-serif;
-  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: #fff;
-  margin: 0 0 16px 0;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.8);
-}
-
-/* ── Button group ── */
-.hero-btn-group {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-/* ── Progress bar at bottom ── */
-.hero-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(135deg, #F29979, #F2637E);
-  z-index: 6;
-  transition: width 4000ms linear;
-  display: none;
-}
-
-/* ── Mobile ── */
-@media (max-width: 575px) {
-  .hero-bottom-left {
-    bottom: 60px;
+    position: absolute;
+    top: 65%;
     left: 5%;
+
     width: 90%;
-  }
-  .hero-overlay-content h1 {
-    font-size: 1.9rem;
-  }
-  .hero-btn-group {
-    flex-direction: row;      /* side-by-side instead of stacked */
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .hero-glass-btn {
-    width: auto;               /* no longer full width */
-    flex: 1 1 auto;
-    justify-content: center;
-    padding: 10px 18px !important;   /* smaller than desktop padding */
-    font-size: 0.85rem !important;
-    min-width: 0;
-  }
-  .hero-slides-wrapper {
-    min-height: 220px;
-  }
-}  {% endcomment %}
+    max-width: 620px;
 
+    transform: translateY(-50%);
 
-
-
-
-/* ── Hero Wrapper ── */
-.hero-video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 650px;
-
-  overflow: hidden;
-  isolation: isolate;
-  background: #000;
-
-  border-radius: 0 0 40px 40px;
+    z-index: 5;
 }
 
-@media (max-width: 575px) {
-  .hero-video-wrapper {
-    border-radius: 0 0 20px 20px;
-  }
-}
-
-/* ── Video fills the container ── */
-.hero-video-wrapper video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-/* ── Dark gradient scrim ── */
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.75) 0%,
-    rgba(0, 0, 0, 0.35) 45%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
-}
-.hero-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.4);
-  backdrop-filter: blur(6px);
-  border-radius: 50px;
-  padding: 8px 8px 8px 26px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.hero-cta-btn:hover {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
-.hero-cta-btn .arrow-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #F29979;
-  color: #fff;
-  flex-shrink: 0;
-}
-
-.hero-glass-btn-primary:hover {
-  background: #F2637E;
-  border-color: #F2637E;
-  color: #fff;
-}
-
-/* ── Center-left content anchor ── */
-.hero-bottom-left {
-  position: absolute;
-  top: 65%;
-  left: 5%;
-  transform: translateY(-50%);
-  z-index: 5;
-  max-width: 620px;
-  width: 90%;
-}
-
-/* ── Slide wrapper — fixed height so layout doesn't jump ── */
+/* Slide area */
 .hero-slides-wrapper {
-  position: relative;
-  min-height: 300px;
+    position: relative;
+    min-height: 300px;
 }
 
-/* ── Each slide — stacked, only .active one shows ── */
+/* Individual slides */
 .hero-overlay-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  pointer-events: none;
-  color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(14px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        visibility 0.7s ease;
+
+    pointer-events: none;
+    color: #fff;
 }
 
 .hero-overlay-content.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+
+    pointer-events: auto;
 }
 
-/* ── Badge/pill eyebrow ── */
+/* Small heading pill */
 .hero-eyebrow {
-  display: inline-block;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  padding: 8px 20px;
-  border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 50px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-  color: #fff;
-  margin-bottom: 22px;
-  text-shadow: none;
+    display: inline-block;
+
+    margin-bottom: 22px;
+    padding: 8px 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    color: #fff;
+
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
 }
 
-/* ── Heading ── */
+/* Main hero heading */
 .hero-overlay-content h1 {
-  font-family: "Afacad", sans-serif;
-  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: #fff;
-  margin: 0 0 20px 0;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.8);
+    margin: 0 0 20px;
+
+    color: #fff;
+
+    font-family: "Afacad", sans-serif;
+    font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+
+    text-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.55),
+        0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero-overlay-content h1 .accent {
-  color: #F29979;
+    color: #F29979;
 }
 
-/* ── Description paragraph ── */
+/* Hero description */
 .hero-desc {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.9);
-  max-width: 480px;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    max-width: 480px;
+    margin-bottom: 30px;
+
+    color: rgba(255, 255, 255, 0.9);
+
+    font-size: 1.05rem;
+    line-height: 1.6;
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* ── Button group ── */
+/* Hero buttons */
 .hero-btn-group {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
 }
 
-/* ── Single CTA button with circular arrow ── */
+/* CTA button */
 .hero-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.4);
-  backdrop-filter: blur(6px);
-  border-radius: 50px;
-  padding: 8px 8px 8px 26px;
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 8px 8px 8px 26px;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    color: #fff;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
 }
 
 .hero-cta-btn:hover {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.7);
+    color: #fff;
 }
 
 .hero-cta-btn .arrow-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #F29979;
-  color: #fff;
-  flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background: #F29979;
+    color: #fff;
+
+    flex-shrink: 0;
 }
 
-/* ── Progress bar at bottom ── */
+/* Hidden hero progress */
 .hero-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(135deg, #F29979, #F2637E);
-  z-index: 6;
-  transition: width 4000ms linear;
-  display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 0;
+    height: 3px;
+
+    background: linear-gradient(135deg, #F29979, #F2637E);
+
+    display: none;
+    z-index: 6;
+}
+
+/* Prevent the next section from covering hero corners */
+.hero-video-wrapper + .section-full {
+    position: relative;
+    z-index: 0;
 }
 
 /* Large desktop */
 @media (min-width: 1400px) {
-  .hero-video-wrapper {
-    height: 100vh;
-    min-height: 720px;
-  }
+    .hero-video-wrapper {
+        min-height: 720px;
+    }
 }
 
 /* Laptop */
 @media (min-width: 992px) and (max-width: 1399px) {
-  .hero-video-wrapper {
-    height: 100vh;
-    min-height: 620px;
-  }
+    .hero-video-wrapper {
+        min-height: 620px;
+    }
 }
 
 /* Tablet */
 @media (min-width: 768px) and (max-width: 991px) {
-  .hero-video-wrapper {
-    height: 90vh;
-    min-height: 650px;
-  }
+    .hero-video-wrapper {
+        height: 90vh;
+        min-height: 650px;
+    }
+
+    .hero-video-wrapper video {
+        object-position: 55% center;
+    }
 }
 
 /* Mobile */
 @media (max-width: 767px) {
-  .hero-video-wrapper {
-    height: 100svh;
-    min-height: 650px;
-    border-radius: 0 0 22px 22px;
-  }
+    .hero-video-wrapper {
+        height: 100svh;
+        min-height: 650px;
+
+        border-radius: 0 0 24px 24px;
+
+        clip-path: inset(0 round 0 0 24px 24px);
+        -webkit-clip-path: inset(0 round 0 0 24px 24px);
+    }
+
+    .hero-video-wrapper video {
+        object-position: 60% center;
+    }
+
+    .hero-bottom-left {
+        top: 65%;
+        left: 5%;
+
+        width: 90%;
+
+        transform: translateY(-50%);
+    }
+
+    .hero-slides-wrapper {
+        min-height: 270px;
+    }
+
+    .hero-overlay-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 22px;
+    }
+
+    .hero-btn-group {
+        gap: 10px;
+    }
+
+    .hero-cta-btn {
+        gap: 10px;
+
+        padding: 6px 6px 6px 18px;
+
+        font-size: 0.85rem;
+    }
+
+    .hero-cta-btn .arrow-circle {
+        width: 36px;
+        height: 36px;
+    }
 }
 
-/* ── Mobile ── */
-@media (max-width: 575px) {
-  .hero-bottom-left {
-    top: 65%;
-    left: 5%;
-    transform: translateY(-50%);
-    width: 90%;
-  }
-  .hero-slides-wrapper {
-    min-height: 250px;
-  }
-  .hero-btn-group {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .hero-cta-btn {
-    padding: 6px 6px 6px 18px;
-    font-size: 0.85rem;
-    gap: 10px;
-  }
-  .hero-cta-btn .arrow-circle {
-    width: 34px;
-    height: 34px;
-  }
+@media (max-width: 420px) {
+    .hero-overlay-content h1 {
+        font-size: 1.9rem;
+    }
+
+    .hero-slides-wrapper {
+        min-height: 290px;
+    }
 }
 
-/* ==========================================
+
+
+
+
+
+
+
+
+{% comment %} /* ==========================================
    FINAL RESPONSIVE HERO VIDEO
 ========================================== */
 
@@ -534,7 +468,7 @@
   .hero-video-wrapper video {
     object-position: 60% center;
   }
-}
+} {% endcomment %}
 
     /* ── CINEMATIC HERO ── */
 
@@ -1536,7 +1470,7 @@
                                                     <span class="price">₹{{ package.price_from }}</span>
                                                 </div>
                                                  <div class="trv-tour-info">
-                                                    <a href="{% url 'package_detail' package.slug %}">{{ package.description|striptags|truncatechars:55 }}</a>
+                                                    <a href="{% url 'package_detail' package.slug %}">{{ package.description|striptags|truncatechars:50 }}</a>
                                                 </div>
                                             </div>
                                             <div class="trv-content-bottom-section">

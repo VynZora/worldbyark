@@ -439,6 +439,149 @@
         width: 115px;
     }
 }
+
+
+
+{% comment %} contact button style start {% endcomment %}
+
+/* =====================================
+   CONTACT PARTICLE BUTTON
+===================================== */
+
+.ark-particle-button {
+    position: relative;
+    width: 100%;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: 0 12px;
+    border: 1px solid rgba(60, 45, 115, 0.16);
+    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(242, 99, 126, 0.12),
+            rgba(60, 45, 115, 0.08)
+        ),
+        #ffffff;
+    box-shadow: 0 12px 28px rgba(60, 45, 115, 0.09);
+    text-decoration: none;
+    isolation: isolate;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.ark-particle-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        120deg,
+        rgba(242, 99, 126, 0.18),
+        rgba(60, 45, 115, 0.13),
+        rgba(242, 153, 121, 0.18)
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.ark-particle-button:hover {
+    color: inherit;
+    border-color: rgba(242, 99, 126, 0.45);
+    box-shadow: 0 18px 35px rgba(60, 45, 115, 0.16);
+    transform: translateY(-3px);
+}
+
+.ark-particle-button:hover::before {
+    opacity: 1;
+}
+
+.ark-particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: calc(100% - 60px);
+    height: 100%;
+    display: block;
+    pointer-events: auto;
+}
+
+.ark-particle-button-fallback {
+    position: absolute;
+    left: 17px;
+    top: 50%;
+    color: #3c2d73;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+/* JS hides this after canvas particles load */
+.ark-particle-button.particles-ready
+.ark-particle-button-fallback {
+    opacity: 0;
+}
+
+.ark-particle-arrow {
+    position: relative;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #3c2d73;
+    color: #ffffff;
+    font-size: 15px;
+    pointer-events: none;
+    transition:
+        color 0.35s ease,
+        background 0.35s ease,
+        transform 0.35s ease;
+}
+
+.ark-particle-button:hover .ark-particle-arrow {
+    background: #f2637e;
+    color: #ffffff;
+    transform: rotate(-35deg);
+}
+
+@media (max-width: 575px) {
+    .ark-particle-button {
+        height: 54px;
+        border-radius: 14px;
+    }
+
+    .ark-particle-button-fallback {
+        left: 14px;
+        font-size: 12px;
+    }
+
+    .ark-particle-arrow {
+        width: 35px;
+        height: 35px;
+    }
+
+    .ark-particle-canvas {
+        width: calc(100% - 52px);
+    }
+}
+
+{% comment %} contact button style end {% endcomment %}
+
+
+
+
 </style>
 {% endblock %}
 
@@ -494,10 +637,23 @@
                             <p>
                                 Need clarification before confirming your booking?
                             </p>
-                            <a href="{% url 'contact' %}">
-                                Contact WORLD BY ARK
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
+                            <a href="{% url 'contact' %}"
+   class="ark-particle-button"
+   aria-label="Contact WORLD BY ARK">
+
+    <canvas
+        class="ark-particle-canvas"
+        data-text="Contact WORLD BY ARK">
+    </canvas>
+
+    <span class="ark-particle-button-fallback">
+        Contact WORLD BY ARK
+    </span>
+
+    <span class="ark-particle-arrow">
+        <i class="bi bi-arrow-right"></i>
+    </span>
+</a>
                         </div>
                     </div>
                 </aside>
@@ -1600,4 +1756,331 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+
+
+
+
+
+
+
+{% comment %} contact button stayle start {% endcomment %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const canvases = document.querySelectorAll(".ark-particle-canvas");
+
+    canvases.forEach(function (canvas) {
+        const button = canvas.closest(".ark-particle-button");
+        const ctx = canvas.getContext("2d", {
+            alpha: true,
+            willReadFrequently: true
+        });
+
+        if (!button || !ctx) return;
+
+        const text =
+            canvas.getAttribute("data-text") ||
+            "Contact WORLD BY ARK";
+
+        const colors = [
+            "#F2637E",
+            "#3C2D73",
+            "#F2637E",
+        ];
+
+        let particles = [];
+        let animationFrame = null;
+
+        const pointer = {
+            x: -1000,
+            y: -1000,
+            active: false
+        };
+
+        const settings = {
+            fontSize: 14,
+            fontWeight: 800,
+            sampleGap: 2,
+            particleSize: 1.8,
+            mouseRadius: 42,
+            mouseForce: 6,
+            returnSpeed: 0.09,
+            friction: 0.88
+        };
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+
+            if (rect.width <= 0 || rect.height <= 0) return;
+
+            const dpr = Math.min(
+                window.devicePixelRatio || 1,
+                2
+            );
+
+            canvas.width = Math.round(rect.width * dpr);
+            canvas.height = Math.round(rect.height * dpr);
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            createParticles(rect.width, rect.height);
+
+            button.classList.add("particles-ready");
+        }
+
+        function createParticles(width, height) {
+            const textCanvas = document.createElement("canvas");
+            const textContext = textCanvas.getContext("2d", {
+                willReadFrequently: true
+            });
+
+            if (!textContext) return;
+
+            textCanvas.width = Math.max(1, Math.round(width));
+            textCanvas.height = Math.max(1, Math.round(height));
+
+            textContext.clearRect(
+                0,
+                0,
+                textCanvas.width,
+                textCanvas.height
+            );
+
+            let fontSize = settings.fontSize;
+
+            textContext.font =
+                settings.fontWeight +
+                " " +
+                fontSize +
+                'px Arial, sans-serif';
+
+            const availableWidth = width - 18;
+            const measuredWidth =
+                textContext.measureText(text).width;
+
+            if (measuredWidth > availableWidth) {
+                fontSize =
+                    fontSize *
+                    (availableWidth / measuredWidth);
+            }
+
+            textContext.font =
+                settings.fontWeight +
+                " " +
+                fontSize +
+                'px Arial, sans-serif';
+
+            textContext.fillStyle = "#ffffff";
+            textContext.textAlign = "left";
+            textContext.textBaseline = "middle";
+
+            textContext.fillText(
+                text,
+                10,
+                height / 2
+            );
+
+            const imageData = textContext.getImageData(
+                0,
+                0,
+                textCanvas.width,
+                textCanvas.height
+            );
+
+            const pixels = imageData.data;
+            const newParticles = [];
+
+            for (
+                let y = 0;
+                y < textCanvas.height;
+                y += settings.sampleGap
+            ) {
+                for (
+                    let x = 0;
+                    x < textCanvas.width;
+                    x += settings.sampleGap
+                ) {
+                    const index =
+                        (y * textCanvas.width + x) * 4;
+
+                    const alpha = pixels[index + 3];
+
+                    if (alpha > 120) {
+                        const angle =
+                            Math.random() * Math.PI * 2;
+
+                        const distance =
+                            30 + Math.random() * 70;
+
+                        newParticles.push({
+                            homeX: x,
+                            homeY: y,
+
+                            x:
+                                x +
+                                Math.cos(angle) *
+                                    distance,
+
+                            y:
+                                y +
+                                Math.sin(angle) *
+                                    distance,
+
+                            vx: 0,
+                            vy: 0,
+
+                            color:
+                                colors[
+                                    Math.floor(
+                                        Math.random() *
+                                            colors.length
+                                    )
+                                ],
+
+                            alpha: 0
+                        });
+                    }
+                }
+            }
+
+            particles = newParticles;
+        }
+
+        function updateParticles() {
+            ctx.clearRect(
+                0,
+                0,
+                canvas.clientWidth,
+                canvas.clientHeight
+            );
+
+            particles.forEach(function (particle) {
+                let dx =
+                    particle.homeX - particle.x;
+
+                let dy =
+                    particle.homeY - particle.y;
+
+                particle.vx +=
+                    dx * settings.returnSpeed;
+
+                particle.vy +=
+                    dy * settings.returnSpeed;
+
+                if (pointer.active) {
+                    const mouseDx =
+                        particle.x - pointer.x;
+
+                    const mouseDy =
+                        particle.y - pointer.y;
+
+                    const distanceSquared =
+                        mouseDx * mouseDx +
+                        mouseDy * mouseDy;
+
+                    const radiusSquared =
+                        settings.mouseRadius *
+                        settings.mouseRadius;
+
+                    if (
+                        distanceSquared > 0 &&
+                        distanceSquared < radiusSquared
+                    ) {
+                        const distance =
+                            Math.sqrt(distanceSquared);
+
+                        const force =
+                            (1 -
+                                distance /
+                                    settings.mouseRadius) *
+                            settings.mouseForce;
+
+                        particle.vx +=
+                            (mouseDx / distance) * force;
+
+                        particle.vy +=
+                            (mouseDy / distance) * force;
+                    }
+                }
+
+                particle.vx *= settings.friction;
+                particle.vy *= settings.friction;
+
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+                particle.alpha +=
+                    (1 - particle.alpha) * 0.08;
+
+                ctx.globalAlpha = particle.alpha;
+                ctx.fillStyle = particle.color;
+
+                ctx.fillRect(
+                    particle.x,
+                    particle.y,
+                    settings.particleSize,
+                    settings.particleSize
+                );
+            });
+
+            ctx.globalAlpha = 1;
+
+            animationFrame =
+                requestAnimationFrame(updateParticles);
+        }
+
+        function updatePointer(event) {
+            const rect = canvas.getBoundingClientRect();
+
+            pointer.x = event.clientX - rect.left;
+            pointer.y = event.clientY - rect.top;
+            pointer.active = true;
+        }
+
+        function removePointer() {
+            pointer.x = -1000;
+            pointer.y = -1000;
+            pointer.active = false;
+        }
+
+        canvas.addEventListener(
+            "pointermove",
+            updatePointer
+        );
+
+        canvas.addEventListener(
+            "pointerenter",
+            updatePointer
+        );
+
+        canvas.addEventListener(
+            "pointerleave",
+            removePointer
+        );
+
+        const resizeObserver = new ResizeObserver(
+            resizeCanvas
+        );
+
+        resizeObserver.observe(canvas);
+
+        resizeCanvas();
+        updateParticles();
+
+        window.addEventListener(
+            "beforeunload",
+            function () {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
+
+                resizeObserver.disconnect();
+            }
+        );
+    });
+});
+</script>
+
+{% comment %} contact button style end  {% endcomment %}
 {% endblock %}

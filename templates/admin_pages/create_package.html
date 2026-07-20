@@ -44,6 +44,21 @@
                                     {% endif %}
                                 </div>
 
+<!-- Package Type -->
+<div class="col-md-6 mb-4">
+    <label for="package_type" class="form-label">Package Type <span class="text-danger">*</span></label>
+    <select name="package_type" id="package_type" class="form-control modern-input" required>
+        {% for value, label in form.fields.package_type.choices %}
+            <option value="{{ value }}" {% if form.package_type.value == value %}selected{% endif %}>
+                {{ label }}
+            </option>
+        {% endfor %}
+    </select>
+    <div class="invalid-feedback">Please select a package type.</div>
+</div>
+
+
+
                                 <!-- Duration & Price -->
                                 <div class="col-md-6 mb-4">
                                     <label for="duration" class="form-label">Duration</label>
