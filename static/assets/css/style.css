@@ -2557,11 +2557,6 @@ THEMEFOREST REQUIRED CLASSES
   top: 35px;
   transition: 0.5s all ease;
   z-index: 999;
-  /*--is fixed---*/
-  /*====Mobile Side =======*/
-  /*---when header is sticky---*/
-  /*---when header is sticky---*/
-  /*---header id Fixed---*/
 }
 @media (max-width: 991px) {
   .header-style-1 {
@@ -2934,7 +2929,8 @@ THEMEFOREST REQUIRED CLASSES
   padding: 0px 55px 0px 35px !important;
 
   /* Frosted glass style reveals ONLY when moving down the page */
-  background-color: rgba(45, 30, 85, 0.75) !important;
+  /* background-color: rgba(45, 30, 85, 0.75) !important; */
+  background-color: rgba(88, 66, 122, 0.72) !important;
   -webkit-backdrop-filter: blur(18px) !important;
   backdrop-filter: blur(18px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -10235,7 +10231,9 @@ select {
   position: absolute;
   left: -110px;
   bottom: 5px;
+  width: 500px; 
 }
+
 @media (max-width: 575px) {
   .trv-year-section .trv-year-media {
     left: -75px;
@@ -15636,8 +15634,8 @@ select {
   width: 110%;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: bottom;
-     object-position: bottom;
+  -o-object-position: center;
+     object-position: center;
 }
 .trv-gallery-wrap .trv-gallery-st1 .trv-gallery-st1-media:hover img {
   opacity: 0.2;

@@ -599,7 +599,7 @@ def gallery(request):
         images = GalleryImage.objects.all().order_by("-uploaded_at")
 
     # Pagination (6 images per page)
-    paginator = Paginator(images, 6)
+    paginator = Paginator(images, 7)
     page_number = request.GET.get("page")
     all_images = paginator.get_page(page_number)
 

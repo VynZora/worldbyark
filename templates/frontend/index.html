@@ -175,7 +175,7 @@
     font-family: "Afacad", sans-serif;
     font-size: clamp(2.2rem, 5.5vw, 4.2rem);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1;
 
     text-shadow:
         0 4px 20px rgba(0, 0, 0, 0.55),
@@ -194,7 +194,7 @@
     color: rgba(255, 255, 255, 0.9);
 
     font-size: 1.05rem;
-    line-height: 1.6;
+    line-height: 1.5;
 
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
@@ -867,6 +867,734 @@
 }
 {% comment %} service 2 style end {% endcomment %}
 
+
+
+
+{% comment %} video section css start {% endcomment %}
+
+/* ==================================================
+   ACHIEVEMENT SECTION — VIMEO FINAL FIX
+================================================== */
+
+.trv-achivment-section .trv-achivment-row {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 60px;
+    background: #000;
+    isolation: isolate;
+    transform: translateZ(0);
+}
+
+/* Visible section */
+.trv-achivment-section .parallax-section {
+    position: relative;
+    width: 100%;
+    height: 640px;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Vimeo background layer */
+.trv-achivment-section .trv-vid-st2 {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+    background: #000 !important;
+
+    opacity: 1 !important;
+    transform: none !important;
+
+    z-index: 0;
+}
+
+/*
+   IMPORTANT:
+   Your theme automatically creates this Bootstrap wrapper.
+   This wrapper was producing the black space.
+*/
+.trv-achivment-section .trv-vid-st2 .embed-responsive,
+.trv-achivment-section .trv-vid-st2 .embed-responsive-16by9 {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+    background: transparent !important;
+
+    transform: none !important;
+}
+
+/* Remove Bootstrap 16:9 padding */
+.trv-achivment-section .trv-vid-st2 .embed-responsive::before,
+.trv-achivment-section .trv-vid-st2 .embed-responsive-16by9::before {
+    display: none !important;
+    content: none !important;
+    padding-top: 0 !important;
+}
+
+/* Vimeo iframe behaves like background-size: cover */
+.trv-achivment-section .trv-vid-st2 iframe,
+.trv-achivment-section .achievement-video {
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    width: 100vw !important;
+    height: 56.25vw !important;
+
+    min-width: 177.78vh !important;
+    min-height: 100vh !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    outline: 0 !important;
+
+    transform: translate(-50%, -50%) scale(1.04) !important;
+    transform-origin: center center !important;
+
+    display: block !important;
+    pointer-events: none !important;
+}
+
+/* Dark overlay */
+.trv-achivment-section .trv-vid-st2::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.22);
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Say Yes content */
+.trv-achivment-section .parallax-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Counter area */
+.trv-achivment-section .trv-vid-st2-counter {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    z-index: 3;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .trv-achivment-section .trv-achivment-row {
+        border-radius: 40px;
+    }
+
+    .trv-achivment-section .parallax-section {
+        height: 640px;
+    }
+
+    .trv-achivment-section .trv-vid-st2 iframe,
+    .trv-achivment-section .achievement-video {
+        transform: translate(-50%, -50%) scale(1.22) !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .trv-achivment-section .trv-achivment-row {
+        border-radius: 30px;
+    }
+
+    .trv-achivment-section .parallax-section {
+        height: 620px;
+    }
+
+    .trv-achivment-section .trv-vid-st2 iframe,
+    .trv-achivment-section .achievement-video {
+        transform: translate(-50%, -50%) scale(1.18) !important;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 575px) {
+    .trv-achivment-section .trv-achivment-row {
+        border-radius: 24px;
+    }
+
+    .trv-achivment-section .parallax-section {
+        height: 600px;
+    }
+
+    .trv-achivment-section .trv-vid-st2 iframe,
+    .trv-achivment-section .achievement-video {
+        transform: translate(-50%, -50%) scale(1.25) !important;
+    }
+
+    .trv-achivment-section .trv-vid-st2::after {
+        background: rgba(0, 0, 0, 0.28);
+    }
+}
+
+{% comment %} video section css end {% endcomment %}
+
+
+{% comment %} hot air ballon css start {% endcomment %}
+{% comment %} 
+/* ==================================================
+   HOT AIR BALLOON + EXPERIENCE CARD
+================================================== */
+
+.trv-we-rec-media-main-wrap {
+    position: relative;
+    overflow: visible;
+}
+
+/* Reset old plane/card positioning */
+.trv-year-section {
+    position: absolute !important;
+    top: -60px !important;
+    right: 10px !important;
+    left: auto !important;
+
+    width: 430px;
+    max-width: 52%;
+
+    z-index: 5;
+    pointer-events: none;
+
+    animation: arkBalloonFloat 5s ease-in-out infinite !important;
+}
+
+/* Reset the old plane image rules */
+.trv-year-section .trv-year-media {
+    position: relative !important;
+    inset: auto !important;
+
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+}
+
+/* Balloon image */
+.trv-year-section .trv-year-media img {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+
+    object-fit: contain;
+}
+
+/* Gentle floating effect */
+@keyframes arkBalloonFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-14px);
+    }
+}
+/* ==================================================
+   LARGE DESKTOP
+================================================== */
+
+@media (min-width: 1400px) {
+    .trv-year-section {
+        width: 520px;
+        max-width: 54%;
+        top: -75px !important;
+        right: 0 !important;
+    }
+}
+
+/* ==================================================
+   NORMAL DESKTOP / LAPTOP
+================================================== */
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .trv-year-section {
+        width: 470px;
+        max-width: 55%;
+        top: -45px !important;
+        right: 0 !important;
+    }
+}
+
+/* ==================================================
+   SMALL LAPTOP
+================================================== */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .trv-year-section {
+        width: 420px;
+        max-width: 68%;
+        top: -10px !important;
+        right: 0 !important;
+    }
+}
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 620px;
+        margin-top: 40px;
+    }
+
+    .trv-year-section {
+        width: 400px;
+        max-width: 48%;
+
+        top: 10px !important;
+        right: 20px !important;
+    }
+}
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 767px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 560px;
+        margin-top: 35px;
+        overflow: hidden;
+    }
+
+    .trv-year-section {
+        width: 300px;
+        max-width: 62%;
+
+        top: 5px !important;
+        right: 5px !important;
+    }
+}
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width: 575px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 500px;
+        margin-top: 25px;
+    }
+
+    .trv-year-section {
+        width: 260px;
+        max-width: 65%;
+
+        top: 15px !important;
+        right: 0 !important;
+    }
+}
+
+/* ==================================================
+   VERY SMALL MOBILE
+================================================== */
+
+@media (max-width: 420px) {
+    .trv-year-section {
+        width: 220px;
+        max-width: 62%;
+
+        top: 20px !important;
+        right: 4px !important;
+    }
+} {% endcomment %}
+
+
+/* ==================================================
+   HOT AIR BALLOON + EXPERIENCE CARD WITH CLOUDS
+================================================== */
+
+.trv-we-rec-media-main-wrap {
+    position: relative;
+    overflow: visible;
+}
+
+/* Main composition wrapper */
+.trv-year-section {
+    position: absolute !important;
+
+    top: -30px !important;
+    right: 0 !important;
+    left: auto !important;
+
+    width: 520px;
+    max-width: 62%;
+
+    z-index: 6;
+    pointer-events: none;
+
+    /* Important: clouds must remain visible */
+    overflow: visible !important;
+
+    animation: arkBalloonFloat 5s ease-in-out infinite !important;
+}
+
+/* Balloon image wrapper */
+.trv-year-section .trv-year-media {
+    position: relative !important;
+
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+
+    z-index: 3;
+}
+
+/* Balloon PNG */
+.trv-year-section .trv-year-media img {
+    display: block;
+
+    width: 900px !important;
+    max-width: 100% !important;
+    height: auto !important;
+
+    object-fit: contain;
+
+    filter: drop-shadow(0 18px 18px rgba(60, 45, 115, 0.12));
+}
+
+/* ==========================================
+   CLOUDS
+========================================== */
+
+.ark-balloon-cloud {
+    position: absolute;
+    z-index: 1;
+
+    pointer-events: none;
+
+    opacity: 0.88;
+
+    animation: arkCloudMove 7s ease-in-out infinite;
+}
+
+.ark-balloon-cloud img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    filter: drop-shadow(0 12px 16px rgba(60, 45, 115, 0.08));
+}
+
+/* Cloud behind lower-left side */
+.ark-balloon-cloud-left {
+    width: 210px;
+
+    left: -45px;
+    bottom: 95px;
+
+    animation-delay: -1.5s;
+}
+
+/* Cloud behind upper-right side */
+.ark-balloon-cloud-right {
+    width: 175px;
+
+    right: -35px;
+    top: 115px;
+
+    opacity: 0.72;
+
+    animation-delay: -3s;
+}
+
+/* Balloon floating animation */
+@keyframes arkBalloonFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-14px);
+    }
+}
+
+/* Cloud floating animation */
+@keyframes arkCloudMove {
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+
+    50% {
+        transform: translateX(10px) translateY(-5px);
+    }
+}
+
+/* ==================================================
+   LARGE DESKTOP — 1400PX AND ABOVE
+================================================== */
+
+@media (min-width: 1400px) {
+    .trv-year-section {
+        width: 590px;
+        max-width: 66%;
+
+        top: -65px !important;
+        right: -5px !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 235px;
+        left: -55px;
+        bottom: 115px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 200px;
+        right: -45px;
+        top: 130px;
+    }
+}
+
+/* ==================================================
+   NORMAL DESKTOP — 1200PX TO 1399PX
+================================================== */
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .trv-year-section {
+        width: 510px;
+        max-width: 65%;
+
+        top: -30px !important;
+        right: 0 !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 205px;
+        left: -35px;
+        bottom: 100px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 165px;
+        right: -20px;
+        top: 115px;
+    }
+}
+
+/* ==================================================
+   SMALL LAPTOP — 992PX TO 1199PX
+================================================== */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .trv-year-section {
+        width: 420px;
+        max-width: 78%;
+
+        top: 0 !important;
+        right: -5px !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 165px;
+        left: -25px;
+        bottom: 80px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 140px;
+        right: -15px;
+        top: 95px;
+    }
+}
+
+/* ==================================================
+   TABLET — 768PX TO 991PX
+================================================== */
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 650px;
+        margin-top: 35px;
+
+        overflow: visible;
+    }
+
+    .trv-year-section {
+        width: 440px;
+        max-width: 57%;
+
+        top: 5px !important;
+        right: 15px !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 165px;
+        left: -30px;
+        bottom: 80px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 140px;
+        right: -20px;
+        top: 100px;
+    }
+}
+
+/* ==================================================
+   MOBILE — BELOW 768PX
+================================================== */
+
+@media (max-width: 767px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 590px;
+        margin-top: 25px;
+
+        overflow: hidden;
+    }
+
+    .trv-year-section {
+        width: 340px;
+        max-width: 72%;
+
+        top: 5px !important;
+        right: 5px !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 130px;
+
+        left: -15px;
+        bottom: 65px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 110px;
+
+        right: -8px;
+        top: 75px;
+    }
+}
+
+/* ==================================================
+   SMALL MOBILE — BELOW 576PX
+================================================== */
+
+@media (max-width: 575px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 520px;
+        margin-top: 20px;
+    }
+
+    .trv-year-section {
+        width: 285px;
+        max-width: 76%;
+
+        top: 10px !important;
+        right: -2px !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 105px;
+
+        left: -5px;
+        bottom: 55px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 90px;
+
+        right: -5px;
+        top: 65px;
+    }
+}
+
+/* ==================================================
+   VERY SMALL MOBILE — BELOW 421PX
+================================================== */
+
+@media (max-width: 420px) {
+    .trv-we-rec-media-main-wrap {
+        min-height: 470px;
+    }
+
+    .trv-year-section {
+        width: 235px;
+        max-width: 72%;
+
+        top: 15px !important;
+        right: 2px !important;
+    }
+
+    .ark-balloon-cloud-left {
+        width: 85px;
+
+        left: 0;
+        bottom: 45px;
+    }
+
+    .ark-balloon-cloud-right {
+        width: 72px;
+
+        right: 0;
+        top: 52px;
+    }
+}
+
+/* Disable animations for users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    .trv-year-section,
+    .ark-balloon-cloud {
+        animation: none !important;
+    }
+}
+{% comment %} hot air ballon css end  {% endcomment %}
+
 </style>
 {% endblock %}
 
@@ -933,33 +1661,58 @@
   <div class="hero-slides-wrapper">
 
     <div class="hero-overlay-content active" id="slide-1">
-      <span class="hero-eyebrow">Explore Beyond Boundaries</span>
+      {% comment %} <span class="hero-eyebrow">Explore Beyond Boundaries</span>
       <h1>Your Next Great<br><span class="accent">Adventure</span> Starts Here</h1>
-      <p class="hero-desc">Handpicked journeys across 50+ destinations, crafted around your pace, your people, and your idea of a perfect trip.</p>
+      <p class="hero-desc">Handpicked journeys across 50+ destinations, crafted around your pace, your people, and your idea of a perfect trip.</p> {% endcomment %}
+      <!-- Slide 1 -->
+      <span class="hero-eyebrow">World By ARK</span>
+      <h1>Creating Memories<br>Beyond <span class="accent">Destinations</span></h1>
+      <p class="hero-desc">Every journey is thoughtfully designed to create meaningful experiences that stay with you long after you return home.
+      </p>
     </div>
 
     <div class="hero-overlay-content" id="slide-2">
-      <span class="hero-eyebrow">Curated Destinations</span>
+      {% comment %} <span class="hero-eyebrow">Curated Destinations</span>
       <h1>Travel Far.<br>Experience <span class="accent">More.</span></h1>
-      <p class="hero-desc">From misty hill stations to sunlit coastlines, every destination is chosen for the story it lets you tell.</p>
+      <p class="hero-desc">From misty hill stations to sunlit coastlines, every destination is chosen for the story it lets you tell.</p> {% endcomment %}
+      <!-- Slide 2 -->
+      <span class="hero-eyebrow">Luxury Travel</span>
+      <h1>Luxury Travel<br>With a <span class="accent">Personal Touch</span></h1>
+      <p class="hero-desc">From boutique escapes to premium international holidays, every itinerary is tailored to match your travel style.
+      </p>
     </div>
 
     <div class="hero-overlay-content" id="slide-3">
-      <span class="hero-eyebrow">Crafted Just For You</span>
+      {% comment %} <span class="hero-eyebrow">Crafted Just For You</span>
       <h1>Journeys That<br>Inspire Every <span class="accent">Moment</span></h1>
-      <p class="hero-desc">No two travelers are the same, so no two itineraries should be either. We design each trip around you.</p>
+      <p class="hero-desc">No two travelers are the same, so no two itineraries should be either. We design each trip around you.</p> {% endcomment %}
+      <!-- Slide 3 -->
+      <span class="hero-eyebrow">Worldwide Experiences</span>
+      <h1>From Beaches<br>to <span class="accent">Mountains</span></h1>
+      <p class="hero-desc">Whether you dream of tropical islands, snowy peaks, vibrant cities, or hidden gems, we plan every detail for you.
+      </p>
     </div>
 
     <div class="hero-overlay-content" id="slide-4">
-      <span class="hero-eyebrow">Luxury • Comfort • Discovery</span>
+      {% comment %} <span class="hero-eyebrow">Luxury • Comfort • Discovery</span>
       <h1>See the World<br><span class="accent">Like Never Before</span></h1>
-      <p class="hero-desc">Comfort meets discovery in every stay, every transfer, every experience we put together for you.</p>
+      <p class="hero-desc">Comfort meets discovery in every stay, every transfer, every experience we put together for you.</p> {% endcomment %}
+      <!-- Slide 4 -->
+      <span class="hero-eyebrow">Discover More</span>
+      <h1>Every Destination<br>Has a <span class="accent">Story</span></h1>
+      <p class="hero-desc">Travel beyond sightseeing and experience the culture, people, and unforgettable moments that make every destination unique.
+      </p>
     </div>
 
     <div class="hero-overlay-content" id="slide-5">
-      <span class="hero-eyebrow">World By ARK</span>
+      {% comment %} <span class="hero-eyebrow">World By ARK</span>
       <h1>Turning Dreams<br>Into <span class="accent">Destinations</span></h1>
-      <p class="hero-desc">Ten years of helping travelers turn a wishlist into a passport full of memories.</p>
+      <p class="hero-desc">Ten years of helping travelers turn a wishlist into a passport full of memories.</p> {% endcomment %}
+      <!-- Slide 5 -->
+      <span class="hero-eyebrow">World By ARK</span>
+      <h1>From VISA to<br><span class="accent">Vacation</span></h1>
+      <p class="hero-desc">From visa assistance and flights to hotels and unforgettable experiences, we've got your journey covered from start to finish.
+      </p>
     </div>
 
   </div>
@@ -1148,13 +1901,23 @@
                                 <div class="col-xl-7 col-lg-5 col-md-12 trv-we-rec-media-main-wrap">
 
                                     <div class="trv-year-section">
-                                        <div class="trv-year-media">
-                                            <img src="{% static 'assets/images/plane1.png' %}" alt="image">
+
+                                        <!-- Decorative clouds -->
+                                        <div class="ark-balloon-cloud ark-balloon-cloud-left">
+                                            <img src="{% static 'assets/images/cloud-1.png' %}" alt="">
                                         </div>
-                                        <div class="trv-year-info">
+
+                                        <div class="ark-balloon-cloud ark-balloon-cloud-right">
+                                            <img src="{% static 'assets/images/cloud-1.png' %}" alt="">
+                                        </div>
+
+                                        <div class="trv-year-media">
+                                            <img src="{% static 'assets/images/Hotair-Ballon-with-banner.png' %}" alt="image">
+                                        </div>
+                                        {% comment %} <div class="trv-year-info">
                                             <h2 class="numbr">10</h2>
                                             <span>Years of Experience</span>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <div class="trc-we-rec-circle-bx">
                                         <img src="{% static 'assets/images/we-rec-pic2.jpg' %}" alt="image">
@@ -1180,9 +1943,9 @@
             <div class="section-full trv-achivment-section">
                 <div class="container">
                     <div class="trv-achivment-row">
-                        <div class=" parallax-section">
+                        <div class="parallax-section">
                             <div class="parallax-content">
-                                <div class="video-section-outer">
+                                {% comment %} <div class="video-section-outer">
                                     <div class="video-section">
                                         <a href="https://player.vimeo.com/video/213315632?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0"
                                             class="mfp-video play-now-video">
@@ -1190,7 +1953,7 @@
                                             <span class="ripple"></span>
                                         </a>
                                     </div>
-                                </div>
+                                </div> {% endcomment %}
                                 <div class="trv-say-yesbx-wrap">
                                 <div class="trv-say-yesbx">
                                     <div class="say-title">Say <span>Yes!</span></div>
@@ -1199,19 +1962,33 @@
                             </div>
 
                             </div>
-                           <div class="trv-vid-st2 parallax-image" style="background-image: url('{% static 'assets/images/background/sea-shore.png' %}');">
-                           </div>
+                           {% comment %} <div class="trv-vid-st2 parallax-image" style="background-image: url('{% static 'assets/images/background/sea-shore.png' %}');">
+                           </div> {% endcomment %}
+
+                          <div class="trv-vid-st2" aria-hidden="true">
+
+    <iframe
+        class="achievement-video"
+        src="https://player.vimeo.com/video/213315632?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        tabindex="-1"
+        title="World By ARK background video">
+    </iframe>
+
+</div>
+
                             <div class="trv-vid-st2-counter">
                                 <div class="row">
 
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
                                         <div class="trv-counter-outer-one">
                                             <div class="trv-counter-media">
-                                                <img src="{% static 'assets/images/trv-icon/count-icon1.png' %}" alt="Image">
+                                                <img src="{% static 'assets/images/trv-icon/destination-icon.png' %}"alt="Image">
                                             </div>
                                             <div class="trv-icon-content-info">
-                                                <h4 class="trv-icon-title">Awards Winning</h4>
-                                                <div class="counter-out"><span class="counter">3600</span><b>+</b></div>
+                                                <h4 class="trv-icon-title">Destinations</h4>
+                                                <div class="counter-out"><span class="counter">50</span><b>+</b></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1268,7 +2045,7 @@
 
                 <div id="module">
                     <div class="trv-feature">
-                        <a href="{% url 'destinations' %}" class="site-button butn-bg-shape">View More</a>
+                        <a href="{% url 'gallery' %}" class="site-button butn-bg-shape">View More</a>
                     </div>
                     <div class="swiper trv-tr-cat-carousal">
                         <div class="swiper-wrapper">
@@ -1286,7 +2063,7 @@
                             {% endfor %} 
                             <!--Last Content-->
                             <div class="trv-cat-sld swiper-slide swiper-slide-last" data-title="" data-description="">
-                                <a href="{% url 'destinations' %}" class="site-button butn-bg-shape">View All</a>
+                                <a href="{% url 'gallery' %}" class="site-button butn-bg-shape">View All</a>
                             </div>
                         </div>
                         <div class="swiper-button-next"></div>
@@ -1714,9 +2491,7 @@
                             <div class="section-head trv-head-title-wrap left-position">
                                 <h2 class="trv-head-title">Easy Step<span class="site-text-yellow"> For Booking</span>
                                 </h2>
-                                <div class="trv-head-discription">Maybe for a travel blog, wildlife site, or web
-                                    development project here are a few sample templates you can use to simulate
-                                    real-time news updates:</div>
+                                <div class="trv-head-discription">Book your dream vacation in just three simple steps. Choose your destination, confirm your booking securely, and get ready to explore unforgettable experiences with World By ARK.</div>
                             </div>
                         </div>
                         <div class="col-xl-8 col-lg-6 col-md-12">
@@ -1743,8 +2518,7 @@
                                         </div>
                                         <div class="trv-content">
                                             <h4 class="trv-title">Choose Destination</h4>
-                                            <p>All you have to do is, first select your preferred destination and
-                                                proceed</p>
+                                            <p>Browse our carefully curated domestic and international destinations, then select the perfect getaway that matches your travel style and budget.</p>
                                         </div>
                                         <div class="trv-btm-txt-part">
                                             <div class="media">
@@ -1766,8 +2540,7 @@
                                         </div>
                                         <div class="trv-content">
                                             <h4 class="trv-title">Make Payment</h4>
-                                            <p>You are important to us. We pay attention to the quality of every service
-                                                we provide to you.</p>
+                                            <p>Complete your enquiry or secure your reservation through our simple and safe booking process with assistance from our travel experts.</p>
                                         </div>
                                         <div class="trv-btm-txt-part">
                                             <div class="media">
@@ -1789,8 +2562,7 @@
                                         </div>
                                         <div class="trv-content">
                                             <h4 class="trv-title">Ready For Travelling</h4>
-                                            <p>We have seen that you have fulfilled all the requirements, now you are
-                                                ready to travel.</p>
+                                            <p>Pack your bags and enjoy a seamless journey while we take care of every detail, ensuring a comfortable and memorable travel experience.</p>
                                         </div>
                                         <div class="trv-btm-txt-part">
                                             <div class="media">
@@ -1817,7 +2589,7 @@
                                 <li><i class="feather feather-check"></i><span>Completed Certification</span></li>
                             </ul>
                         </div>
-                        <a href="{% url 'about' %}" class="site-button butn-bg-shape">Discover More</a>
+                        <a href="{% url 'destinations' %}" class="site-button butn-bg-shape">Discover More</a>
                     </div>
                     <div class="w-choo-right">
                         <div class="media">
@@ -1825,7 +2597,7 @@
                         </div>
                         <div class="info">
                             <h3 class="call-us">Call Us</h3>
-                            <span class="num">206-242-1112</span>
+                            <span class="num">+91 81 38 999 007</span>
                         </div>
 
                     </div>
@@ -1932,7 +2704,7 @@
             <div class="container mb-5 mt-4">
                 <div class="trv-adventure-video-section position-relative overflow-hidden"
                     style="height: 75vh; min-height: 550px; border-radius: 20px;">
-                    <video src="{% static 'assets/videos/water-fall.mp4' %}" autoplay muted loop playsinline
+                    <video src="{% static 'assets/videos/home-page-video-2.mp4' %}" autoplay muted loop playsinline
                         class="position-absolute w-100 h-100"
                         style="top: 0; left: 0; object-fit: cover; z-index: -1;"></video>
 
@@ -1999,7 +2771,7 @@
                     <div class="post-category">{{ blog.title }}</div>
                     <div class="trv-post-title">
                         <h5 class="post-title">
-                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|truncatechars:50}}</a>
+                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|cut:"&nbsp;"|truncatechars:50 }}</a>
                         </h5>
                     </div>
                 </div>
@@ -2023,7 +2795,7 @@
                     <div class="post-category">{{ blog.title }}</div>
                     <div class="trv-post-title">
                         <h5 class="post-title">
-                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|truncatechars:50 }}</a>
+                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|cut:"&nbsp;"|truncatechars:50 }}</a>
                         </h5>
                     </div>
                 </div>
@@ -2043,7 +2815,7 @@
                     <div class="post-category">{{ blog.title }}</div>
                     <div class="trv-post-title">
                         <h5 class="post-title">
-                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|truncatechars:50 }}</a>
+                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|cut:"&nbsp;"|truncatechars:50 }}</a>
                         </h5>
                     </div>
                 </div>
@@ -2067,7 +2839,7 @@
                     <div class="post-category">By {{ blog.title }}</div>
                     <div class="trv-post-title">
                         <h3 class="post-title">
-                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|truncatechars:120 }}</a>
+                            <a href="{% url 'blogs' %}">{{ blog.description|striptags|cut:"&nbsp;"|truncatechars:120 }}</a>
                         </h3>
                     </div>
                 </div>
