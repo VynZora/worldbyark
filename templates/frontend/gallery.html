@@ -150,6 +150,24 @@
 {% comment %} pagination style end  {% endcomment %}
 
 
+
+{% comment %} gallery image css start {% endcomment %}
+@media (max-width:767px){
+
+.trv-gallery-section{
+    column-count:2;
+    column-gap:15px;
+}
+
+.trv-gallery-section > div{
+    display:inline-block;
+    width:100%;
+    margin-bottom:15px;
+    break-inside:avoid;
+}
+
+}
+{% comment %} gallery image css end  {% endcomment %}
 </style>
 {% endblock %}
 {% block content %}

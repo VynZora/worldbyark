@@ -3339,9 +3339,12 @@ THEMEFOREST REQUIRED CLASSES
 }
 @media (max-width: 991px) {
   .header-style-1 .has-child .submenu-toogle {
-    display: block;
-    width: 100%;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    text-align: center;
   }
 }
 .header-style-1 .has-child li .submenu-toogle {
@@ -4138,9 +4141,12 @@ THEMEFOREST REQUIRED CLASSES
 }
 @media (max-width: 991px) {
   .header-style-2 .has-child .submenu-toogle {
-    display: block;
-    width: 100%;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    text-align: center;
   }
 }
 .header-style-2 .has-child li .submenu-toogle {
@@ -4914,9 +4920,12 @@ header-style-2.sticky-header.is-fixed {
 }
 @media (max-width: 991px) {
   .header-style-3 .has-child .submenu-toogle {
-    display: block;
-    width: 100%;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    text-align: center;
   }
 }
 .header-style-3 .has-child li .submenu-toogle {
