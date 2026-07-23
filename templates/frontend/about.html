@@ -1941,13 +1941,93 @@
 
 
  {% comment %} service style 2 start {% endcomment %}
-.ark-service-scroll{
-  position:relative;
-  height:100vh;
-  min-height:720px;
-  background:#3C2D73;
-  overflow:hidden;
-  color:#fff;
+* ==================================================
+   WORLD BY ARK — SERVICE BACKGROUNDS
+================================================== */
+
+.ark-service-scroll {
+    position: relative;
+    height: 100vh;
+    min-height: 720px;
+    overflow: hidden;
+    color: #fff;
+
+    background-color: #3C2D73;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Same image behaviour for every service */
+.ark-service-scroll.service-bg-1,
+.ark-service-scroll.service-bg-2,
+.ark-service-scroll.service-bg-3,
+.ark-service-scroll.service-bg-4,
+.ark-service-scroll.service-bg-5,
+.ark-service-scroll.service-bg-6 {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 01 — Holiday Packages */
+.ark-service-scroll.service-bg-1 {
+    background-image:
+        linear-gradient(
+            rgba(60, 45, 115, 0.55),
+            rgba(60, 45, 115, 0.55)
+        ),
+        url("{% static 'assets/images/trv-services/holidaypackaes-bg.png' %}");
+}
+
+/* 02 — Flight Booking */
+.ark-service-scroll.service-bg-2 {
+    background-image:
+        linear-gradient(
+            rgba(60, 45, 115, 0.55),
+            rgba(60, 45, 115, 0.55)
+        ),
+        url("{% static 'assets/images/trv-services/flight-booking-bg.png' %}");
+}
+
+/* 03 — Hotel Booking */
+.ark-service-scroll.service-bg-3 {
+    background-image:
+        linear-gradient(
+            rgba(60, 45, 115, 0.55),
+            rgba(60, 45, 115, 0.55)
+        ),
+        url("{% static 'assets/images/trv-services/hotel-booking-bg.png' %}");
+}
+
+/* 04 — Visa Handling */
+.ark-service-scroll.service-bg-4 {
+    background-image:
+        linear-gradient(
+            rgba(60, 45, 115, 0.56),
+            rgba(60, 45, 115, 0.56)
+        ),
+        url("{% static 'assets/images/trv-services/visa-bg.png' %}");
+}
+
+/* 05 — Insurance */
+.ark-service-scroll.service-bg-5 {
+    background-image:
+        linear-gradient(
+            rgba(60, 45, 115, 0.50),
+            rgba(60, 45, 115, 0.50)
+        ),
+        url("{% static 'assets/images/trv-services/insurance-bg.png' %}");
+}
+
+/* 06 — Train & Bus Booking */
+.ark-service-scroll.service-bg-6 {
+    background-image:
+        linear-gradient(
+            rgba(60, 45, 115, 0.54),
+            rgba(60, 45, 115, 0.54)
+        ),
+        url("{% static 'assets/images/trv-services/train-bus.png' %}");
 }
 
 .ark-service-bg-text{
@@ -2160,7 +2240,6 @@
     border-radius:22px;
   }
 }
-
 {% comment %} service 2 style end {% endcomment %}
 </style>
 
@@ -5499,76 +5578,131 @@
       
 {% comment %} service style 2 start {% endcomment %}
 
-<section class="ark-service-scroll" id="services">
-  <div class="ark-service-bg-text">SERVICES</div>
+{% comment %} service section start {% endcomment %}
 
-  <div class="ark-service-inner">
+<section class="ark-service-scroll service-bg-1" id="services">
 
-    <div class="ark-service-left">
-      <span class="ark-service-small">What We Offer</span>
-      <h2>Our Amazing <span>Services</span></h2>
+    <div class="ark-service-bg-text">SERVICES</div>
 
-      <div class="ark-service-text-wrap">
+    <div class="ark-service-inner">
 
-        <div class="ark-service-item active">
-          <span class="ark-service-num">01</span>
-          <h3>Hotel Bookings</h3>
-          <p>Choose comfortable hotels and stays that match your budget and journey.</p>
+        <div class="ark-service-left">
+
+            <span class="ark-service-small">What We Offer</span>
+
+            <h2>
+                Our Amazing <span>Services</span>
+            </h2>
+
+            <div class="ark-service-text-wrap">
+
+                <div class="ark-service-item active">
+                    <span class="ark-service-num">01</span>
+                    <h3>Holiday Packages</h3>
+                    <p>
+                        Discover carefully curated domestic and international
+                        holiday packages designed around your budget and travel plans.
+                    </p>
+                </div>
+
+                <div class="ark-service-item">
+                    <span class="ark-service-num">02</span>
+                    <h3>Flight Booking</h3>
+                    <p>
+                        Book domestic and international flights with reliable
+                        assistance and convenient travel options.
+                    </p>
+                </div>
+
+                <div class="ark-service-item">
+                    <span class="ark-service-num">03</span>
+                    <h3>Hotel Booking</h3>
+                    <p>
+                        Find comfortable hotels and stays selected according to
+                        your destination, preferences, and budget.
+                    </p>
+                </div>
+
+                <div class="ark-service-item">
+                    <span class="ark-service-num">04</span>
+                    <h3>Visa Handling</h3>
+                    <p>
+                        Get professional assistance with visa documentation,
+                        application procedures, and travel requirements.
+                    </p>
+                </div>
+
+                <div class="ark-service-item">
+                    <span class="ark-service-num">05</span>
+                    <h3>Insurance</h3>
+                    <p>
+                       Protect yourself and your loved ones with reliable insurance solutions, including travel, health, life, vehicle, and other coverage options tailored to your needs.
+                    </p>
+                </div>
+
+                <div class="ark-service-item">
+                    <span class="ark-service-num">06</span>
+                    <h3>Train and Bus Booking</h3>
+                    <p>
+                        Arrange convenient train and bus bookings for individual,
+                        family, and group travel.
+                    </p>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="ark-service-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#bookingModal"
+                onclick="openActiveServiceModal()">
+
+                <span>Enquire Now</span>
+                <i class="bi bi-arrow-right"></i>
+            </button>
+
         </div>
 
-        <div class="ark-service-item">
-          <span class="ark-service-num">02</span>
-          <h3>Flight Bookings</h3>
-          <p>Book domestic and international flights with smooth travel support.</p>
+        <div class="ark-service-right">
+
+            <img
+                class="ark-service-img active"
+                src="{% static 'assets/images/trv-services/holidaypackaes-bg.png' %}"
+                alt="Holiday Packages">
+
+            <img
+                class="ark-service-img"
+                src="{% static 'assets/images/trv-services/flight-booking-bg.png' %}"
+                alt="Flight Booking">
+
+            <img
+                class="ark-service-img"
+                src="{% static 'assets/images/trv-services/hotel-booking-bg.png' %}"
+                alt="Hotel Booking">
+
+            <img
+                class="ark-service-img"
+                src="{% static 'assets/images/trv-services/visa-bg.png' %}"
+                alt="Visa Handling">
+
+            <img
+                class="ark-service-img"
+                src="{% static 'assets/images/trv-services/insurance-bg.png' %}"
+                alt="Insurance">
+
+            <img
+                class="ark-service-img"
+                src="{% static 'assets/images/trv-services/train-bus.png' %}"
+                alt="Train and Bus Booking">
+
         </div>
 
-        <div class="ark-service-item">
-          <span class="ark-service-num">03</span>
-          <h3>Holiday Packages</h3>
-          <p>Explore curated packages for family trips, couples, and solo travelers.</p>
-        </div>
-
-        <div class="ark-service-item">
-          <span class="ark-service-num">04</span>
-          <h3>Cabs & Transfers</h3>
-          <p>Reliable local transfers and cab services for a hassle-free journey.</p>
-        </div>
-
-        <div class="ark-service-item">
-          <span class="ark-service-num">05</span>
-          <h3>Experiences</h3>
-          <p>Enjoy activities, adventures, and unforgettable destination experiences.</p>
-        </div>
-
-        <div class="ark-service-item">
-          <span class="ark-service-num">06</span>
-          <h3>Train & Bus Rentals</h3>
-          <p>Easy train, bus, and group travel solutions for every trip.</p>
-        </div>
-
-      </div>
-
-      <button type="button"
-              class="ark-service-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#bookingModal"
-              onclick="openBookingModal(document.querySelector('.ark-service-item.active h3').innerText)">
-        <span>Enquire Now</span>
-        <i class="bi bi-arrow-right"></i>
-      </button>
     </div>
 
-    <div class="ark-service-right">
-      <img class="ark-service-img active" src="{% static 'assets/images/trv-services/hotel-booking.jpeg' %}" alt="">
-      <img class="ark-service-img" src="{% static 'assets/images/trv-services/flight-booking.jpeg' %}" alt="">
-      <img class="ark-service-img" src="{% static 'assets/images/trv-services/holiday-packages.png' %}" alt="">
-      <img class="ark-service-img" src="{% static 'assets/images/trv-services/localcabs.jpeg' %}" alt="">
-      <img class="ark-service-img" src="{% static 'assets/images/trv-services/Activities-and-experience.jpg' %}" alt="">
-      <img class="ark-service-img" src="{% static 'assets/images/trv-services/bus-rental.jpeg' %}" alt="">
-    </div>
-
-  </div>
 </section>
+
+{% comment %} service section end {% endcomment %}
 
 
             <!--TESTIMONIAL SECTION START-->
@@ -5671,71 +5805,192 @@
 {% comment %} service 2 js start {% endcomment %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  const section = document.querySelector(".ark-service-scroll");
-  if (!section) return;
-
-  const items = gsap.utils.toArray(".ark-service-item");
-  const images = gsap.utils.toArray(".ark-service-img");
-
-  gsap.set(items, { opacity: 0, y: 35 });
-  gsap.set(images, { opacity: 0, scale: 1.08 });
-
-  gsap.set(items[0], { opacity: 1, y: 0 });
-  gsap.set(images[0], { opacity: 1, scale: 1 });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: "top 100px",
-      end: "+=550%",
-      scrub: 1.4,
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
+    if (
+        typeof gsap === "undefined" ||
+        typeof ScrollTrigger === "undefined"
+    ) {
+        console.warn("GSAP or ScrollTrigger is not loaded.");
+        return;
     }
-  });
 
-  items.forEach((item, index) => {
-    if (index === 0) return;
+    gsap.registerPlugin(ScrollTrigger);
 
-    tl.to(items[index - 1], {
-      opacity: 0,
-      y: -35,
-      duration: 1,
-      onStart: () => items[index - 1].classList.remove("active"),
-      onReverseComplete: () => items[index - 1].classList.add("active")
+    const section = document.querySelector("#services");
+
+    if (!section) {
+        return;
+    }
+
+    const items = gsap.utils.toArray(
+        section.querySelectorAll(".ark-service-item")
+    );
+
+    const images = gsap.utils.toArray(
+        section.querySelectorAll(".ark-service-img")
+    );
+
+    const backgroundClasses = [
+        "service-bg-1",
+        "service-bg-2",
+        "service-bg-3",
+        "service-bg-4",
+        "service-bg-5",
+        "service-bg-6"
+    ];
+
+    if (
+        items.length !== images.length ||
+        items.length !== backgroundClasses.length
+    ) {
+        console.warn(
+            "Service items, images, and backgrounds must have equal counts."
+        );
+        return;
+    }
+
+    function changeServiceBackground(index) {
+        section.classList.remove(...backgroundClasses);
+        section.classList.add(backgroundClasses[index]);
+    }
+
+    function activateService(index) {
+
+        items.forEach(function (item, itemIndex) {
+            item.classList.toggle(
+                "active",
+                itemIndex === index
+            );
+        });
+
+        images.forEach(function (image, imageIndex) {
+            image.classList.toggle(
+                "active",
+                imageIndex === index
+            );
+        });
+
+        changeServiceBackground(index);
+    }
+
+    gsap.set(items, {
+        opacity: 0,
+        y: 35
     });
 
-    tl.to(images[index - 1], {
-      opacity: 0,
-      scale: 0.96,
-      duration: 1
-    }, "<");
+    gsap.set(images, {
+        opacity: 0,
+        scale: 1.08
+    });
 
-    tl.to(item, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      onStart: () => item.classList.add("active"),
-      onReverseComplete: () => item.classList.remove("active")
-    }, "<0.2");
+    gsap.set(items[0], {
+        opacity: 1,
+        y: 0
+    });
 
-    tl.to(images[index], {
-      opacity: 1,
-      scale: 1,
-      duration: 1.2
-    }, "<");
-  });
+    gsap.set(images[0], {
+        opacity: 1,
+        scale: 1
+    });
 
-  window.addEventListener("load", function () {
+    activateService(0);
+
+    const serviceTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: "top 100px",
+            end: "+=550%",
+            scrub: 1.4,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
+        }
+    });
+
+    items.forEach(function (item, index) {
+
+        if (index === 0) {
+            return;
+        }
+
+        const previousIndex = index - 1;
+
+        serviceTimeline.to(
+            items[previousIndex],
+            {
+                opacity: 0,
+                y: -35,
+                duration: 1,
+
+                onStart: function () {
+                    items[previousIndex].classList.remove("active");
+                },
+
+                onReverseComplete: function () {
+                    activateService(previousIndex);
+                }
+            }
+        );
+
+        serviceTimeline.to(
+            images[previousIndex],
+            {
+                opacity: 0,
+                scale: 0.96,
+                duration: 1
+            },
+            "<"
+        );
+
+        serviceTimeline.to(
+            item,
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+
+                onStart: function () {
+                    activateService(index);
+                },
+
+                onReverseComplete: function () {
+                    item.classList.remove("active");
+                    changeServiceBackground(previousIndex);
+                }
+            },
+            "<0.2"
+        );
+
+        serviceTimeline.to(
+            images[index],
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 1
+            },
+            "<"
+        );
+
+        serviceTimeline.to({}, {
+            duration: 0.8
+        });
+    });
+
     ScrollTrigger.refresh();
-  });
 });
+
+
+function openActiveServiceModal() {
+
+    const activeService = document.querySelector(
+        "#services .ark-service-item.active h3"
+    );
+
+    if (!activeService) return;
+
+    openBookingModal(activeService.textContent.trim());
+}
 </script>
 {% comment %} js for service 2 end {% endcomment %}
 
