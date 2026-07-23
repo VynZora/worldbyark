@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # WARNING: Keep secret key, passwords, and API keys secret in production!
 SECRET_KEY = 'your-secret-key-here-change-in-production'
-DEBUG = False  # Changed to False for production safety
+DEBUG = True  # Changed to False for production safety
 ALLOWED_HOSTS = ["*"]
 
 # APPS

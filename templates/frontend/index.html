@@ -650,9 +650,140 @@
   position:relative;
   height:100vh;
   min-height:720px;
-  background:#3C2D73;
   overflow:hidden;
   color:#fff;
+
+  /* First service background */
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(242, 153, 121, 0.22),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #3C2D73, #59438E);
+
+  transition: background 0.8s ease;
+
+}
+
+
+
+/* 01 - Hotel Bookings */
+{% comment %} .ark-service-scroll.service-bg-1{
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(242, 153, 121, 0.22),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #3C2D73, #59438E);
+} {% endcomment %}
+
+.ark-service-scroll.service-bg-1{
+    background:
+        linear-gradient(
+            rgba(60,45,115,.75),
+            rgba(60,45,115,.75)
+        ),
+        url("../images/trv-services/adventure-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* 02 - Flight Bookings */
+.ark-service-scroll.service-bg-2{
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(104, 190, 255, 0.20),
+      transparent 38%
+    ),
+    linear-gradient(135deg, #173A5E, #275D87);
+}
+
+/* 03 - Holiday Packages */
+{% comment %} .ark-service-scroll.service-bg-3{
+  background:
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 169, 131, 0.22),
+      transparent 38%
+    ),
+    linear-gradient(135deg, #4A2675, #7A3D78);
+} {% endcomment %}
+
+.ark-service-scroll.service-bg-3{
+    background:
+        linear-gradient(
+            rgba(60,45,115,.72),
+            rgba(60,45,115,.72)
+        ),
+        url("../images/trv-services/adventure-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 04 - Cabs & Transfers */
+{% comment %} .ark-service-scroll.service-bg-4{
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(252, 196, 95, 0.18),
+      transparent 36%
+    ),
+    linear-gradient(135deg, #2F3C36, #536148);
+} {% endcomment %}
+.ark-service-scroll.service-bg-4{
+    background:
+        linear-gradient(
+            rgba(60,45,115,.72),
+            rgba(60,45,115,.72)
+        ),
+        url("../images/trv-services/adventure-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 05 - Experiences */
+.ark-service-scroll.service-bg-5{
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(95, 214, 181, 0.18),
+      transparent 38%
+    ),
+    linear-gradient(135deg, #164F54, #24786F);
+}
+
+/* 06 - Train & Bus Rentals */
+{% comment %} .ark-service-scroll.service-bg-6{
+  background:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(234, 183, 95, 0.18),
+      transparent 38%
+    ),
+    linear-gradient(135deg, #513522, #765138);
+} {% endcomment %}
+
+.ark-service-scroll.service-bg-6{
+    background:
+        linear-gradient(
+            rgba(60,45,115,.72),
+            rgba(60,45,115,.72)
+        ),
+        url("../images/trv-services/adventure-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .ark-service-bg-text{
@@ -2553,7 +2684,7 @@
 
 {% comment %} service style 2 start {% endcomment %}
 
-<section class="ark-service-scroll" id="services">
+<section class="ark-service-scroll service-bg-1" id="services">
   <div class="ark-service-bg-text">SERVICES</div>
 
   <div class="ark-service-inner">
@@ -3262,7 +3393,7 @@
 </script>
 
 {% comment %} service 2 js start {% endcomment %}
-<<script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
 
@@ -3273,6 +3404,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const items = gsap.utils.toArray(".ark-service-item");
   const images = gsap.utils.toArray(".ark-service-img");
+
+  const backgroundClasses = [
+  "service-bg-1",
+  "service-bg-2",
+  "service-bg-3",
+  "service-bg-4",
+  "service-bg-5",
+  "service-bg-6"
+];
+
+function changeServiceBackground(index) {
+  section.classList.remove(...backgroundClasses);
+  section.classList.add(backgroundClasses[index]);
+}
 
   gsap.set(items, { opacity: 0, y: 35 });
   gsap.set(images, { opacity: 0, scale: 1.08 });
@@ -3310,13 +3455,22 @@ document.addEventListener("DOMContentLoaded", function () {
       duration: 1
     }, "<");
 
-    tl.to(item, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      onStart: () => item.classList.add("active"),
-      onReverseComplete: () => item.classList.remove("active")
-    }, "<0.2");
+  tl.to(item, {
+  opacity: 1,
+  y: 0,
+  duration: 1,
+
+  onStart: () => {
+    item.classList.add("active");
+    changeServiceBackground(index);
+  },
+
+  onReverseComplete: () => {
+    item.classList.remove("active");
+    changeServiceBackground(index - 1);
+  }
+
+}, "<0.2");
 
     tl.to(images[index], {
       opacity: 1,
