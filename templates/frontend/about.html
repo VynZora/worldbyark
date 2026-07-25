@@ -1964,70 +1964,84 @@
 .ark-service-scroll.service-bg-3,
 .ark-service-scroll.service-bg-4,
 .ark-service-scroll.service-bg-5,
-.ark-service-scroll.service-bg-6 {
+.ark-service-scroll.service-bg-6,
+.ark-service-scroll.service-bg-7,
+.ark-service-scroll.service-bg-8,
+.ark-service-scroll.service-bg-9,
+.ark-service-scroll.service-bg-10 {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* 01 — Holiday Packages */
+/* 01 — Tour Planning */
 .ark-service-scroll.service-bg-1 {
     background-image:
-        linear-gradient(
-            rgba(60, 45, 115, 0.55),
-            rgba(60, 45, 115, 0.55)
-        ),
-        url("{% static 'assets/images/trv-services/holidaypackaes-bg.png' %}");
+        linear-gradient(rgba(60,45,115,.55), rgba(60,45,115,.55)),
+        url("{% static 'assets/images/trv-services/background/tour-planning-bg.png' %}");
 }
 
-/* 02 — Flight Booking */
+/* 02 — Flight Bookings */
 .ark-service-scroll.service-bg-2 {
     background-image:
-        linear-gradient(
-            rgba(60, 45, 115, 0.55),
-            rgba(60, 45, 115, 0.55)
-        ),
-        url("{% static 'assets/images/trv-services/flight-booking-bg.png' %}");
+        linear-gradient(rgba(60,45,115,.55), rgba(60,45,115,.55)),
+        url("{% static 'assets/images/trv-services/background/flight-booking-bg.png' %}");
 }
 
-/* 03 — Hotel Booking */
+/* 03 — Hotel & Resort */
 .ark-service-scroll.service-bg-3 {
     background-image:
-        linear-gradient(
-            rgba(60, 45, 115, 0.55),
-            rgba(60, 45, 115, 0.55)
-        ),
-        url("{% static 'assets/images/trv-services/hotel-booking-bg.png' %}");
+        linear-gradient(rgba(60,45,115,.55), rgba(60,45,115,.55)),
+        url("{% static 'assets/images/trv-services/background/hotel-booking-bg.png' %}");
 }
 
-/* 04 — Visa Handling */
+/* 04 — Visa */
 .ark-service-scroll.service-bg-4 {
     background-image:
-        linear-gradient(
-            rgba(60, 45, 115, 0.56),
-            rgba(60, 45, 115, 0.56)
-        ),
-        url("{% static 'assets/images/trv-services/visa-bg.png' %}");
+        linear-gradient(rgba(60,45,115,.56), rgba(60,45,115,.56)),
+        url("{% static 'assets/images/trv-services/background/visa-bg.png' %}");
 }
 
-/* 05 — Insurance */
+/* 05 — Travel Insurance */
 .ark-service-scroll.service-bg-5 {
     background-image:
-        linear-gradient(
-            rgba(60, 45, 115, 0.50),
-            rgba(60, 45, 115, 0.50)
-        ),
-        url("{% static 'assets/images/trv-services/insurance-bg.png' %}");
+        linear-gradient(rgba(60,45,115,.52), rgba(60,45,115,.52)),
+        url("{% static 'assets/images/trv-services/background/travel-insurance-bg.png' %}");
 }
 
-/* 06 — Train & Bus Booking */
+/* 06 — Cruise & Train */
 .ark-service-scroll.service-bg-6 {
     background-image:
-        linear-gradient(
-            rgba(60, 45, 115, 0.54),
-            rgba(60, 45, 115, 0.54)
-        ),
-        url("{% static 'assets/images/trv-services/train-bus.png' %}");
+        linear-gradient(rgba(60,45,115,.54), rgba(60,45,115,.54)),
+        url("{% static 'assets/images/trv-services/background/cruise-train-bg.png' %}");
+}
+
+/* 07 — Attractions */
+.ark-service-scroll.service-bg-7 {
+    background-image:
+        linear-gradient(rgba(60,45,115,.53), rgba(60,45,115,.53)),
+        url("{% static 'assets/images/trv-services/background/theme-park-bg.png' %}");
+}
+
+/* 08 — MICE */
+.ark-service-scroll.service-bg-8 {
+    background-image:
+        linear-gradient(rgba(60,45,115,.56), rgba(60,45,115,.56)),
+        url("{% static 'assets/images/trv-services/background/mice-corporate-bg.png' %}");
+}
+
+/* 09 — Travel Add-ons */
+.ark-service-scroll.service-bg-9 {
+    background-image:
+        linear-gradient(rgba(60,45,115,.55), rgba(60,45,115,.55)),
+        url("{% static 'assets/images/trv-services/background/travel-addons-bg.png' %}");
+}
+
+/* 10 — Post Trip */
+.ark-service-scroll.service-bg-10 {
+    background-image:
+        linear-gradient(rgba(60,45,115,.55), rgba(60,45,115,.55)),
+        url("{% static 'assets/images/trv-services/background/post-trip-bg.png' %}");
 }
 
 .ark-service-bg-text{
@@ -2042,14 +2056,18 @@
 }
 
 .ark-service-inner{
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:grid;
-  grid-template-columns:42% 58%;
-  gap:50px;
-  padding:105px 7% 55px;
-  align-items:start;              /* was: align-items:flex-start (harmless typo-fix, keep) */
+    position:relative;
+    z-index:2;
+
+    height:100%;
+
+    display:grid;
+    grid-template-columns:40% 60%;
+    gap:45px;
+
+    padding:70px 7% 35px;
+
+    align-items:center;
 }
 
 .ark-service-small{
@@ -2060,74 +2078,199 @@
 }
 
 .ark-service-left{
-  display:flex;
-  flex-direction:column;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 560px;
+
+    justify-content: center;
 }
 
 .ark-service-left h2{
-  color:#fff !important;
-  font-size:clamp(44px,5vw,78px);
-  line-height:.95;
-  margin:12px 0 24px;             /* was 18px 0 38px — tighter gap under heading */
+    color: #fff !important;
+
+    font-size: clamp(42px, 4.3vw, 68px);
+    line-height: 0.98;
+
+     margin:8px 0 18px;
 }
 
 .ark-service-left h2 span{
-  color:#F29979;
+    display: block;
+    color: #F29979;
 }
 
 .ark-service-text-wrap{
   position:relative;
-  min-height:170px;            /* was 250px */
+  min-height:250px;            /* was 250px */
 }
 
 .ark-service-item{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transform:translateY(35px);
-  pointer-events:none;
-  display:grid;
-  grid-template-columns:auto 1fr;
-  column-gap:20px;
-  align-items:center;         /* vertically centers num against h3 */
+    position:absolute;
+    inset:0;
+
+    opacity:0;
+    transform:translateY(25px);
+    pointer-events:none;
+
+    display:grid;
+    grid-template-columns:auto 1fr;
+    grid-template-rows:auto auto;
+
+    column-gap:14px;
+    row-gap:12px;
+
+    align-items:center;
+
+    width:100%;
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
 }
 
 .ark-service-item.active{
-  opacity:1;
-  transform:translateY(0);
-  pointer-events:auto;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .ark-service-num{
-  grid-column:1;
-  grid-row:1;
-  font-size:56px;
-  font-weight:900;
-  color:rgba(242,153,121,.3);
-  line-height:1;
-  margin-bottom:0;             /* was 8px — no longer needed, sits inline now */
+    grid-column:1;
+    grid-row:1;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:44px;
+    height:28px;
+
+    padding:0 10px;
+    margin:0;
+
+    border:1px solid rgba(242,153,121,.55);
+    border-radius:20px;
+
+    background:rgba(242,153,121,.12);
+
+    color:#F29979;
+
+    font-size:14px;
+    font-weight:700;
+    line-height:1;
 }
 
 .ark-service-item h3{
-  grid-column:2;
-  grid-row:1;
-  color:#fff !important;
-  font-size:clamp(32px,3.5vw,52px);
-  margin-bottom:0;             /* was 14px — handled by paragraph's margin-top instead */
+    grid-column:2;
+    grid-row:1;
+
+    position:relative;
+
+    color:#fff !important;
+
+    font-size:clamp(24px,2vw,32px);
+    font-weight:600;
+    line-height:1.15;
+
+    margin:0;
+    padding-bottom:12px;
+
+    max-width:520px;
 }
 
-.ark-service-item p{
-  grid-column:1 / -1;          /* spans both columns, full width */
-  grid-row:2;
-  margin-top:16px;
-  color:rgba(255,255,255,.78);
-  font-size:17px;
-  line-height:1.55;
-  max-width:450px;
+.ark-service-item h3::after{
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 85px;
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: #F29979;
+}
+
+.ark-service-points{
+    grid-column:1 / -1;
+    grid-row:2;
+
+    width:100%;
+    max-width:500px;
+
+    margin:0;
+    padding:5px 18px;
+
+    list-style:none;
+
+    background:rgba(255,255,255,.94);
+
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:16px;
+
+    box-shadow:0 15px 40px rgba(20,10,55,.15);
+
+    overflow:hidden;
+}
+
+.ark-service-points li{
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 38px;
+
+    margin: 0;
+    padding: 8px 8px 8px 32px;
+
+    color: #3C2D73;
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+
+    border-bottom: 1px solid rgba(60, 45, 115, 0.10);
+}
+
+.ark-service-points li:last-child{
+    border-bottom: none;
+}
+
+/* World By ARK orange bullet */
+.ark-service-points li::before{
+    content: "✓";
+
+    position: absolute;
+
+    left: 3px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: rgba(60, 45, 115, 0.10);
+
+    color: #F29979;
+
+    font-size: 11px;
+    font-weight: 800;
 }
 
 .ark-service-btn{
-  margin-top:28px;                /* fixed, predictable space above the button */
+  margin-top:10px;                /* fixed, predictable space above the button */
   align-self:flex-start;          /* keeps button left-aligned, not stretched */
   display:inline-flex;
   align-items:center;
@@ -2163,7 +2306,7 @@
   position:relative;
   width:100%;
   height:440px;
-  margin-top:20px;
+  margin-top:-20px;
   border-radius:34px;
   overflow:hidden;
   box-shadow:0 45px 120px rgba(0,0,0,.35);
@@ -2185,60 +2328,508 @@
 }
 
 
-@media(max-width:991px){
-  .ark-service-scroll{
-    min-height:auto;           /* was 700px — let content dictate real height */
-    padding-bottom:40px;       /* small breathing room instead of a fixed min-height */
-  }
+/* ==================================================
+   SERVICE SECTION — TABLET
+   768px - 991px
+================================================== */
 
-  .ark-service-inner{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    padding:95px 18px 0;       /* removed bottom padding, let right image close the section */
-  }
+@media (min-width: 768px) and (max-width: 991px) {
 
-  .ark-service-left h2{
-    font-size:31px;
-    margin:12px 0 20px;
-  }
+    .ark-service-scroll{
+        height: 100vh;
+        min-height: 650px;
+        overflow: hidden;
+    }
 
- .ark-service-text-wrap{
-    min-height:150px;          /* was 250px */
-  }
+    .ark-service-inner{
+        height: 100%;
 
-   .ark-service-num{
-    font-size:38px;
-  }
+        display: grid;
+        grid-template-columns: minmax(0, 48%) minmax(0, 52%);
 
-  .ark-service-item h3{
-    font-size:23px;
-  }
+        gap: 24px;
 
-  .ark-service-item p{
-    font-size:14px;
-    line-height:1.45;
-  }
+        padding: 55px 32px 35px;
 
-  .ark-service-btn{
-    margin-top:6px;
-    font-size:14px;
-    padding:6px 6px 6px 20px;
-  }
+        align-items: center;
+    }
 
-  .ark-service-btn i{
-    width:42px;
-    height:42px;
-  }
 
-  .ark-service-right{
-    height:45vh;                /* was 180px — scales with viewport instead of a tiny fixed box */
-    min-height:280px;
-    max-height:380px;
-    margin-top:10px;
-    margin-bottom:0;
-    border-radius:22px;
-  }
+    /* LEFT */
+    .ark-service-left{
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
+
+    .ark-service-small{
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+
+    .ark-service-left h2{
+        font-size: 38px;
+        line-height: 1;
+
+        margin: 7px 0 16px;
+    }
+
+
+    /* Service content area */
+    .ark-service-text-wrap{
+        min-height: 255px;
+    }
+
+    .ark-service-item{
+        column-gap: 10px;
+        row-gap: 10px;
+    }
+
+
+    /* Number */
+    .ark-service-num{
+        min-width: 40px;
+        height: 26px;
+
+        padding: 0 8px;
+
+        font-size: 12px;
+    }
+
+
+    /* Service title */
+    .ark-service-item h3{
+        font-size: 22px;
+        line-height: 1.15;
+
+        padding-bottom: 9px;
+
+        max-width: 100%;
+    }
+
+    .ark-service-item h3::after{
+        width: 60px;
+    }
+
+
+    /* Points box */
+    .ark-service-points{
+        width: 100%;
+        max-width: 100%;
+
+        padding: 4px 12px;
+
+        border-radius: 13px;
+    }
+
+    .ark-service-points li{
+        min-height: 34px;
+
+        padding: 5px 4px 5px 27px;
+
+        font-size: 13px;
+        line-height: 1.25;
+    }
+
+    .ark-service-points li::before{
+        left: 2px;
+
+        width: 17px;
+        height: 17px;
+
+        font-size: 9px;
+    }
+
+
+    /* Button */
+    .ark-service-btn{
+        margin-top: 7px;
+
+        padding: 6px 6px 6px 18px;
+
+        gap: 12px;
+
+        font-size: 14px;
+    }
+
+    .ark-service-btn i{
+        width: 38px;
+        height: 38px;
+    }
+
+
+    /* RIGHT IMAGE */
+    .ark-service-right{
+        width: 100%;
+        height: 330px;
+
+        min-height: 0;
+        max-height: none;
+
+        margin: 0;
+
+        border-radius: 24px;
+    }
+
+    .ark-service-img{
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+
+/* ==================================================
+   SERVICE SECTION — MOBILE
+   below 768px
+================================================== */
+
+@media (max-width: 767px) {
+
+    .ark-service-scroll{
+        height: 100svh;
+
+        /* Do not force 720px from desktop */
+        min-height: 0;
+
+        overflow: hidden;
+    }
+
+
+    .ark-service-inner{
+        position: relative;
+
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 0;
+
+        padding:
+            clamp(28px, 5vh, 42px)
+            18px
+            18px;
+
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+
+
+    /* ==========================
+       LEFT CONTENT
+    ========================== */
+
+    .ark-service-left{
+        width: 100%;
+        max-width: none;
+
+        flex: 0 0 auto;
+    }
+
+
+    .ark-service-small{
+        font-size: 11px;
+
+        letter-spacing: 3px;
+        line-height: 1;
+
+        margin-bottom: 7px;
+    }
+
+
+    .ark-service-left h2{
+        font-size: clamp(29px, 9vw, 35px);
+        line-height: 0.98;
+
+        margin: 6px 0 14px;
+    }
+
+
+    /*
+       Important:
+       Make enough room for longest service,
+       but don't reserve 250px unnecessarily.
+    */
+    .ark-service-text-wrap{
+        min-height: 225px;
+    }
+
+
+    .ark-service-item{
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-rows: auto auto;
+
+        column-gap: 9px;
+        row-gap: 9px;
+
+        align-items: center;
+    }
+
+
+    /* Number badge */
+    .ark-service-num{
+        min-width: 38px;
+        height: 25px;
+
+        padding: 0 7px;
+
+        margin: 0;
+
+        font-size: 12px;
+
+        border-radius: 20px;
+    }
+
+
+    /* Service title */
+    .ark-service-item h3{
+        min-width: 0;
+
+        font-size: clamp(18px, 5.2vw, 21px);
+        line-height: 1.15;
+
+        padding-bottom: 8px;
+
+        margin: 0;
+
+        max-width: 100%;
+    }
+
+
+    .ark-service-item h3::after{
+        width: 52px;
+        height: 2px;
+    }
+
+
+    /* ==========================
+       POINTS CARD
+    ========================== */
+
+    .ark-service-points{
+        grid-column: 1 / -1;
+
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0;
+        padding: 3px 10px;
+
+        border-radius: 13px;
+
+        background: rgba(255,255,255,.91);
+
+        box-shadow: 0 10px 25px rgba(20,10,55,.12);
+    }
+
+
+    .ark-service-points li{
+        min-height: 31px;
+
+        margin: 0;
+
+        padding:
+            4px
+            3px
+            4px
+            25px;
+
+        font-size: 12.5px;
+        line-height: 1.2;
+    }
+
+
+    .ark-service-points li::before{
+        left: 1px;
+        top: 50%;
+
+        width: 16px;
+        height: 16px;
+
+        transform: translateY(-50%);
+
+        font-size: 9px;
+    }
+
+
+    /* ==========================
+       BUTTON
+    ========================== */
+
+    .ark-service-btn{
+        margin-top: 6px;
+
+        padding: 5px 5px 5px 17px;
+
+        gap: 10px;
+
+        font-size: 13px;
+
+        flex-shrink: 0;
+    }
+
+
+    .ark-service-btn i{
+        width: 36px;
+        height: 36px;
+    }
+
+
+    /* ==========================
+       RIGHT IMAGE
+    ========================== */
+
+    .ark-service-right{
+        position: relative;
+
+        width: 100%;
+
+        /*
+          Much smaller than your old 45vh / 280px.
+          This is what allows it to remain visible.
+        */
+        height: clamp(120px, 21vh, 165px);
+
+        min-height: 0;
+        max-height: none;
+
+        flex: 0 0 auto;
+
+        margin-top: 10px;
+        margin-bottom: 0;
+
+        border-radius: 18px;
+
+        overflow: hidden;
+
+        box-shadow: 0 15px 35px rgba(0,0,0,.25);
+    }
+
+
+    .ark-service-img{
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        /*
+           Show more of the middle of your square service images.
+        */
+        object-position: center center;
+    }
+
+
+    /* Huge decorative SERVICES text is unnecessary on phone */
+    .ark-service-bg-text{
+        display: none;
+    }
+}
+
+
+/* ==================================================
+   SMALL MOBILE — iPhone SE etc.
+================================================== */
+
+@media (max-width: 420px), (max-height: 700px) and (max-width: 767px) {
+
+    .ark-service-inner{
+        padding:
+            24px
+            16px
+            12px;
+    }
+
+
+    .ark-service-small{
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+
+
+    .ark-service-left h2{
+        font-size: 29px;
+
+        margin: 5px 0 11px;
+    }
+
+
+    .ark-service-text-wrap{
+        min-height: 205px;
+    }
+
+
+    .ark-service-num{
+        min-width: 35px;
+        height: 23px;
+
+        font-size: 11px;
+    }
+
+
+    .ark-service-item h3{
+        font-size: 18px;
+
+        padding-bottom: 7px;
+    }
+
+
+    .ark-service-item h3::after{
+        width: 45px;
+    }
+
+
+    .ark-service-points{
+        padding: 2px 9px;
+    }
+
+
+    .ark-service-points li{
+        min-height: 28px;
+
+        padding:
+            3px
+            2px
+            3px
+            23px;
+
+        font-size: 11.5px;
+        line-height: 1.15;
+    }
+
+
+    .ark-service-points li::before{
+        width: 14px;
+        height: 14px;
+
+        font-size: 8px;
+    }
+
+
+    .ark-service-btn{
+        margin-top: 4px;
+
+        font-size: 12px;
+
+        padding: 4px 4px 4px 15px;
+    }
+
+
+    .ark-service-btn i{
+        width: 33px;
+        height: 33px;
+    }
+
+
+    .ark-service-right{
+        height: 115px;
+
+        margin-top: 7px;
+
+        border-radius: 15px;
+    }
 }
 {% comment %} service 2 style end {% endcomment %}
 </style>
@@ -5596,60 +6187,146 @@
 
             <div class="ark-service-text-wrap">
 
+                <!-- 01 — Tour Planning -->
                 <div class="ark-service-item active">
                     <span class="ark-service-num">01</span>
-                    <h3>Holiday Packages</h3>
-                    <p>
-                        Discover carefully curated domestic and international
-                        holiday packages designed around your budget and travel plans.
-                    </p>
+                    <h3>Tour Planning</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Travel consultation & destination planning</li>
+                        <li>Customized holiday itineraries</li>
+                        <li>Pre-departure briefing</li>
+                        <li>Airport transfers</li>
+                        <li>24/7 travel support & emergency assistance</li>
+                    </ul>
                 </div>
 
+
+                <!-- 02 — Flight Bookings -->
                 <div class="ark-service-item">
                     <span class="ark-service-num">02</span>
-                    <h3>Flight Booking</h3>
-                    <p>
-                        Book domestic and international flights with reliable
-                        assistance and convenient travel options.
-                    </p>
+                    <h3>Flight Bookings</h3>
+
+                    <ul class="ark-service-points">
+                        <li>International flight bookings</li>
+                        <li>Domestic flight bookings</li>
+                    </ul>
                 </div>
 
+
+                <!-- 03 — Hotel & Resort Reservations -->
                 <div class="ark-service-item">
                     <span class="ark-service-num">03</span>
-                    <h3>Hotel Booking</h3>
-                    <p>
-                        Find comfortable hotels and stays selected according to
-                        your destination, preferences, and budget.
-                    </p>
+                    <h3>Hotel & Resort Reservations</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Wild forest stays</li>
+                        <li>Tropical stays</li>
+                        <li>Overwater villas</li>
+                        <li>Romantic getaways</li>
+                        <li>And more</li>
+                    </ul>
                 </div>
 
+
+                <!-- 04 — Visa -->
                 <div class="ark-service-item">
                     <span class="ark-service-num">04</span>
-                    <h3>Visa Handling</h3>
-                    <p>
-                        Get professional assistance with visa documentation,
-                        application procedures, and travel requirements.
-                    </p>
+                    <h3>Visa Documentation & Assistance</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Client financial profile assessment</li>
+                        <li>Covering letter assistance</li>
+                        <li>Application form assistance</li>
+                        <li>Appointment booking</li>
+                        <li>Other required documentation support</li>
+                    </ul>
                 </div>
 
+
+                <!-- 05 — Travel Insurance -->
                 <div class="ark-service-item">
                     <span class="ark-service-num">05</span>
-                    <h3>Insurance</h3>
-                    <p>
-                       Protect yourself and your loved ones with reliable insurance solutions, including travel, health, life, vehicle, and other coverage options tailored to your needs.
-                    </p>
+                    <h3>Travel Insurance Assistance</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Coordination with insurance agencies</li>
+                        <li>Quotations from different insurance companies</li>
+                    </ul>
                 </div>
 
+
+                <!-- 06 — Cruises & Foreign Trains -->
                 <div class="ark-service-item">
                     <span class="ark-service-num">06</span>
-                    <h3>Train and Bus Booking</h3>
-                    <p>
-                        Arrange convenient train and bus bookings for individual,
-                        family, and group travel.
-                    </p>
+                    <h3>Cruises & Foreign Train Bookings</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Mega ships & premium cruises</li>
+                        <li>Royal Caribbean, Norwegian & more</li>
+                        <li>River cruises such as AMA Waterways</li>
+                        <li>Foreign trains such as Eurail & Sapsan</li>
+                    </ul>
+                </div>
+
+
+                <!-- 07 — Attraction Tickets -->
+                <div class="ark-service-item">
+                    <span class="ark-service-num">07</span>
+                    <h3>Attraction & Theme Park Tickets</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Disneyland tickets</li>
+                        <li>Universal Studios tickets</li>
+                        <li>Theme park admissions</li>
+                        <li>Popular attraction tickets</li>
+                    </ul>
+                </div>
+
+
+                <!-- 08 — MICE -->
+                <div class="ark-service-item">
+                    <span class="ark-service-num">08</span>
+                    <h3>Corporate Travel – MICE</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Meetings, incentives, conferences & exhibitions</li>
+                        <li>Backwater retreats</li>
+                        <li>Destination events</li>
+                        <li>Structured activities</li>
+                        <li>Team-building activities</li>
+                    </ul>
+                </div>
+
+
+                <!-- 09 — Add-on Services -->
+                <div class="ark-service-item">
+                    <span class="ark-service-num">09</span>
+                    <h3>Travel Add-on Services</h3>
+
+                    <ul class="ark-service-points">
+                        <li>International SIM assistance</li>
+                        <li>Foreign exchange assistance</li>
+                        <li>Airport transfers</li>
+                        <li>Other essential travel add-ons</li>
+                    </ul>
+                </div>
+
+
+                <!-- 10 — Post Trip -->
+                <div class="ark-service-item">
+                    <span class="ark-service-num">10</span>
+                    <h3>Post-Trip Assistance & Feedback</h3>
+
+                    <ul class="ark-service-points">
+                        <li>Ongoing travel assistance</li>
+                        <li>Post-trip support</li>
+                        <li>Customer feedback & follow-up</li>
+                    </ul>
                 </div>
 
             </div>
+
 
             <button
                 type="button"
@@ -5660,41 +6337,54 @@
 
                 <span>Enquire Now</span>
                 <i class="bi bi-arrow-right"></i>
+
             </button>
 
         </div>
 
+
+        <!-- RIGHT SIDE IMAGES -->
         <div class="ark-service-right">
 
-            <img
-                class="ark-service-img active"
-                src="{% static 'assets/images/trv-services/holidaypackaes-bg.png' %}"
-                alt="Holiday Packages">
+            <img class="ark-service-img active"
+                 src="{% static 'assets/images/trv-services/tour-planning.png' %}"
+                 alt="Tour Planning">
 
-            <img
-                class="ark-service-img"
-                src="{% static 'assets/images/trv-services/flight-booking-bg.png' %}"
-                alt="Flight Booking">
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/flight-booking.jpeg' %}"
+                 alt="Flight Bookings">
 
-            <img
-                class="ark-service-img"
-                src="{% static 'assets/images/trv-services/hotel-booking-bg.png' %}"
-                alt="Hotel Booking">
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/hotel-booking.jpeg' %}"
+                 alt="Hotel and Resort Reservations">
 
-            <img
-                class="ark-service-img"
-                src="{% static 'assets/images/trv-services/visa-bg.png' %}"
-                alt="Visa Handling">
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/visa-handling.png' %}"
+                 alt="Visa Documentation and Assistance">
 
-            <img
-                class="ark-service-img"
-                src="{% static 'assets/images/trv-services/insurance-bg.png' %}"
-                alt="Insurance">
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/travel-insurance.png' %}"
+                 alt="Travel Insurance Assistance">
 
-            <img
-                class="ark-service-img"
-                src="{% static 'assets/images/trv-services/train-bus.png' %}"
-                alt="Train and Bus Booking">
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/cruise-train.png' %}"
+                 alt="Cruises and Foreign Train Bookings">
+
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/theme-park.png' %}"
+                 alt="Attraction and Theme Park Tickets">
+
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/mice-corporate.png' %}"
+                 alt="Corporate Travel MICE">
+
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/travel-addons.png' %}"
+                 alt="Travel Add-on Services">
+
+            <img class="ark-service-img"
+                 src="{% static 'assets/images/trv-services/post-trip.png' %}"
+                 alt="Post Trip Assistance">
 
         </div>
 
@@ -5816,11 +6506,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const section = document.querySelector("#services");
+    const section = document.querySelector(".ark-service-scroll");
 
-    if (!section) {
-        return;
-    }
+    if (!section) return;
+
 
     const items = gsap.utils.toArray(
         section.querySelectorAll(".ark-service-item")
@@ -5830,166 +6519,365 @@ document.addEventListener("DOMContentLoaded", function () {
         section.querySelectorAll(".ark-service-img")
     );
 
+
     const backgroundClasses = [
         "service-bg-1",
         "service-bg-2",
         "service-bg-3",
         "service-bg-4",
         "service-bg-5",
-        "service-bg-6"
+        "service-bg-6",
+        "service-bg-7",
+        "service-bg-8",
+        "service-bg-9",
+        "service-bg-10"
     ];
 
+
+    /* Safety check */
     if (
         items.length !== images.length ||
         items.length !== backgroundClasses.length
     ) {
+
         console.warn(
-            "Service items, images, and backgrounds must have equal counts."
+            "Service items, images and backgrounds must have equal counts."
         );
+
         return;
     }
 
+
+    /* ==========================================
+       CHANGE BACKGROUND
+    ========================================== */
+
     function changeServiceBackground(index) {
+
+        if (!backgroundClasses[index]) return;
+
         section.classList.remove(...backgroundClasses);
-        section.classList.add(backgroundClasses[index]);
+
+        section.classList.add(
+            backgroundClasses[index]
+        );
     }
+
+
+    /* ==========================================
+       ACTIVATE SERVICE
+    ========================================== */
 
     function activateService(index) {
 
         items.forEach(function (item, itemIndex) {
+
             item.classList.toggle(
                 "active",
                 itemIndex === index
             );
+
         });
 
+
         images.forEach(function (image, imageIndex) {
+
             image.classList.toggle(
                 "active",
                 imageIndex === index
             );
+
         });
+
 
         changeServiceBackground(index);
     }
+
+
+    /* ==========================================
+       INITIAL STATE
+    ========================================== */
 
     gsap.set(items, {
         opacity: 0,
         y: 35
     });
 
+
     gsap.set(images, {
         opacity: 0,
         scale: 1.08
     });
+
 
     gsap.set(items[0], {
         opacity: 1,
         y: 0
     });
 
+
     gsap.set(images[0], {
         opacity: 1,
         scale: 1
     });
 
+
     activateService(0);
 
+
+    /* ==========================================
+       SERVICE TIMELINE
+    ========================================== */
+
     const serviceTimeline = gsap.timeline({
+
         scrollTrigger: {
+
             trigger: section,
-            start: "top 100px",
-            end: "+=550%",
-            scrub: 1.4,
+
+            start: window.innerWidth <= 767
+                ? "top 75px"
+                : "top 100px",
+
+            end: "+=900%",
+
+            /*
+             * Lower than your previous 1.4.
+             * Makes each step feel quicker.
+             */
+            scrub: 0.7,
+
             pin: true,
+
             pinSpacing: true,
+
             anticipatePin: 1,
-            invalidateOnRefresh: true
+
+            invalidateOnRefresh: true,
+
+
+            /* =================================
+               IMPORTANT — SERVICE SNAP
+            ================================= */
+
+            snap: {
+
+                /*
+                 * Snap to timeline labels.
+                 * Each label represents one
+                 * completely visible service.
+                 */
+                snapTo: "labelsDirectional",
+
+                duration: {
+                    min: 0.18,
+                    max: 0.45
+                },
+
+                delay: 0.08,
+
+                ease: "power2.out",
+
+                inertia: false
+            }
         }
     });
 
+
+    /* Service 01 stable position */
+    serviceTimeline.addLabel("service-0");
+
+
+    /* ==========================================
+       CREATE SERVICE STEPS
+    ========================================== */
+
     items.forEach(function (item, index) {
 
-        if (index === 0) {
-            return;
-        }
+        if (index === 0) return;
+
 
         const previousIndex = index - 1;
+
+
+        /* --------------------------------------
+           Hide previous service text
+        -------------------------------------- */
 
         serviceTimeline.to(
             items[previousIndex],
             {
                 opacity: 0,
-                y: -35,
-                duration: 1,
+                y: -25,
+
+                duration: 0.6,
 
                 onStart: function () {
-                    items[previousIndex].classList.remove("active");
+
+                    items[
+                        previousIndex
+                    ].classList.remove("active");
+
                 },
 
                 onReverseComplete: function () {
-                    activateService(previousIndex);
+
+                    activateService(
+                        previousIndex
+                    );
+
                 }
             }
         );
+
+
+        /* --------------------------------------
+           Hide previous image
+        -------------------------------------- */
 
         serviceTimeline.to(
             images[previousIndex],
             {
                 opacity: 0,
-                scale: 0.96,
-                duration: 1
+                scale: 0.97,
+
+                duration: 0.6
             },
+
             "<"
         );
+
+
+        /* --------------------------------------
+           Show new service text
+        -------------------------------------- */
 
         serviceTimeline.to(
             item,
             {
                 opacity: 1,
                 y: 0,
-                duration: 1,
+
+                duration: 0.6,
 
                 onStart: function () {
+
                     activateService(index);
+
                 },
 
                 onReverseComplete: function () {
-                    item.classList.remove("active");
-                    changeServiceBackground(previousIndex);
+
+                    item.classList.remove(
+                        "active"
+                    );
+
+                    changeServiceBackground(
+                        previousIndex
+                    );
                 }
             },
-            "<0.2"
+
+            "<0.12"
         );
+
+
+        /* --------------------------------------
+           Show new service image
+        -------------------------------------- */
 
         serviceTimeline.to(
             images[index],
             {
                 opacity: 1,
                 scale: 1,
-                duration: 1
+
+                duration: 0.6
             },
+
             "<"
         );
 
-        serviceTimeline.to({}, {
-            duration: 0.8
-        });
+
+        /* ======================================
+           SERVICE COMPLETE — STOP HERE
+        ====================================== */
+
+        serviceTimeline.addLabel(
+            "service-" + index
+        );
+
+
+        /*
+         * Small stable space before
+         * next service starts.
+         */
+        serviceTimeline.to(
+            {},
+            {
+                duration: 0.25
+            }
+        );
+
     });
 
-    ScrollTrigger.refresh();
+
+    /* ==========================================
+       REFRESH
+    ========================================== */
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            ScrollTrigger.refresh();
+
+        }
+    );
+
+
+    let resizeTimer;
+
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            clearTimeout(resizeTimer);
+
+            resizeTimer = setTimeout(
+                function () {
+
+                    ScrollTrigger.refresh();
+
+                },
+                200
+            );
+
+        }
+    );
+
 });
 
 
+/* ==============================================
+   OPEN ACTIVE SERVICE IN ENQUIRY MODAL
+============================================== */
+
 function openActiveServiceModal() {
 
-    const activeService = document.querySelector(
-        "#services .ark-service-item.active h3"
-    );
+    const activeService =
+        document.querySelector(
+            "#services .ark-service-item.active h3"
+        );
+
 
     if (!activeService) return;
 
-    openBookingModal(activeService.textContent.trim());
+
+    openBookingModal(
+        activeService.textContent.trim()
+    );
 }
 </script>
 {% comment %} js for service 2 end {% endcomment %}

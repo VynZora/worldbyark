@@ -4111,9 +4111,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const section = document.querySelector(".ark-service-scroll");
 
-    if (!section) {
-        return;
-    }
+    if (!section) return;
+
 
     const items = gsap.utils.toArray(
         section.querySelectorAll(".ark-service-item")
@@ -4123,160 +4122,365 @@ document.addEventListener("DOMContentLoaded", function () {
         section.querySelectorAll(".ark-service-img")
     );
 
-    const backgroundClasses = [
-    "service-bg-1",
-    "service-bg-2",
-    "service-bg-3",
-    "service-bg-4",
-    "service-bg-5",
-    "service-bg-6",
-    "service-bg-7",
-    "service-bg-8",
-    "service-bg-9",
-    "service-bg-10"
-     ];
 
-    /*
-     * Each service must have one matching image
-     * and one matching background class.
-     */
+    const backgroundClasses = [
+        "service-bg-1",
+        "service-bg-2",
+        "service-bg-3",
+        "service-bg-4",
+        "service-bg-5",
+        "service-bg-6",
+        "service-bg-7",
+        "service-bg-8",
+        "service-bg-9",
+        "service-bg-10"
+    ];
+
+
+    /* Safety check */
     if (
         items.length !== images.length ||
         items.length !== backgroundClasses.length
     ) {
+
         console.warn(
-            "Service items, images and background classes must have equal counts."
+            "Service items, images and backgrounds must have equal counts."
         );
 
         return;
     }
 
+
+    /* ==========================================
+       CHANGE BACKGROUND
+    ========================================== */
+
     function changeServiceBackground(index) {
-        if (!backgroundClasses[index]) {
-            return;
-        }
+
+        if (!backgroundClasses[index]) return;
 
         section.classList.remove(...backgroundClasses);
-        section.classList.add(backgroundClasses[index]);
+
+        section.classList.add(
+            backgroundClasses[index]
+        );
     }
 
+
+    /* ==========================================
+       ACTIVATE SERVICE
+    ========================================== */
+
     function activateService(index) {
+
         items.forEach(function (item, itemIndex) {
-            item.classList.toggle("active", itemIndex === index);
+
+            item.classList.toggle(
+                "active",
+                itemIndex === index
+            );
+
         });
 
+
         images.forEach(function (image, imageIndex) {
-            image.classList.toggle("active", imageIndex === index);
+
+            image.classList.toggle(
+                "active",
+                imageIndex === index
+            );
+
         });
+
 
         changeServiceBackground(index);
     }
 
-    /* Initial states */
+
+    /* ==========================================
+       INITIAL STATE
+    ========================================== */
+
     gsap.set(items, {
         opacity: 0,
         y: 35
     });
+
 
     gsap.set(images, {
         opacity: 0,
         scale: 1.08
     });
 
+
     gsap.set(items[0], {
         opacity: 1,
         y: 0
     });
+
 
     gsap.set(images[0], {
         opacity: 1,
         scale: 1
     });
 
+
     activateService(0);
 
+
+    /* ==========================================
+       SERVICE TIMELINE
+    ========================================== */
+
     const serviceTimeline = gsap.timeline({
+
         scrollTrigger: {
+
             trigger: section,
-            start: "top 100px",
+
+            start: window.innerWidth <= 767
+                ? "top 75px"
+                : "top 100px",
+
             end: "+=900%",
-            scrub: 1.4,
+
+            /*
+             * Lower than your previous 1.4.
+             * Makes each step feel quicker.
+             */
+            scrub: 0.7,
+
             pin: true,
+
             pinSpacing: true,
+
             anticipatePin: 1,
-            invalidateOnRefresh: true
+
+            invalidateOnRefresh: true,
+
+
+            /* =================================
+               IMPORTANT — SERVICE SNAP
+            ================================= */
+
+            snap: {
+
+                /*
+                 * Snap to timeline labels.
+                 * Each label represents one
+                 * completely visible service.
+                 */
+                snapTo: "labelsDirectional",
+
+                duration: {
+                    min: 0.18,
+                    max: 0.45
+                },
+
+                delay: 0.08,
+
+                ease: "power2.out",
+
+                inertia: false
+            }
         }
     });
+
+
+    /* Service 01 stable position */
+    serviceTimeline.addLabel("service-0");
+
+
+    /* ==========================================
+       CREATE SERVICE STEPS
+    ========================================== */
 
     items.forEach(function (item, index) {
 
-        if (index === 0) {
-            return;
-        }
+        if (index === 0) return;
+
 
         const previousIndex = index - 1;
 
-        /* Hide previous text */
-        serviceTimeline.to(items[previousIndex], {
-            opacity: 0,
-            y: -35,
-            duration: 1,
 
-            onStart: function () {
-                items[previousIndex].classList.remove("active");
+        /* --------------------------------------
+           Hide previous service text
+        -------------------------------------- */
+
+        serviceTimeline.to(
+            items[previousIndex],
+            {
+                opacity: 0,
+                y: -25,
+
+                duration: 0.6,
+
+                onStart: function () {
+
+                    items[
+                        previousIndex
+                    ].classList.remove("active");
+
+                },
+
+                onReverseComplete: function () {
+
+                    activateService(
+                        previousIndex
+                    );
+
+                }
+            }
+        );
+
+
+        /* --------------------------------------
+           Hide previous image
+        -------------------------------------- */
+
+        serviceTimeline.to(
+            images[previousIndex],
+            {
+                opacity: 0,
+                scale: 0.97,
+
+                duration: 0.6
             },
 
-            onReverseComplete: function () {
-                activateService(previousIndex);
-            }
-        });
+            "<"
+        );
 
-        /* Hide previous right-side image */
-        serviceTimeline.to(images[previousIndex], {
-            opacity: 0,
-            scale: 0.96,
-            duration: 1
-        }, "<");
 
-        /* Show current text */
-        serviceTimeline.to(item, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
+        /* --------------------------------------
+           Show new service text
+        -------------------------------------- */
 
-            onStart: function () {
-                activateService(index);
+        serviceTimeline.to(
+            item,
+            {
+                opacity: 1,
+                y: 0,
+
+                duration: 0.6,
+
+                onStart: function () {
+
+                    activateService(index);
+
+                },
+
+                onReverseComplete: function () {
+
+                    item.classList.remove(
+                        "active"
+                    );
+
+                    changeServiceBackground(
+                        previousIndex
+                    );
+                }
             },
 
-            onReverseComplete: function () {
-                item.classList.remove("active");
-                changeServiceBackground(previousIndex);
+            "<0.12"
+        );
+
+
+        /* --------------------------------------
+           Show new service image
+        -------------------------------------- */
+
+        serviceTimeline.to(
+            images[index],
+            {
+                opacity: 1,
+                scale: 1,
+
+                duration: 0.6
+            },
+
+            "<"
+        );
+
+
+        /* ======================================
+           SERVICE COMPLETE — STOP HERE
+        ====================================== */
+
+        serviceTimeline.addLabel(
+            "service-" + index
+        );
+
+
+        /*
+         * Small stable space before
+         * next service starts.
+         */
+        serviceTimeline.to(
+            {},
+            {
+                duration: 0.25
             }
-        }, "<0.2");
+        );
 
-        /* Show current right-side image */
-        serviceTimeline.to(images[index], {
-            opacity: 1,
-            scale: 1,
-            duration: 1
-        }, "<");
     });
 
-    window.addEventListener("load", function () {
-        ScrollTrigger.refresh();
-    });
+
+    /* ==========================================
+       REFRESH
+    ========================================== */
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            ScrollTrigger.refresh();
+
+        }
+    );
+
+
+    let resizeTimer;
+
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            clearTimeout(resizeTimer);
+
+            resizeTimer = setTimeout(
+                function () {
+
+                    ScrollTrigger.refresh();
+
+                },
+                200
+            );
+
+        }
+    );
 
 });
 
+
+/* ==============================================
+   OPEN ACTIVE SERVICE IN ENQUIRY MODAL
+============================================== */
+
 function openActiveServiceModal() {
 
-    const activeService = document.querySelector(
-        "#services .ark-service-item.active h3"
-    );
+    const activeService =
+        document.querySelector(
+            "#services .ark-service-item.active h3"
+        );
+
 
     if (!activeService) return;
 
-    openBookingModal(activeService.textContent.trim());
+
+    openBookingModal(
+        activeService.textContent.trim()
+    );
 }
 </script>
 
