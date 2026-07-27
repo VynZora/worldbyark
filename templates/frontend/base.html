@@ -440,6 +440,18 @@
 
       }
 
+      @media (max-width: 991px) {
+
+    .nav.navbar-nav li.d-lg-none .payment-btn {
+        width: 170px !important;
+        height: 58px;
+        padding: 0 20px !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
       /* Add spacing between mobile-only nav buttons (Make Payment / Contact) */
 .nav.navbar-nav li.d-lg-none {
     margin-bottom: 14px;
@@ -674,7 +686,7 @@
               </li>
                <li class="d-lg-none">
                 <a href="{% url 'contact' %}"
-                  class="payment-btn" style="padding: 18px 50px !important;">contact
+                  class="payment-btn">contact
                 </a>
               </li>
             </ul>

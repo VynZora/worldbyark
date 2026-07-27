@@ -2534,6 +2534,142 @@
 
 {% comment %} testimonials css end {% endcomment %}
 
+
+
+{% comment %} POPULAR TOUR STAR RESPONSIVE FIX start {% endcomment %}
+/* =========================================
+   POPULAR TOUR STAR RESPONSIVE FIX
+========================================= */
+
+.trv-popular-tour-st1 .trv-tour-rating {
+    flex: 0 0 auto !important;
+    width: auto !important;
+}
+
+.trv-popular-tour-st1 .trv-review-rating {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    white-space: nowrap;
+}
+
+.trv-popular-tour-st1 .trv-review-rating i {
+    display: inline-block !important;
+    flex: 0 0 auto !important;
+    color: #F29979;
+}
+
+@media (min-width: 769px) and (max-width: 1199px) {
+
+    .trv-popular-tour-st1 .trv-content .trv-content-bottom-section {
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+    }
+
+    .trv-popular-tour-st1 .trv-book {
+        display: flex !important;
+        align-items: center;
+        flex-wrap: nowrap !important;
+        gap: 6px;
+        min-width: 0;
+    }
+
+    .trv-popular-tour-st1 .trv-review-rating {
+        gap: 2px;
+    }
+
+    .trv-popular-tour-st1 .trv-review-rating i {
+        font-size: 14px;
+    }
+}
+{% comment %}  POPULAR TOUR STAR RESPONSIVE FIX end {% endcomment %}
+
+
+
+{% comment %} tour category fix css start {% endcomment %}
+/* ===== FIX: force uniform image height in Tour Category carousel ===== */
+.trv-tour-category-section .swiper-slide img,
+.trv-tour-category-section .trv-tr-cat-carousal-media img {
+    height: 450px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+@media (max-width: 1024px) {
+    .trv-tour-category-section .swiper-slide img,
+    .trv-tour-category-section .trv-tr-cat-carousal-media img {
+        height: 380px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .trv-tour-category-section .swiper-slide img,
+    .trv-tour-category-section .trv-tr-cat-carousal-media img {
+        height: 300px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .trv-tour-category-section .swiper-slide img,
+    .trv-tour-category-section .trv-tr-cat-carousal-media img {
+        height: 240px !important;
+    }
+}
+/* ===== FIX: uniform width + height for Popular Destination cards ===== */
+.trv-popular-destination-row .swiper-slide {
+    width: 340px !important;
+}
+
+.trv-destination-bx1 .trv-media {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.trv-destination-bx1 .trv-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+@media (max-width: 1366px) {
+    .trv-popular-destination-row .swiper-slide {
+        width: 300px !important;
+    }
+    .trv-destination-bx1 .trv-media {
+        height: 450px;
+    }
+}
+
+@media (max-width: 767px) {
+    .trv-popular-destination-row .swiper-slide {
+        width: 260px !important;
+    }
+    .trv-destination-bx1 .trv-media {
+        height: 400px;
+    }
+}
+
+@media (max-width: 400px) {
+    .trv-popular-destination-row .swiper-slide {
+        width: 220px !important;
+    }
+    .trv-destination-bx1 .trv-media {
+        height: 340px;
+    }
+}
+
+.trv-popular-destination-row.swiper .swiper-slide {
+    transform: none !important;
+    opacity: 1 !important;
+}
+{% comment %} destination card fix end {% endcomment %}
+{% comment %} tour category fix css end {% endcomment %}
 </style>
 {% endblock %}
 
@@ -2904,16 +3040,21 @@
                            {% comment %} <div class="trv-vid-st2 parallax-image" style="background-image: url('{% static 'assets/images/background/sea-shore.png' %}');">
                            </div> {% endcomment %}
 
-                          <div class="trv-vid-st2" aria-hidden="true">
+   <div class="trv-vid-st2" aria-hidden="true">
 
-    <iframe
+    <video
         class="achievement-video"
-        src="https://player.vimeo.com/video/213315632?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
-        frameborder="0"
-        allow="autoplay; fullscreen; picture-in-picture"
-        tabindex="-1"
-        title="World By ARK background video">
-    </iframe>
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+
+        <source
+            src="{% static 'assets/videos/achivement-section.mp4' %}"
+            type="video/mp4">
+
+    </video>
 
 </div>
 

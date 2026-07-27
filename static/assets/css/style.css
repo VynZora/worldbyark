@@ -3091,7 +3091,7 @@ THEMEFOREST REQUIRED CLASSES
 @media (max-width: 991px) {
   .header-style-1 .header-nav {
     clear: both;
-    margin: 0px -15px;
+    margin: 0px;
     border-bottom: 1px solid #E9E9E9;
   }
   .header-style-1 .header-nav.navbar-collapse {
@@ -22043,3 +22043,118 @@ blockquote .trv-bq-atr-name:before {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/* left right moving issue soln start */
+/* =====================================================
+   MOBILE LEFT/RIGHT JERKING FIX
+===================================================== */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+.page-wraper,
+.page-content {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+video,
+iframe,
+svg {
+    max-width: 100%;
+}
+
+
+/* =====================================================
+   MOBILE HEADER / DRAWER FIX
+===================================================== */
+
+@media (max-width: 991px) {
+
+    .site-header,
+    .header-style-1,
+    .header-style-1 .main-bar-wraper,
+    .header-style-1 .main-bar {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .header-style-1.mobile-sider-drawer-menu .header-nav {
+        position: fixed !important;
+
+        top: 0 !important;
+        left: 0 !important;
+
+        width: 250px !important;
+        max-width: 85vw !important;
+        height: 100dvh !important;
+
+        background: #fff !important;
+
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+
+        z-index: 99999 !important;
+
+        transform: translateX(-105%);
+        transition: transform 0.4s ease !important;
+
+        will-change: transform;
+    }
+
+    .header-style-1.mobile-sider-drawer-menu.active .header-nav {
+        transform: translateX(0);
+    }
+}
+
+
+/* =====================================================
+   ABOUT / BALLOON SECTION
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .trv-we-recommend,
+    .trv-we-rec-media-main-wrap {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+}
+
+
+/* =====================================================
+   TESTIMONIAL SECTION
+===================================================== */
+
+.testimonial-content-sld {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.testimonial-content-sld .swiper,
+.testimonial-content-sld .swiper-wrapper,
+.testimonial-content-sld .swiper-slide {
+    max-width: 100%;
+}
+
+@media (max-width: 767px) {
+
+    .trv-testimo-bx2 {
+        width: 100%;
+        max-width: 100%;
+
+        grid-template-columns: 1fr;
+        column-gap: 0;
+
+        overflow: hidden;
+    }
+}
+/* left right moving issue soln end  */
