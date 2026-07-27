@@ -27,7 +27,7 @@ class TourPackage(OptimizedImageModel):
     PACKAGE_TYPE_CHOICES = [
         ("international", "International"),
         ("domestic", "Domestic (India)"),
-        ("hot_selling", "hot selling"),
+        ("hot_selling", "Hot Selling"),
     ]
 
     name = models.CharField(max_length=200)

@@ -4690,7 +4690,7 @@
 .ark-mv-desc {
     position: relative;
     z-index: 2;
-    max-width: 380px;
+    max-width: 490px;
     margin: 0 0 30px;
     color: rgba(255, 255, 255, 0.82);
     font-size: 15px;
@@ -4809,6 +4809,39 @@
 @media (prefers-reduced-motion: reduce) {
     .ark-mv-badge {
         animation: none;
+    }
+}
+
+
+/* Tablet */
+@media (max-width: 991px) {
+    .ark-mv-card {
+        padding: 38px 30px;
+    }
+
+    .ark-mv-desc {
+        width: 100%;
+        max-width: none !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+    .ark-mv-card {
+        padding: 32px 22px;
+    }
+
+    .ark-mv-eyebrow,
+    .ark-mv-title {
+        max-width: calc(100% - 90px);
+    }
+
+    .ark-mv-desc {
+        width: 100%;
+        max-width: none !important;
+
+        font-size: 15px;
+        line-height: 1.65;
     }
 }
 {% comment %} mission vision style end {% endcomment %}
@@ -6063,9 +6096,7 @@
                 <h3 class="ark-mv-title">Our Mission</h3>
 
                 <p class="ark-mv-desc">
-                    To design journeys around every traveller's interests,
-                    expectations, pace and budget while providing honest
-                    guidance and dependable support.
+                    At World By ARK, our mission is to transform every journey into a thoughtfully curated experience. We believe travel should be deeply personal, seamlessly executed, and truly unforgettable. Through genuine expertise, meticulous attention to detail, and an unwavering commitment to excellence, we craft bespoke journeys that inspire discovery, foster meaningful connections, and create memories that last a lifetime.
                 </p>
 
                 <a href="{% url 'destinations' %}" class="ark-mv-btn">
@@ -6088,9 +6119,7 @@
                 <h3 class="ark-mv-title">Our Vision</h3>
 
                 <p class="ark-mv-desc">
-                    To make travel simple, safe, meaningful and unforgettable,
-                    helping every traveller explore the world with confidence
-                    and a deeper connection to the places they visit.
+                    To be recognised as a globally trusted luxury travel house, celebrated for designing extraordinary journeys that go beyond expectations. We envision a world where every traveller experiences the finest destinations with authenticity, elegance, and confidence, while World By ARK becomes synonymous with exceptional service, refined travel experiences, and enduring relationships built on trust.
                 </p>
 
                 <a href="{% url 'destinations' %}" class="ark-mv-btn">

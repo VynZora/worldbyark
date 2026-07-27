@@ -2930,7 +2930,12 @@ THEMEFOREST REQUIRED CLASSES
 
   /* Frosted glass style reveals ONLY when moving down the page */
   /* background-color: rgba(45, 30, 85, 0.75) !important; */
-  background-color: rgba(88, 66, 122, 0.72) !important;
+  background: linear-gradient(
+  90deg,
+  rgba(158, 122, 212, 0.82) 0%,
+  rgba(80, 63, 156, 0.86) 50%,
+  rgba(45, 30, 85, 0.92) 100%
+) !important;
   -webkit-backdrop-filter: blur(18px) !important;
   backdrop-filter: blur(18px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;

@@ -490,30 +490,50 @@
       }
 
       @media (min-width: 992px) and (max-width: 1199px) {
-          .nav.navbar-nav li a {
-              padding-left: 8px !important;
-              padding-right: 8px !important;
-              font-size: 13px !important;
-          }
 
-          /* Shrink both buttons equally */
-          .payment-btn,
-          .site-button.butn-bg-shape {
-              padding: 8px 14px !important;
-              font-size: 12px !important;
-          }
+    /* Never allow nav links to go to another line */
+    .nav.navbar-nav {
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+    }
 
-          .payment-btn {
-              border-width: 1.5px !important;
-          }
+    .nav.navbar-nav > li {
+        flex-shrink: 0;
+    }
 
-          .extra-nav.header-1-nav {
-              gap: 6px !important;
-          }
-          .main-bar {
-              flex-wrap: nowrap !important;
-          }
-      }
+    .nav.navbar-nav > li > a {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Keep buttons slightly larger */
+    .payment-btn,
+    .site-button.butn-bg-shape {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+        white-space: nowrap !important;
+    }
+
+    .payment-btn {
+        border-width: 1.5px !important;
+    }
+
+    /* Reduce unnecessary space between buttons */
+    .extra-nav.header-1-nav {
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .extra-nav.header-1-nav .extra-cell + .extra-cell {
+        margin-left: 6px !important;
+    }
+
+    .main-bar {
+        flex-wrap: nowrap !important;
+    }
+}
 
       @media (min-width: 1100px) and (max-width: 1300px) {
           .nav.navbar-nav li a {
@@ -525,8 +545,8 @@
           /* Shrink both buttons equally */
           .payment-btn,
           .site-button.butn-bg-shape {
-              padding: 8px 14px !important;
-              font-size: 12px !important;
+          padding: 11px 18px !important;
+          font-size: 14px !important;
           }
 
           .payment-btn {

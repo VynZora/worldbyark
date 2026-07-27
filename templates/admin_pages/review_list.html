@@ -143,6 +143,94 @@
         </ul>
     </nav>
     {% endif %} {% endcomment %}
+
+    <!-- Pagination Controls -->
+{% if testimonials.has_other_pages %}
+<nav aria-label="Testimonials pagination">
+    <ul class="pagination justify-content-center mt-4">
+
+        <!-- First + Previous -->
+        {% if testimonials.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="First">
+                &laquo;&laquo;
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ testimonials.previous_page_number }}"
+               aria-label="Previous">
+                &laquo;
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&laquo;&laquo;</span>
+        </li>
+
+        <li class="page-item disabled">
+            <span class="page-link">&laquo;</span>
+        </li>
+        {% endif %}
+
+
+        <!-- Page Numbers -->
+        {% for num in testimonials.paginator.page_range %}
+
+            {% if testimonials.number == num %}
+
+            <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+            </li>
+
+            {% elif num >= testimonials.number|add:'-2' and num <= testimonials.number|add:'2' %}
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">
+                    {{ num }}
+                </a>
+            </li>
+
+            {% endif %}
+
+        {% endfor %}
+
+
+        <!-- Next + Last -->
+        {% if testimonials.has_next %}
+
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ testimonials.next_page_number }}"
+               aria-label="Next">
+                &raquo;
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ testimonials.paginator.num_pages }}"
+               aria-label="Last">
+                &raquo;&raquo;
+            </a>
+        </li>
+
+        {% else %}
+
+        <li class="page-item disabled">
+            <span class="page-link">&raquo;</span>
+        </li>
+
+        <li class="page-item disabled">
+            <span class="page-link">&raquo;&raquo;</span>
+        </li>
+
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
 </div>
 
 <!-- MODALS - Placed OUTSIDE the main content area -->

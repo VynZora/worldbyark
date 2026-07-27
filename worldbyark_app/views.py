@@ -1089,10 +1089,25 @@ def delete_category(request, pk):
 # TESTIMONIALS (ADMIN)
 # ==========================================
 
+# @login_required(login_url="admin_login")
+# def testimonial_list(request):
+#     testimonials = Paginator(Testimonial.objects.all().order_by("-created_at"), 10).get_page(request.GET.get("page"))
+#     return render(request, "admin_pages/review_list.html", {"testimonials": testimonials})
+
 @login_required(login_url="admin_login")
 def testimonial_list(request):
-    testimonials = Paginator(Testimonial.objects.all().order_by("-created_at"), 10).get_page(request.GET.get("page"))
-    return render(request, "admin_pages/review_list.html", {"testimonials": testimonials})
+    testimonials_qs = Testimonial.objects.all().order_by("-created_at")
+
+    paginator = Paginator(testimonials_qs, 10)  # 10 testimonials per page
+
+    page_number = request.GET.get("page")
+    testimonials = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "admin_pages/review_list.html",
+        {"testimonials": testimonials}
+    )
 
 
 @login_required(login_url="admin_login")

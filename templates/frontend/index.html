@@ -854,10 +854,10 @@
     align-items:center;
     justify-content:center;
 
-    min-width:44px;
-    height:28px;
+    min-width:52px;
+    height:34px;
 
-    padding:0 10px;
+    padding:0 13px;
     margin:0;
 
     border:1px solid rgba(242,153,121,.55);
@@ -867,8 +867,8 @@
 
     color:#F29979;
 
-    font-size:14px;
-    font-weight:700;
+    font-size:20px;
+    font-weight:900;
     line-height:1;
 }
 
@@ -1012,7 +1012,7 @@
   justify-content:center;
 }
 
-.ark-service-right{
+{% comment %} .ark-service-right{
   position:relative;
   width:100%;
   height:440px;
@@ -1020,16 +1020,45 @@
   border-radius:34px;
   overflow:hidden;
   box-shadow:0 45px 120px rgba(0,0,0,.35);
+} {% endcomment %}
+
+/* DEFAULT DESKTOP */
+.ark-service-right{
+    position:relative;
+    width:100%;
+    height:500px;
+
+    margin-top:-20px;
+
+    border-radius:34px;
+    overflow:hidden;
+
+    box-shadow:0 45px 120px rgba(0,0,0,.35);
 }
 
-.ark-service-img{
+{% comment %} .ark-service-img{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position: center top;
   opacity:0;
-  transform:scale(1.08);
+  transform:scale(1);
+} {% endcomment %}
+
+.ark-service-img{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center;
+
+    opacity:0;
+    transform:scale(1);
 }
 
 .ark-service-img.active{
@@ -1401,7 +1430,7 @@
           Much smaller than your old 45vh / 280px.
           This is what allows it to remain visible.
         */
-        height: clamp(120px, 21vh, 165px);
+        height: clamp(180px, 30vh, 250px);
 
         min-height: 0;
         max-height: none;
@@ -1534,7 +1563,7 @@
 
 
     .ark-service-right{
-        height: 115px;
+        height: 170px;
 
         margin-top: 7px;
 
@@ -2532,6 +2561,40 @@
     }
 }
 
+.google-rating {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 22px;
+}
+
+.google-rating img {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+@media (max-width: 991px) {
+    .google-rating img {
+        width: 190px;
+    }
+}
+@media (max-width: 767px) {
+    .google-rating {
+        justify-content: center;
+        margin-top: 16px;
+    }
+
+    .google-rating img {
+        width: 170px;
+    }
+}
+@media (max-width: 480px) {
+    .google-rating img {
+        width: 150px;
+    }
+}
+
 {% comment %} testimonials css end {% endcomment %}
 
 
@@ -2684,7 +2747,7 @@
                  id="ark-hero-video" 
                  poster="{% static 'assets/images/background/vid-bg2.jpg' %}"
                  onloadstart="this.volume=0; this.play();">
-                <source src="{% static 'assets/videos/hero-section-video.mp4' %}" type="video/mp4">
+                <source src="{% static 'assets/videos/worldbyark-hero-video.mp4' %}" type="video/mp4">
               </video>
 
   <div class="hero-scrim"></div>
@@ -2895,12 +2958,11 @@
                                         <div class="section-head trv-head-title-wrap left-position">
                                             <h2 class="trv-head-title">Welcome to <span class="site-text-yellow">World
                                                     By ARK</span></h2>
-                                            <div class="trv-head-discription">World by Ark is a travel tour operating
-                                                company with a difference. We introduce world class travel packages and
-                                                services for your luxury and comfort. Our tour package itineraries are
-                                                hand-picked according to client's choice and are travelled by our travel
-                                                representatives. We customize your travel plan as per your interest and
-                                                preferences.</div>
+                                            <div class="trv-head-discription">Welcome to World By ARK, a travel boutique 
+
+Where Travel is more than just reaching a destination, it’s about creating unforgettable experience experiences, and lifelong memories.
+
+Founded with passion for exploring the world and delivering exceptional travel experiences, World By ARK specialises in handcrafted Holidays, luxury Escapes, family vacation, honeymoon packages, corporate Travel, VISA assistance and many other tailor-made International journeys.</div>
                                         </div>
                                         <!-- TITLE END-->
 
@@ -3817,10 +3879,12 @@
                         </h3>
                         <div class="trv-cloumn-list">
                             <ul>
-                                <li><i class="feather feather-check"></i><span>Perfect Detailing</span></li>
-                                <li><i class="feather feather-check"></i><span>Save Your Budget</span></li>
-                                <li><i class="feather feather-check"></i><span>Free Consultations</span></li>
-                                <li><i class="feather feather-check"></i><span>Completed Certification</span></li>
+                                <li><i class="feather feather-check"></i><span>First-hand expertise</span></li>
+                                <li><i class="feather feather-check"></i><span>transparent costing</span></li>
+                                <li><i class="feather feather-check"></i><span>End to End planning</span></li>
+                                <li><i class="feather feather-check"></i><span>⁠trusted VISA Support</span></li>
+                                <li><i class="feather feather-check"></i><span>24/7 travel assistance</span></li>
+                                <li><i class="feather feather-check"></i><span>handpicked hotels & itinerary</span></li>
                             </ul>
                         </div>
                         <a href="{% url 'destinations' %}" class="site-button butn-bg-shape">Discover More</a>
@@ -3884,7 +3948,7 @@
                                                 <div class="trv-testimo-head">
                                                     <div class="left-part">
                                                         <h4 class="trv-testimonial-name">{{ testimonial.name }}</h4>
-                                                        <span class="trv-testimonial-position">Tourist</span>
+                                                        {% comment %} <span class="trv-testimonial-position">Tourist</span> {% endcomment %}
                                                     </div>
                                                     <div class="right-part">
                                                         <img src="{% static 'assets/images/trv-icon/Quote.png' %}" alt="image">
@@ -3897,12 +3961,8 @@
                                                      {{ testimonial.review|safe }}
                                                 </div>
 
-                                                <div class="rating">
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
+                                                <div class="rating google-rating">
+                                                    <img src="{% static 'assets/images/google-review.png' %}" alt="Google 5 Star Review">
                                                 </div>
                                             </div>
                                         </div>
