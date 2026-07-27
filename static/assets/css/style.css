@@ -22163,3 +22163,56 @@ svg {
     }
 }
 /* left right moving issue soln end  */
+
+
+/* navbar size issue start */
+/* =====================================================
+   MOBILE NAVBAR: LOGO LEFT, MENU ICON RIGHT
+===================================================== */
+@media (max-width: 991px) {
+  .site-header,
+  .header-style-1,
+  .header-style-2,
+  .header-style-3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .header-style-1 .main-bar,
+  .header-style-2 .main-bar,
+  .header-style-3 .main-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important; /* Forces Logo left, Toggle right */
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .logo-header {
+    order: 1 !important;
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    float: none !important;
+  }
+
+  .navbar-toggler {
+    order: 2 !important;
+    margin: 0 !important;
+    position: relative !important;
+    right: auto !important;
+    float: none !important;
+  }
+}
+
+/* navbar issue solution end */
+
+
