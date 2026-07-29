@@ -9992,6 +9992,106 @@ select {
   }
 }
 
+/* ==================================================
+   TESTIMONIAL BUTTONS
+   BELOW IMAGE + ABOVE NAME
+   TABLET AND MOBILE ONLY
+================================================== */
+
+@media (max-width: 991px) {
+
+    .trv-testimonial-st2 .testimonial-content-sld {
+        position: relative !important;
+        padding-top: 0 !important;
+        overflow: visible !important;
+    }
+
+    .trv-testimonial-st2 .testimonial-content-sld-control {
+        position: absolute !important;
+
+        /* Position relative to the testimonial slide */
+        top: 430px !important;
+        bottom: auto !important;
+
+        left: 50% !important;
+        right: auto !important;
+
+        transform: translateX(-50%) !important;
+
+        width: calc(100% - 40px) !important;
+        height: 60px !important;
+
+        margin: 0 !important;
+
+        z-index: 20;
+        pointer-events: none;
+    }
+
+    .trv-testimonial-st2
+    .testimonial-content-sld-control
+    .swiper-button-prev,
+    .trv-testimonial-st2
+    .testimonial-content-sld-control
+    .swiper-button-next {
+        top: 50% !important;
+        bottom: auto !important;
+
+        width: 60px !important;
+        height: 60px !important;
+
+        margin: 0 !important;
+
+        transform: translateY(-50%) !important;
+
+        pointer-events: auto;
+    }
+
+    .trv-testimonial-st2
+    .testimonial-content-sld-control
+    .swiper-button-prev {
+        left: 0 !important;
+        right: auto !important;
+    }
+
+    .trv-testimonial-st2
+    .testimonial-content-sld-control
+    .swiper-button-next {
+        right: 0 !important;
+        left: auto !important;
+    }
+
+    /* Create space between image and name */
+    .trv-testimonial-st2 .trv-testimo-bx2 .info {
+        padding-top: 75px !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .trv-testimonial-st2 .testimonial-content-sld-control {
+        top: 395px !important;
+        width: calc(100% - 20px) !important;
+        height: 52px !important;
+    }
+
+    .trv-testimonial-st2
+    .testimonial-content-sld-control
+    .swiper-button-prev,
+    .trv-testimonial-st2
+    .testimonial-content-sld-control
+    .swiper-button-next {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .trv-testimonial-st2 .trv-testimo-bx2 .info {
+        padding-top: 68px !important;
+    }
+}
+
+
+
+
 /** - We Recommend 2 section start */
 .trv-we-recommend {
   background-color: #DBEEEE;

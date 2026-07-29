@@ -902,11 +902,41 @@ All JavaScript fuctions Start
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
+      //   breakpoints: {
+      //     0: { slidesPerView: 1 },
+      //     540: { slidesPerView: 2 },
+      //     1024: { slidesPerView: 2 },
+      //   },
       breakpoints: {
-        0: { slidesPerView: 1 },
-        540: { slidesPerView: 2 },
-        1024: { slidesPerView: 2 },
+        /* Mobile - keep existing */
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          centeredSlides: false,
+        },
+
+        /* Tablet - keep existing */
+        540: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+          centeredSlides: false,
+        },
+
+        /* Laptop - keep 2 cards */
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+          centeredSlides: false,
+        },
+
+        /* DESKTOP ONLY - 3 cards */
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 15,
+          centeredSlides: true,
+        },
       },
+
       //   on: {
       //     init: function () {
       //       let activeSlide = document.querySelector(
