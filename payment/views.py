@@ -257,73 +257,226 @@ def online_transaction(request):
 # ------------------------------------------------------------------------
 # checkout.js browser redirect response handler
 # ------------------------------------------------------------------------
+
+
+# from django.shortcuts import redirect
+# from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.http import require_http_methods
+
+# @csrf_exempt
+# @require_http_methods(["POST"])
+# def response_view(request):
+
+#     # print("========== CALLBACK ==========")
+#     # print("POST:", request.POST)
+#     # print("MSG:", request.POST.get("msg"))
+#     # print("==============================")
+
+#     msg = request.POST.get("msg", "")
+
+#     if not msg:
+#         return redirect("/")
+
+#     data = msg.split("|")
+#     merchant_txn_id = data[3] if len(data) > 3 else ""
+
+#     payment = PaymentTransaction.objects.filter(merchant_txn_id=merchant_txn_id ).first()
+
+
+#     if payment:
+
+#        payment.status = "Completed"
+
+#        payment.txn_ref = data[3] if len(data) > 3 else ""
+
+#        payment.bank_code = data[4] if len(data) > 4 else ""
+
+#        payment.gateway_txn_id = data[5] if len(data) > 5 else ""
+
+#        payment.payment_date = data[8] if len(data) > 8 else ""
+
+#        payment.message = data[1] if len(data) > 1 else ""
+ 
+#        payment.raw_response = msg
+
+#        payment.save()
+    
+#     request.session["payment_result"] = {
+#     "status": payment.status,
+#     "message": payment.message,
+#     "txn_ref": payment.txn_ref,
+#     "bank_code": payment.bank_code,
+#     "txn_id": payment.gateway_txn_id,
+#     "amount": str(payment.amount),
+#     "date": payment.payment_date,
+#     "name": payment.name,
+#     "email": payment.email,
+#     "phone": payment.phone,
+#     "package": payment.package,
+# }
+
+#     return redirect("/")
+
+
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+
+from .models import PaymentTransaction
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def response_view(request):
 
-    # print("========== CALLBACK ==========")
-    # print("POST:", request.POST)
-    # print("MSG:", request.POST.get("msg"))
-    # print("==============================")
+    print("\n========== WORLDLINE CALLBACK ==========")
 
-    msg = request.POST.get("msg", "")
+    msg = request.POST.get("msg", "").strip()
+
+    print("RAW MSG:", msg)
 
     if not msg:
+        print("ERROR: Empty callback message")
         return redirect("/")
 
     data = msg.split("|")
-    merchant_txn_id = data[3] if len(data) > 3 else ""
 
-    payment = PaymentTransaction.objects.filter(merchant_txn_id=merchant_txn_id ).first()
+    for index, value in enumerate(data):
+        print(f"data[{index}] = {value}")
 
+    print("========================================\n")
 
-    if payment:
+    merchant_txn_id = (
+        data[3].strip()
+        if len(data) > 3
+        else ""
+    )
 
-       payment.status = "Completed"
+    if not merchant_txn_id:
+        print("ERROR: Merchant transaction ID missing")
+        return redirect("/")
 
-       payment.txn_ref = data[3] if len(data) > 3 else ""
+    payment = PaymentTransaction.objects.filter(
+        merchant_txn_id=merchant_txn_id
+    ).first()
 
-       payment.bank_code = data[4] if len(data) > 4 else ""
+    if not payment:
+        print(
+            "ERROR: Payment transaction not found:",
+            merchant_txn_id,
+        )
+        return redirect("/")
 
-       payment.gateway_txn_id = data[5] if len(data) > 5 else ""
+    gateway_message = (
+        data[1].strip()
+        if len(data) > 1
+        else ""
+    )
 
-       payment.payment_date = data[8] if len(data) > 8 else ""
+    message_lower = gateway_message.lower()
 
-       payment.message = data[1] if len(data) > 1 else ""
- 
-       payment.raw_response = msg
+    # Default status when gateway message is unknown
+    payment_status = "Pending"
 
-       payment.save()
-    
+    if any(
+        word in message_lower
+        for word in [
+            "success",
+            "successful",
+            "approved",
+            "captured",
+        ]
+    ):
+        payment_status = "Completed"
 
+    elif any(
+        word in message_lower
+        for word in [
+            "cancel",
+            "cancelled",
+            "canceled",
+            "abort",
+            "aborted",
+            "user closed",
+        ]
+    ):
+        payment_status = "Failed"
 
+    elif any(
+        word in message_lower
+        for word in [
+            "failed",
+            "failure",
+            "declined",
+            "rejected",
+            "error",
+        ]
+    ):
+        payment_status = "Failed"
 
+    elif any(
+        word in message_lower
+        for word in [
+            "pending",
+            "initiated",
+            "processing",
+            "timeout",
+        ]
+    ):
+        payment_status = "Pending"
 
+    payment.status = payment_status
 
+    payment.txn_ref = (
+        data[3].strip()
+        if len(data) > 3
+        else ""
+    )
 
+    payment.bank_code = (
+        data[4].strip()
+        if len(data) > 4
+        else ""
+    )
 
-    
+    payment.gateway_txn_id = (
+        data[5].strip()
+        if len(data) > 5
+        else ""
+    )
 
+    payment.payment_date = (
+        data[8].strip()
+        if len(data) > 8
+        else ""
+    )
+
+    payment.message = gateway_message
+    payment.raw_response = msg
+    payment.save()
+
+    print("SAVED PAYMENT STATUS:", payment.status)
+    print("GATEWAY MESSAGE:", gateway_message)
 
     request.session["payment_result"] = {
-    "status": payment.status,
-    "message": payment.message,
-    "txn_ref": payment.txn_ref,
-    "bank_code": payment.bank_code,
-    "txn_id": payment.gateway_txn_id,
-    "amount": str(payment.amount),
-    "date": payment.payment_date,
-    "name": payment.name,
-    "email": payment.email,
-    "phone": payment.phone,
-    "package": payment.package,
-}
+        "status": payment.status,
+        "message": payment.message,
+        "txn_ref": payment.txn_ref,
+        "bank_code": payment.bank_code,
+        "txn_id": payment.gateway_txn_id,
+        "amount": str(payment.amount),
+        "date": payment.payment_date,
+        "name": payment.name,
+        "email": payment.email,
+        "phone": payment.phone,
+        "package": payment.package,
+    }
 
+    # Always return to the home page
     return redirect("/")
+
+
+
 # ------------------------------------------------------------------------
 # Offline verification
 # ------------------------------------------------------------------------

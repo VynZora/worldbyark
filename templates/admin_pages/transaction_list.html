@@ -38,9 +38,6 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Contact</th>
-                    <th scope="col">Package</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Merchant Txn ID</th>
                     <th scope="col">Status</th>
                     <th scope="col">Date</th>
                     <th scope="col" class="text-center">Actions</th>
@@ -54,18 +51,16 @@
                         <div>{{ txn.email }}</div>
                         <div class="text-muted small">{{ txn.phone }}</div>
                     </td>
-                    <td>{{ txn.package|default:"-" }}</td>
-                    <td>₹{{ txn.amount }}</td>
-                    <td><code>{{ txn.merchant_txn_id }}</code></td>
                     <td>
                         <span class="status-badge status-{{ txn.status|lower }}">{{ txn.status|title }}</span>
                     </td>
                     <td>{{ txn.created_at|date:"d M Y, H:i" }}</td>
                     <td class="text-center">
                         <div class="btn-group" role="group">
-                            <a href="{% url 'transaction_detail' txn.id %}" class="btn btn-sm btn-primary me-1">
-                                View
-                            </a>
+                            <button type="button" class="btn btn-sm btn-primary me-1" data-bs-toggle="modal"
+                                   data-bs-target="#viewTransactionModal{{ txn.id }}">
+                               View
+                            </button>
                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#deleteTransactionModal{{ txn.id }}">
                                 Delete
@@ -138,6 +133,86 @@
 </div>
 {% endfor %}
 
+
+
+{% comment %} details modal start {% endcomment %}
+
+{% for txn in transactions %}
+<div class="modal fade" id="viewTransactionModal{{ txn.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Transaction Detail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row detail-row">
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">{{ txn.email }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">{{ txn.phone }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Package</div>
+                        <div class="detail-value">{{ txn.package|default:"-" }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Amount</div>
+                        <div class="detail-value">₹{{ txn.amount }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Merchant Txn ID</div>
+                        <div class="detail-value"><code>{{ txn.merchant_txn_id }}</code></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Gateway Txn ID</div>
+                        <div class="detail-value"><code>{{ txn.gateway_txn_id|default:"-" }}</code></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Txn Ref</div>
+                        <div class="detail-value">{{ txn.txn_ref|default:"-" }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Bank Code</div>
+                        <div class="detail-value">{{ txn.bank_code|default:"-" }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Payment Date</div>
+                        <div class="detail-value">{{ txn.payment_date|default:"-" }}</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="detail-label">Created At</div>
+                        <div class="detail-value">{{ txn.created_at|date:"d M Y, H:i:s" }}</div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="detail-label">Message</div>
+                        <div class="detail-value">{{ txn.message|default:"-" }}</div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="detail-label">Raw Response</div>
+                        <pre class="raw-response-box">{{ txn.raw_response|default:"-" }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    data-bs-target="#deleteTransactionModal{{ txn.id }}">
+                    Delete Transaction
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% comment %} details page modal end  {% endcomment %}
+
+
+
 {% endblock %}
 
 {% block extra_css %}
@@ -154,5 +229,22 @@
     .status-failed  { background: #fee2e2; color: #dc2626; }
     .status-pending { background: #fef3c7; color: #d97706; }
     .status-initiated { background: #dbeafe; color: #2563eb; }
+
+{% comment %} details modal css start {% endcomment %}
+
+.detail-label { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #6b7280; margin-bottom: 4px; }
+.detail-value { font-size: 15px; color: #111827; font-weight: 500; }
+.raw-response-box {
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    max-height: 250px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+{% comment %} details modal css end  {% endcomment %}
+
 </style>
 {% endblock %}

@@ -101,7 +101,7 @@
     <!-- Price Range Slider -->
     <script src="https://www.paynimo.com/paynimocheckout/client/lib/jquery.min.js"></script>
     <script src="https://www.paynimo.com/Paynimocheckout/server/lib/checkout.js"></script>
-    <script src="{% static 'online_transaction.js' %}"></script>
+    {% comment %} <script src="{% static 'online_transaction.js' %}"></script> {% endcomment %}
 
     <script>
       $(document).ready(function () {
@@ -1744,15 +1744,44 @@
 
                   <h4 class="receipt-title">PAYMENT RECEIPT</h4>
 
-                  <p class="receipt-text">Thank you for your payment.</p>
+<p class="receipt-text">
+  {% if payment_result.status|lower == "completed" %}
+    Thank you for your payment.
+  {% elif payment_result.status|lower == "failed" %}
+    Payment attempt unsuccessful.
+  {% elif payment_result.status|lower == "cancelled" %}
+    Payment was cancelled.
+  {% else %}
+    Payment confirmation pending.
+  {% endif %}
+</p>
 
                   <div class="receipt-price">₹ {{ payment_result.amount }}</div>
 
-                  <div class="receipt-status">
-                    <i class="bi bi-check-circle-fill"></i>
+{% if payment_result.status|lower == "completed" %}
+  <div class="receipt-status receipt-status-success">
+    <i class="bi bi-check-circle-fill"></i>
+    Completed
+  </div>
 
-                    Completed
-                  </div>
+{% elif payment_result.status|lower == "failed" %}
+  <div class="receipt-status receipt-status-failed">
+    <i class="bi bi-x-circle-fill"></i>
+    Failed
+  </div>
+
+{% elif payment_result.status|lower == "cancelled" %}
+  <div class="receipt-status receipt-status-failed">
+    <i class="bi bi-x-circle-fill"></i>
+    Cancelled
+  </div>
+
+{% else %}
+  <div class="receipt-status receipt-status-pending">
+    <i class="bi bi-clock-fill"></i>
+    Pending
+  </div>
+{% endif %}
 
                   <hr />
 
@@ -1780,18 +1809,70 @@
                 <div class="payment-content">
                   <!-- Success -->
 
-                  <div class="text-center mb-4">
-                    <div class="success-icon">
-                      <i class="bi bi-check-lg"></i>
-                    </div>
+<div class="text-center mb-4">
 
-                    <h2 class="success-title">Payment Completed</h2>
+  {% if payment_result.status|lower == "completed" %}
 
-                    <p class="success-subtitle">
-                      Your payment has been processed successfully. A
-                      confirmation has been generated for your transaction.
-                    </p>
-                  </div>
+    <div class="payment-result-icon payment-result-icon-success">
+      <i class="bi bi-check-lg"></i>
+    </div>
+
+    <h2 class="payment-result-title payment-title-success">
+      Payment Completed
+    </h2>
+
+    <p class="success-subtitle">
+      Your payment has been processed successfully.
+      A confirmation has been generated for your transaction.
+    </p>
+
+  {% elif payment_result.status|lower == "failed" %}
+
+    <div class="payment-result-icon payment-result-icon-failed">
+      <i class="bi bi-x-lg"></i>
+    </div>
+
+    <h2 class="payment-result-title payment-title-failed">
+      Payment Failed
+    </h2>
+
+    <p class="success-subtitle">
+      Your payment could not be completed.
+      No successful payment has been recorded.
+    </p>
+
+  {% elif payment_result.status|lower == "cancelled" %}
+
+    <div class="payment-result-icon payment-result-icon-failed">
+      <i class="bi bi-x-lg"></i>
+    </div>
+
+    <h2 class="payment-result-title payment-title-failed">
+      Payment Cancelled
+    </h2>
+
+    <p class="success-subtitle">
+      The payment was cancelled before completion.
+    </p>
+
+  {% else %}
+
+    <div class="payment-result-icon payment-result-icon-pending">
+      <i class="bi bi-clock"></i>
+    </div>
+
+    <h2 class="payment-result-title payment-title-pending">
+      Payment Pending
+    </h2>
+
+    <p class="success-subtitle">
+      Your payment is currently being processed.
+      Please wait for confirmation.
+    </p>
+
+  {% endif %}
+
+</div>
 
                   <!-- Transaction -->
 
@@ -1807,7 +1888,7 @@
                         <div class="detail-row">
                           <span>Status</span>
 
-                          <strong>Completed</strong>
+                          <strong>{{ payment_result.status }}</strong>
                         </div>
 
                         <div class="detail-row">
@@ -1896,11 +1977,33 @@
                       Message
                     </h5>
 
-                    <div class="payment-message">
-                      Thank you for your payment. Your transaction has been
-                      completed successfully. Please keep this receipt for
-                      future reference.
-                    </div>
+<div class="payment-message">
+
+  {% if payment_result.status|lower == "completed" %}
+    Thank you for your payment. Your transaction has been
+    completed successfully. Please keep this receipt for
+    future reference.
+
+  {% elif payment_result.status|lower == "failed" %}
+    Your payment attempt was unsuccessful. No successful
+    payment has been recorded for this transaction.
+
+  {% elif payment_result.status|lower == "cancelled" %}
+    This payment was cancelled before completion.
+    No amount has been confirmed as paid.
+
+  {% else %}
+    Your payment is pending confirmation.
+    Please contact World By ARK if the status does not update.
+  {% endif %}
+
+  {% if payment_result.message %}
+    <br />
+    <strong>Gateway message:</strong>
+    {{ payment_result.message }}
+  {% endif %}
+
+</div>
                   </div>
 
                   <!-- Buttons -->

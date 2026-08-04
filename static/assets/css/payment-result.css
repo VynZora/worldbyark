@@ -1553,6 +1553,60 @@
 
 }
 
+
+
+.payment-result-icon {
+  width: 116px;
+  height: 116px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 58px;
+  color: #fff;
+}
+
+.payment-result-icon-success {
+  background: #18b957;
+  box-shadow: 0 15px 35px rgba(24, 185, 87, 0.28);
+}
+
+.payment-result-icon-failed {
+  background: #dc3545;
+  box-shadow: 0 15px 35px rgba(220, 53, 69, 0.28);
+}
+
+.payment-result-icon-pending {
+  background: #f0a500;
+  box-shadow: 0 15px 35px rgba(240, 165, 0, 0.28);
+}
+
+.payment-title-success {
+  color: #18a94f;
+}
+
+.payment-title-failed {
+  color: #dc3545;
+}
+
+.payment-title-pending {
+  color: #d18d00;
+}
+
+.receipt-status-success {
+  background: rgba(24, 185, 87, 0.2);
+}
+
+.receipt-status-failed {
+  background: rgba(220, 53, 69, 0.22);
+}
+
+.receipt-status-pending {
+  background: rgba(240, 165, 0, 0.22);
+}
+
+
 /* ==========================================================
    END
 ========================================================== */
