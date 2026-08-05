@@ -3208,7 +3208,7 @@ especially when loop is enabled.
             <div class="hero-video-wrapper">
 
               <video autoplay muted loop playsinline 
-                 preload="auto" 
+                 preload="metadata" 
                  id="ark-hero-video" 
                  poster="{% static 'assets/images/background/vid-bg2.jpg' %}"
                  onloadstart="this.volume=0; this.play();">
@@ -4627,7 +4627,7 @@ Founded with passion for exploring the world and delivering exceptional travel e
 {% block pre_footer %}{% endblock %}
 
 {% block extra_js %}
-<script>
+{% comment %} <script>
     // ── Canvas animation (only if canvas exists) ──
     (function () {
         const canvas = document.getElementById('ark-hero-canvas');
@@ -4721,7 +4721,7 @@ Founded with passion for exploring the world and delivering exceptional travel e
         canvas.height = window.innerHeight;
         preload();
     })();
-</script>
+</script> {% endcomment %}
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
