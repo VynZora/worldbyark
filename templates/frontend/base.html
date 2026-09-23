@@ -1094,7 +1094,7 @@
                 package: packageName,
               },
 
-              success: function (response) {
+              {% comment %} success: function (response) {
                 console.log(response);
 
                 response.consumerData.responseHandler = handleResponse;
@@ -1104,7 +1104,69 @@
                 if (response.features.enableNewWindowFlow) {
                   pnCheckoutShared.openNewWindow();
                 }
-              },
+              }, {% endcomment %}
+
+  success: function (response) {
+    console.log(response);
+
+    response.consumerData.responseHandler = handleResponse;
+
+    // =====================================================
+    // CLOSE BOOTSTRAP PAYMENT MODAL BEFORE WORLDLINE OPENS
+    // =====================================================
+
+    var paymentModalElement = document.getElementById("paymentModal");
+
+    if (paymentModalElement) {
+
+        var paymentModal =
+            bootstrap.Modal.getInstance(paymentModalElement);
+
+        if (paymentModal) {
+
+            // Wait until Bootstrap has COMPLETELY closed the modal
+            paymentModalElement.addEventListener(
+                "hidden.bs.modal",
+                function openWorldlineAfterModalClose() {
+
+                    // Remove listener so it runs only once
+                    paymentModalElement.removeEventListener(
+                        "hidden.bs.modal",
+                        openWorldlineAfterModalClose
+                    );
+
+                    // Open Worldline checkout
+                    $.pnCheckout(response);
+
+                    if (response.features.enableNewWindowFlow) {
+                        pnCheckoutShared.openNewWindow();
+                    }
+                }
+            );
+
+            // Close Bootstrap modal
+            paymentModal.hide();
+
+        } else {
+
+            // No active Bootstrap modal
+            $.pnCheckout(response);
+
+            if (response.features.enableNewWindowFlow) {
+                pnCheckoutShared.openNewWindow();
+            }
+        }
+
+    } else {
+
+        // paymentModal element not found
+        $.pnCheckout(response);
+
+        if (response.features.enableNewWindowFlow) {
+            pnCheckoutShared.openNewWindow();
+        }
+    }
+},
 
               error: function (xhr, status, error) {
                 console.log("Status:", xhr.status);
