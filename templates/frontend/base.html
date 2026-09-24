@@ -1644,7 +1644,7 @@
     <!-- WhatsApp Booking Modal End -->
 
     <!-- payment  Modal start -->
-    {% comment %} <script>
+   <script>
       document.getElementById('proceedPaymentBtn').addEventListener('click', async function () {
           const form = document.getElementById('paymentForm');
           const name    = form.querySelector('[name="name"]').value.trim();
@@ -1668,14 +1668,14 @@
 
 
 
-              const response = await fetch("{% url 'save_payment' %}", {
+              {% comment %} const response = await fetch("{% url 'save_payment' %}", {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': csrfToken,
                   },
                   body: JSON.stringify({ name, phone, email, amount, package: package_name })
-              }); 
+              });  {% endcomment %}
 
 
 
@@ -1703,7 +1703,7 @@
               btn.innerHTML = '<i class="bi bi-credit-card"></i> Proceed to Pay';
           }
       });
-    </script> {% endcomment %}
+    </script> 
 
     <!-- popup message js-->
     <script>
